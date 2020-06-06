@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @new_user = User.new(name: 'Test', password: 'testicles')
     @user = users(:one)
   end
 
@@ -12,9 +13,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create user" do
     assert_difference('User.count') do
-      post users_url, params: { user: { name: @user.name, password_digest: @user.password_digest, role: @user.role } }, as: :json
-    end
-
+      post users_url, params: { user: { name: @new_user.name, password: @new_user.password, password_confirmation: @new_user.password } }, as: :json
+  end
     assert_response 201
   end
 
@@ -24,7 +24,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update user" do
-    patch user_url(@user), params: { user: { name: @user.name, password_digest: @user.password_digest, role: @user.role } }, as: :json
+    patch user_url(@user), params: { user: { name: @user.name, password: "changed", password_confirmation: "changed" } }, as: :json
     assert_response 200
   end
 
@@ -32,7 +32,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference('User.count', -1) do
       delete user_url(@user), as: :json
     end
-
     assert_response 204
   end
 end
