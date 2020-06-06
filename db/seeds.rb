@@ -27,6 +27,7 @@ titles = [
 
 titles.each do |title|
   user = users.sample
-  user.posts.create(title: title, body: content)
+  post = user.posts.create(title: title, body: content)
+  post.set_url "https://localhost:3001/api/posts/#{post.id}"
 end
   
