@@ -3,14 +3,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  withRouter
+  Link
 } from "react-router-dom"
 import Post from './post.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
-class PostsList extends React.Component {
+export default class PostsList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {posts: null}
@@ -21,7 +20,7 @@ class PostsList extends React.Component {
   renderPosts() {
     let posts = []
     this.state.posts.forEach( post => {
-      posts.push(<Row><Link to={`${this.props.match.url}posts/${post.id}`}>{post.title}</Link></Row>)
+      posts.push(<Row><Link to={`/posts/${post.id}`}>{post.title}</Link></Row>)
     })
     return posts
   }
@@ -39,15 +38,15 @@ class PostsList extends React.Component {
   render () {
     if (!this.state.posts) return null
     return (
-      <Container>
+      <Container fluid>
       <Switch>
-        <Route exact path={`${this.props.match.path}`}>
-          <Container>
+        <Route path={`/`}>
+          <Container fluid>
           <Row>Click on a link to see details</Row>
           { this.renderPosts() }
           </Container>
         </Route>
-        <Route path={`${this.props.match.path}posts/:id`}>
+        <Route path={`/posts/:id`}>
           <Post />
         </Route>
       </Switch>
@@ -55,5 +54,3 @@ class PostsList extends React.Component {
     )
   }
 }
-
-export default withRouter(PostsList)

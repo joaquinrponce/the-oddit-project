@@ -18,7 +18,7 @@ function App() {
     <Router>
       <Navigation/>
     <Switch>
-      <Route path="/" component={PostsList}/>
+      <Route path="/" render={(props) => <PostsList title={'feed'}{...props}/>} />
     </Switch>
     </Router>
     </Container>

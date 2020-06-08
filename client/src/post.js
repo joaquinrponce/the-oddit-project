@@ -30,7 +30,7 @@ class Post extends React.Component {
   }
 
   render () {
-    console.log(this.props)
+    console.log(this.state)
     if (!this.state.post) return null
     return (
       <Container>
