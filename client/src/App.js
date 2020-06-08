@@ -18,6 +18,9 @@ function App() {
     <Router>
       <Navigation/>
     <Switch>
+      <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
+      <Route path="/new" render={(props) => <PostsList title={'new'}{...props}/>} />
+      <Route path="/top" render={(props) => <PostsList title={'top'}{...props}/>} />
       <Route path="/" render={(props) => <PostsList title={'feed'}{...props}/>} />
     </Switch>
     </Router>

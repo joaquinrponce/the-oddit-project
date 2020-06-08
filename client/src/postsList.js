@@ -40,7 +40,7 @@ export default class PostsList extends React.Component {
     return (
       <Container fluid>
       <Switch>
-        <Route path={`/`}>
+        <Route exact path={`${this.props.match.path}`}>
           <Container fluid>
           <Row>Click on a link to see details</Row>
           { this.renderPosts() }
