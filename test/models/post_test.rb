@@ -3,8 +3,9 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
 
   setup do
+    @hall = Hall.create(name: 'Valhalla')
     @user = users(:one)
-    @post = @user.posts.create(title: 'test', body: 'test body')
+    @post = @user.posts.create(title: 'test', body: 'test body', hall: @hall)
   end
 
   test "correctly shows amount of upvotes " do

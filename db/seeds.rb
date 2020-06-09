@@ -11,12 +11,20 @@ first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test
 second = User.create(name: 'Kokozordo', password: 'testo', password_confirmation: 'testo')
 users = [first, second]
 
-content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+valhalla = Hall.create(name: 'Valhalla')
+bifrost =  Hall.create(name: 'Bifrost')
+folkvangr = Hall.create(name: 'Folkvangr')
+himinbjorg = Hall.create(name: 'Himinbjorg')
+bilskirnir = Hall.create(name: 'Bilskirnir')
+
+halls = [valhalla, bifrost, folkvangr, himinbjorg, bilskirnir]
+
+content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
           non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-          
+
 titles = [
     'William Shakespeare', 'Emily Dickinson', 'Edgar Allan Poe', 'Walt Whitman',
     'E. E. Cummings', 'William Wordsworth', 'Henry Wadsworth Longfellow',
@@ -27,7 +35,8 @@ titles = [
 
 titles.each do |title|
   user = users.sample
-  post = user.posts.create(title: title, body: content)
-  post.set_url "https://localhost:3001/api/posts/#{post.id}"
+  halls.each do |hall|
+    post = user.posts.create(title: title, body: content, hall: hall)
+    post.set_url "https://localhost:3001/api/posts/#{post.id}"
+  end
 end
-  

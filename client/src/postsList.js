@@ -6,8 +6,7 @@ import {
   Link
 } from "react-router-dom"
 import Post from './post.js'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Col, Row, Container } from 'react-bootstrap'
 
 export default class PostsList extends React.Component {
   constructor(props) {
@@ -20,7 +19,7 @@ export default class PostsList extends React.Component {
   renderPosts() {
     let posts = []
     this.state.posts.forEach( post => {
-      posts.push(<Row><Link to={`/posts/${post.id}`}>{post.title}</Link></Row>)
+      posts.push(<Row><Col>Posted in {post.hall.name} by {post.user.name}</Col><Col><Link to={`/posts/${post.id}`}>{post.title}</Link></Col></Row>)
     })
     return posts
   }
@@ -36,13 +35,13 @@ export default class PostsList extends React.Component {
   }
 
   render () {
+    console.log(this.state.posts)
     if (!this.state.posts) return null
     return (
       <Container fluid>
       <Switch>
         <Route exact path={`${this.props.match.path}`}>
           <Container fluid>
-          <Row>Click on a link to see details</Row>
           { this.renderPosts() }
           </Container>
         </Route>

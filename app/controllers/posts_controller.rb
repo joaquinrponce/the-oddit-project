@@ -5,12 +5,12 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
 
-    render json: @posts
+    render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: [:comments, :hall, :user])
   end
 
   # GET /posts/1
   def show
-    render json: @post
+    render json: @post.to_json(methods: [:score, :upvotes, :downvotes], include: [:comments, :hall, :user])
   end
 
   # POST /posts
@@ -47,6 +47,6 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :url, :image, :body, :user_id)
+      params.require(:post).permit(:title, :url, :image, :body, :user_id, :hall_id)
     end
 end

@@ -1,7 +1,6 @@
 import React from 'react'
 import { withRouter } from "react-router-dom";
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import {Col, Row, Container} from 'react-bootstrap'
 
 class Post extends React.Component {
   constructor(props) {
@@ -34,8 +33,15 @@ class Post extends React.Component {
     if (!this.state.post) return null
     return (
       <Container>
-        <Row>{this.state.post.title}</Row>
-        <Row>{this.state.post.body}</Row>
+        <Row>
+          <Col>
+            <Row>{this.state.post.score}</Row>
+          </Col>
+          <Col>
+            <Row>{this.state.post.title}</Row>
+            <Row>{this.state.post.body}</Row>
+          </Col>
+        </Row>
       </Container>
     )
   }
