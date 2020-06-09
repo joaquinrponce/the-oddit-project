@@ -30,7 +30,7 @@ export default class PostsList extends React.Component {
   getPosts() {
     let url = "/api/posts"
     if (this.props.match.params.id) {
-      url = `/api/halls/${this.props.match.params.id.toLowerCase()}`
+      url = `/api/halls/${this.props.match.params.id.toLowerCase()}/posts`
       console.log(url)
     }
     fetch(url).then(response => response.json()).then(posts => {

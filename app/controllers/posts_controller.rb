@@ -6,12 +6,12 @@ class PostsController < ApplicationController
   def index
     @posts = @hall.present? ? @hall.posts : Post.all
 
-    render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: [:comments, :hall, :user])
+    render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: {comments: {}, hall: {}, user: {only: [:id, :name]}}, except: [:user_id, :updated_at, :hall_id])
   end
 
   # GET /posts/1
   def show
-    render json: @post.to_json(methods: [:score, :upvotes, :downvotes], include: [:comments, :hall, :user])
+    render json: @post.to_json(methods: [:score, :upvotes, :downvotes], include: {comments: {}, hall: {}, user: {only: [:id, :name]}}, except: [:user_id, :updated_at, :hall_id])
   end
 
   # POST /posts
