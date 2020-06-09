@@ -9,7 +9,7 @@ class HallsController < ApplicationController
   def show
     @hall = Hall.friendly.find(params[:id])
 
-    render json: @hall.to_json(include: [:posts, :members])
+    render json: @hall.to_json(include: {members: {only: [:name]}})
   end
 
 end

@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
+  before_action :get_hall
 
   # GET /posts
   def index
-    @hall = Hall.friendly.find(params[:hall_id])
-    @posts = @hall.posts
+    @posts = @hall.present? ? @hall.posts : Post.all
 
     render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: [:comments, :hall, :user])
   end
@@ -49,5 +49,9 @@ class PostsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def post_params
       params.require(:post).permit(:title, :url, :image, :body, :user_id, :hall_id)
+    end
+
+    def get_hall
+      @hall = Hall.friendly.find(params[:hall_id]) if params[:hall_id].present?
     end
 end
