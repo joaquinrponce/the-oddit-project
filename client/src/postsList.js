@@ -19,13 +19,21 @@ export default class PostsList extends React.Component {
   renderPosts() {
     let posts = []
     this.state.posts.forEach( post => {
-      posts.push(<Row><Col>Posted in {post.hall.name} by {post.user.name}</Col><Col><Link to={`/posts/${post.id}`}>{post.title}</Link></Col></Row>)
+      posts.push(<Row>
+                  <Col>Posted in <Link to={`/halls/${post.hall.name}`}>{post.hall.name}</Link> by {post.user.name}</Col>
+                  <Col><Link to={`/posts/${post.id}`}>{post.title}</Link></Col>
+                 </Row>)
     })
     return posts
   }
 
   getPosts() {
-    fetch('/api/posts').then(response => response.json()).then(posts => {
+    let url = "/api/posts"
+    if (this.props.match.params.id) {
+      url = `/api/halls/${this.props.match.params.id.toLowerCase()}`
+      console.log(url)
+    }
+    fetch(url).then(response => response.json()).then(posts => {
       this.setState({posts: posts})
     })
   }
@@ -34,8 +42,14 @@ export default class PostsList extends React.Component {
     this.getPosts()
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props !== prevProps) {
+    this.getPosts()
+    }
+  }
+
   render () {
-    console.log(this.state.posts)
+    console.log(this.props)
     if (!this.state.posts) return null
     return (
       <Container fluid>

@@ -74,6 +74,8 @@ GEM
     crass (1.0.6)
     erubi (1.9.0)
     ffi (1.13.0)
+    friendly_id (5.2.5)
+      activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.2)
@@ -173,6 +175,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   carrierwave (~> 2.0)
+  friendly_id (~> 5.2.4)
   knock
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)

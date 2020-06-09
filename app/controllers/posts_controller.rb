@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @hall = Hall.friendly.find(params[:hall_id])
+    @posts = @hall.posts
 
     render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: [:comments, :hall, :user])
   end
