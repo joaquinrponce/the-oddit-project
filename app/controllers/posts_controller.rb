@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
+  before_action :authenticate_user, only: [:feed]
   before_action :get_hall
 
   # GET /posts
@@ -12,6 +13,11 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     render json: @post.to_json(methods: [:score, :upvotes, :downvotes], include: {comments: {}, hall: {}, user: {only: [:id, :name]}}, except: [:user_id, :updated_at, :hall_id])
+  end
+
+  def feed
+    @posts = Post.subscribed(current_user.subscribed_halls)
+    render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: {comments: {}, hall: {}, user: {only: [:id, :name]}}, except: [:user_id, :updated_at, :hall_id])
   end
 
   # POST /posts

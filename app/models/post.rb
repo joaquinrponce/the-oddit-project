@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   mount_uploader :image, ImageUploader
 
+  scope :subscribed, -> (halls) { where hall_id: halls }
+
   belongs_to :user
   belongs_to :hall
   has_many :comments

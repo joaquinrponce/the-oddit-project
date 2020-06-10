@@ -5,11 +5,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  Link
 } from "react-router-dom"
 import Navigation from './navigation.js'
-import Home from './home.js'
 import Container from 'react-bootstrap/Container'
 
 function App() {
@@ -21,7 +18,10 @@ function App() {
       <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
       <Route path="/new" render={(props) => <PostsList title={'new'}{...props}/>} />
       <Route path="/top" render={(props) => <PostsList title={'top'}{...props}/>} />
-      <Route path="/halls/:id" render={(props) => <PostsList title={'woot'}{...props}/>}/>
+      <Route path="/halls/:id" render={(props) =>
+                                        <PostsList title={'woot'}{...props}/>
+                                    }
+      />
       <Route path="/" render={(props) => <PostsList title={'feed'}{...props}/>} />
     </Switch>
     </Router>

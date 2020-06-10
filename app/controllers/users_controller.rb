@@ -6,12 +6,18 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users, only: [:name, :subscribed_halls]
+    render json: @users, only: [:name, :created_at], include: { subscribed_halls: {only: [:id, :name]}}
   end
 
   # GET /users/1
   def show
-    render json: @user, only: [:name], include: [:subscribed_halls, :posts]
+    render json: @user, only: [:name], include: {
+                                                  subscribed_halls: {only: [:id, :name]},
+                                                  posts: {except: [:updated_at, :user_id, :hall_id],
+                                                          include: {
+                                                                    hall: {only: [:name, :id]}}
+                                                        }
+                                                 }
   end
 
   # POST /users

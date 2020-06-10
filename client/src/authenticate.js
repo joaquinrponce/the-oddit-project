@@ -11,3 +11,13 @@ export default const authenticate = function (url, callback) {
   })
   .catch(error => console.log('error', error));
 }
+
+fetch('/api/posts/feed', {
+  method: 'GET',
+  headers: {'Content-Type': 'application/json', 'Authorization': token}
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data)
+})
+.catch(error => console.log('error', error));

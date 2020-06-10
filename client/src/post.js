@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from "react-router-dom";
-import {Col, Row, Container} from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 
 class Post extends React.Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class Post extends React.Component {
   getPostData() {
     fetch(`/api/posts/${this.props.match.params.id}`).then(response => response.json()).then(
       post => {
-        console.log(post)
         this.setState({post: post})
       }
     )
@@ -29,20 +28,14 @@ class Post extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     if (!this.state.post) return null
     return (
-      <Container>
-        <Row>
-          <Col>
-            <Row>{this.state.post.score}</Row>
-          </Col>
-          <Col>
-            <Row>{this.state.post.title}</Row>
-            <Row>{this.state.post.body}</Row>
-          </Col>
-        </Row>
-      </Container>
+        <Card>
+          <Card.Body>
+            <Card.Title>{this.state.post.title}</Card.Title>
+            <Card.Text>{this.state.post.body}</Card.Text>
+          </Card.Body>
+        </Card>
     )
   }
 }
