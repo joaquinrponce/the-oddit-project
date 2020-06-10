@@ -16,6 +16,7 @@ class PostsController < ApplicationController
   end
 
   def feed
+    redirect_to action: 'index' if !current_user.present?
     @posts = Post.subscribed(current_user.subscribed_halls)
     render json: @posts.to_json(methods: [:score, :upvotes, :downvotes], include: {comments: {}, hall: {}, user: {only: [:id, :name]}}, except: [:user_id, :updated_at, :hall_id])
   end

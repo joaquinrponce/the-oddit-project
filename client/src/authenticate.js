@@ -21,3 +21,16 @@ fetch('/api/posts/feed', {
   console.log(data)
 })
 .catch(error => console.log('error', error));
+
+fetch('/api/user_token', {
+  method: 'POST',
+  body: JSON.stringify({auth: {name: 'Koko', password: 'test'}}),
+  headers: {'Content-Type': 'application/json' }
+})
+.then(response => response.json())
+.then(data => {
+  localStorage.setItem("jwt", data.jwt);
+  console.log(data)
+})
+.catch(error => console.log('error', error));
+}
