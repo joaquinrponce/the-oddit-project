@@ -12,6 +12,7 @@ import {userContext} from './userContext.js'
 import Login from './login.js'
 import Logout from './logout.js'
 import NewPostForm from './newPostForm.js'
+import * as jwtDecode from 'jwt-decode'
 
 
 class App extends React.Component {
@@ -42,11 +43,14 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(data => {
+      const payload = jwtDecode(data.jwt)
+      const user = payload.sub
       localStorage.setItem("currentUser", JSON.stringify({
-        name: request.auth.name,
+        name: user.name,
+        id: user.id,
         token: data.jwt,
       }))
-      this.setState({user: {name: request.auth.name}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
+      this.setState({user: {name: user.name, id: user.id,}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
     })
     .catch(error => console.log('error', error))
   }
@@ -66,7 +70,7 @@ class App extends React.Component {
   componentDidMount() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'))
     if (currentUser && currentUser.token) {
-      this.setState({user: {name: currentUser.name, token: currentUser.token}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true})
+      this.setState({user: {name: currentUser.name, id: currentUser.id, token: currentUser.token}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true})
     }
   }
 
