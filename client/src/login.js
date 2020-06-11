@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
+import { Form, Button, Container, Modal } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import {userContext} from './userContext.js'
 
@@ -28,21 +28,26 @@ export default class Login extends React.Component {
       <userContext.Consumer>
       {({user, logInUser, logOutUser, loggedIn}) => {
         return(
-              <Container className='mt-2'>
-              { loggedIn && <Redirect to="/"/> }
-                <Form onSubmit={(e) => {
-                  e.preventDefault()
-                  logInUser({auth: {name: this.state.username, password: this.state.password}})
-                }}>
-                  <Form.Group controlId='loginForm'>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control name='username' type='text' placeholder='XxOdinxX' value={this.state.username} onChange={this.handleChange}/>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
-                    <Button variant='primary' type='submit'>Login</Button>
-                  </Form.Group>
-                </Form>
-              </Container>
+              <Modal show={this.props.show} onHide={this.props.hideModal}>
+                { loggedIn && <Redirect to="/"/> }
+                  <Modal.Header closeButton>
+                    <Modal.Title>Login</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Form onSubmit={(e) => {
+                      e.preventDefault()
+                      logInUser({auth: {name: this.state.username, password: this.state.password}})
+                      }}>
+                      <Form.Group controlId='loginForm'>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control name='username' type='text' placeholder='XxOdinxX' value={this.state.username} onChange={this.handleChange}/>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
+                      </Form.Group>
+                      <Button variant='primary' type='submit'>Login</Button>
+                    </Form>
+                  </Modal.Body>
+              </Modal>
       )}}
       </userContext.Consumer>
     )

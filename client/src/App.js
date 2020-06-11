@@ -20,10 +20,13 @@ class App extends React.Component {
       user: {name: 'Guest'},
       logInUser: this.logInUser,
       logOutUser: this.logOutUser,
-      loggedIn: false
+      loggedIn: false,
+      showLogin: false
     }
     this.logInUser = this.logInUser.bind(this)
     this.logOutUser = this.logOutUser.bind(this)
+    this.showModal = this.showModal.bind(this)
+    this.hideModal = this.hideModal.bind(this)
   }
 
   logInUser = (request) => {
@@ -38,7 +41,7 @@ class App extends React.Component {
         name: request.auth.name,
         token: data.jwt,
       }))
-      this.setState({user: {name: request.auth.name}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true})
+      this.setState({user: {name: request.auth.name}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showModal: false})
     })
     .catch(error => console.log('error', error))
   }
@@ -61,12 +64,23 @@ class App extends React.Component {
     }
   }
 
+  showModal() {
+    if (!this.state.loggedIn){
+      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showModal: true})
+    }
+  }
+
+  hideModal() {
+      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showModal: false})
+  }
+
   render() {
     return (
     <userContext.Provider value={this.state}>
       <Container fluid>
         <Router>
-          <Navigation/>
+          <Navigation showModal={this.showModal}/>
+          <Login show={this.state.showModal} hideModal={this.hideModal}/>
           <Container fluid className='mt-5'>
           <Switch>
             <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
@@ -76,7 +90,6 @@ class App extends React.Component {
                                         <PostsList title={'woot'}{...props}/>
                                     }
                                     />
-            <Route path="/login"><Login/></Route>
             <Route path="/logout"><Logout/></Route>
             <Route path="/" render={(props) => <PostsList title={'feed'}{...props}/>} />
           </Switch>
