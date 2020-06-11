@@ -46,7 +46,7 @@ class App extends React.Component {
         name: request.auth.name,
         token: data.jwt,
       }))
-      this.setState({user: {name: request.auth.name}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showModal: false})
+      this.setState({user: {name: request.auth.name}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
     })
     .catch(error => console.log('error', error))
   }
@@ -57,7 +57,9 @@ class App extends React.Component {
       user: {name: 'Guest'},
       logInUser: this.logInUser,
       logOutUser: this.logOutUser,
-      loggedIn: false
+      loggedIn: false,
+      showLoginModal: false,
+      showPostModal: false,
     })
   }
 
@@ -70,12 +72,12 @@ class App extends React.Component {
 
   showLoginModal() {
     if (!this.state.loggedIn) {
-      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showModal: true})
+      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showLoginModal: true})
     }
   }
 
   hideLoginModal() {
-      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showModal: false})
+      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showLoginModal: false})
   }
 
   showPostModal() {

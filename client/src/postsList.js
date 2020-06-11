@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import Post from './post.js'
 import PostCard from './postCard.js'
-import { Container } from 'react-bootstrap'
+import { Container, Spinner } from 'react-bootstrap'
 
 export default class PostsList extends React.Component {
   constructor (props) {
@@ -44,7 +44,15 @@ export default class PostsList extends React.Component {
   }
 
   render () {
-    if (!this.state.posts) return null
+    if (!this.state.posts) {
+      return(
+        <Container className='d-flex justify-content-center align-items-center' fluid>
+        <Spinner animation='grow' variant='warning' role='status'>
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+        </Container>
+      )
+    }
     return (
       <Container fluid className='mt-2'>
         <Switch>
