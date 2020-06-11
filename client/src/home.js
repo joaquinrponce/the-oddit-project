@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 
 export default class Home extends React.Component {
   render () {
-    return(
+    return (
       <Container>
         I am the home of things
       </Container>
