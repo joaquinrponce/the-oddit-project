@@ -6,7 +6,6 @@ import { Card } from 'react-bootstrap'
 
 export default class PostCard extends React.Component {
   render () {
-    console.log(this.props.post)
     return (
       <Card className='mt-2'>
         <Card.Body>

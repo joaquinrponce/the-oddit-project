@@ -29,7 +29,6 @@ class Post extends React.Component {
 
   render () {
     if (!this.state.post) return null
-    console.log(this.state.post)
     return (
       <Card>
         <Card.Body>

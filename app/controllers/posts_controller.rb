@@ -24,6 +24,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
+    @post.hall = @hall if @hall.present?
 
     if @post.save
       render json: @post, status: :created, location: @post
