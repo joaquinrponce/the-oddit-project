@@ -62,9 +62,6 @@ export default class PostsList extends React.Component {
               { this.renderPosts() }
             </Container>
           </Route>
-          <Route path={'/posts/:id'}>
-            <Post />
-          </Route>
         </Switch>
       </Container>
     )

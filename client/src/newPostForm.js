@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Modal, Form, Button, Alert } from 'react-bootstrap'
+import { Modal, Form, Button, Alert, FormControl } from 'react-bootstrap'
 
 export default class NewPostForm extends React.Component {
   constructor(props) {
@@ -15,7 +15,13 @@ export default class NewPostForm extends React.Component {
       },
       redirect: false,
       postURL: null,
-      imageInvalid: false,
+      errors: {
+        hall: false,
+        title: false,
+        url: false,
+        body: false,
+      },
+      formInvalid: true
     }
     this.handleChange = this.handleChange.bind(this)
     this.submitPost = this.submitPost.bind(this)
@@ -23,15 +29,45 @@ export default class NewPostForm extends React.Component {
     this.checkImageFileType = this.checkImageFileType.bind(this)
     this.getMimeType = this.getMimeType.bind(this)
     this.validateImage = this.validateImage.bind(this)
+    this.validateFields = this.validateFields.bind(this)
+    this.resetState = this.resetState.bind(this)
     this.imageRef = React.createRef()
   }
 
   handleChange (e) {
     e.preventDefault()
-    e.persist()
     const newState = JSON.parse(JSON.stringify(this.state))
     newState.params[e.target.name] = e.target.value
     newState.params.image = this.state.params.image
+    this.setState(newState, this.validateFields)
+  }
+
+  validateFields() {
+    const newState = JSON.parse(JSON.stringify(this.state))
+    newState.params.image = this.state.params.image
+    let params = newState.params
+    newState.errors = {hall: false, title: false, url: false, body: false}
+    newState.formInvalid = false
+    if (!params.hall) {
+      newState.errors.hall = true
+      newState.formInvalid = true
+    }
+    if (!params.title || params.title.length > 100) {
+      newState.errors.title = true
+      newState.formInvalid = true
+    }
+    if (params.url) {
+      let regex = new RegExp(/https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)
+      if (!params.url.match(regex)) {
+        console.log('it aint match')
+          newState.errors.url = true
+          newState.formInvalid = true
+      }
+    }
+    if (params.body && params.body.length > 1000) {
+      newState.errors.body = true
+      newState.formInvalid = true
+    }
     this.setState(newState)
   }
 
@@ -92,13 +128,6 @@ export default class NewPostForm extends React.Component {
     }
 
   submitPost(params) {
-    if (params.url) {
-      let regex = new RegExp(/https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)
-      if (!params.url.match(regex)) {
-      alert('URL invalid. Please submit a valid URL starting with "https://"')
-      return
-      }
-    }
     let data = new FormData()
     data.append('title', params.title)
     data.append('user_id', this.props.userID)
@@ -132,16 +161,40 @@ export default class NewPostForm extends React.Component {
     this.setState(newState)
   }
 
+  resetState () {
+    this.setState({
+      params: {
+      hall: '',
+      title: '',
+      url: '',
+      body: '',
+      image: ''
+      },
+      redirect: false,
+      postURL: null,
+      errors: {
+        hall: false,
+        title: false,
+        url: false,
+        body: false,
+      },
+      formInvalid: true
+    })
+  }
+
   render() {
-    console.log(this.state.params.image)
     if (this.state.redirect) {
+      this.resetState()
       this.props.hideModal()
       return (
         <Redirect to={this.state.postURL}/>
       )
     }
     return(
-    <Modal show={this.props.show} onHide={this.props.hideModal}>
+    <Modal show={this.props.show} onHide={() => {
+                                            this.resetState()
+                                            this.props.hideModal()
+                                            }}>
       <Modal.Header closeButton>New Post</Modal.Header>
       <Modal.Body>
         <Form onSubmit={(e) => {
@@ -150,17 +203,17 @@ export default class NewPostForm extends React.Component {
         }}>
         <Form.Group controlId='hall'>
           <Form.Label>Hall</Form.Label>
-          <Form.Control isInvalid={!this.state.params.hall} type='text' name='hall' onChange={this.handleChange}/>
-          <Form.Text className='text-muted'>Must be an existing hall.</Form.Text>
+          <Form.Control isInvalid={this.state.errors.hall} type='text' name='hall' onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>Required. Must be an existing hall.</Form.Text>
         </Form.Group>
         <Form.Group controlId='title'>
           <Form.Label>Post Title</Form.Label>
-          <Form.Control isInvalid={!this.state.params.title} name='title' type='text' onChange={this.handleChange}/>
-          <Form.Text className='text-muted'>Make it something interesting, but don't make it "something interesting".</Form.Text>
+          <Form.Control isInvalid={this.state.errors.title} name='title' type='text' onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>Required. Make it something interesting, but don't make it "something interesting".</Form.Text>
         </Form.Group>
         <Form.Group controlId='url'>
           <Form.Label>URL</Form.Label>
-          <Form.Control disabled={this.state.params.body || this.state.params.image} isInvalid={this.state.imageInvalid} name='url' onChange={this.handleChange}/>
+          <Form.Control isInvalid={this.state.errors.url} disabled={this.state.params.body || this.state.params.image} name='url' onChange={this.handleChange}/>
           <Form.Text className='text-muted'>You can link to another site...</Form.Text>
         </Form.Group>
         <Form.Group controlId='image'>
@@ -171,10 +224,10 @@ export default class NewPostForm extends React.Component {
         </Form.Group>
         <Form.Group controlId='body'>
           <Form.Label>Body</Form.Label>
-          <Form.Control disabled={this.state.params.url || this.state.params.image}name='body' as="textarea" rows="5" onChange={this.handleChange}/>
+          <Form.Control isInvalid={this.state.errors.body} disabled={this.state.params.url || this.state.params.image}name='body' as="textarea" rows="5" onChange={this.handleChange}/>
           <Form.Text className='text-muted'>... or write an essay.</Form.Text>
         </Form.Group>
-        <Button variant='primary' type='submit'>Post</Button>
+        <Button disabled={this.state.formInvalid} variant='primary' type='submit'>Post</Button>
         </Form>
       </Modal.Body>
     </Modal>

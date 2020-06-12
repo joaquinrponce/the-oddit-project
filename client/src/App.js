@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import PostsList from './postsList.js'
+import Post from './post.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -114,6 +115,9 @@ class App extends React.Component {
                                     }
                                     />
             <Route path="/logout"><Logout/></Route>
+            <Route path={'/posts/:id'}>
+              <Post />
+            </Route>
             <Route path="/" render={(props) => <PostsList title={'feed'}{...props}/>} />
           </Switch>
           </Container>
