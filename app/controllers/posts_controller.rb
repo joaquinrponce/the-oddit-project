@@ -26,7 +26,6 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      @post.set_url("https://#{request.host_with_port}/api/posts/#{@post.id}")
       render json: @post, status: :created, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -55,7 +54,7 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :url, :image, :body, :user_id, :hall_id)
+      params.permit(:title, :url, :image, :body, :user_id, :hall_id)
     end
 
     def get_hall

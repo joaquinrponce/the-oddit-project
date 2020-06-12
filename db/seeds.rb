@@ -33,10 +33,9 @@ titles = [
     'Ralph Waldo Emerson'
 ]
 
-titles.each do |title|
+2.times do
   user = users.sample
   halls.each do |hall|
-    post = user.posts.create(title: title, body: content, hall: hall)
-    post.set_url "https://localhost:3001/api/posts/#{post.id}"
+    post = user.posts.create(title: titles.sample, body: content, hall: hall)
   end
 end

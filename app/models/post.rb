@@ -22,9 +22,4 @@ class Post < ApplicationRecord
     votes.where(value: -1).count
   end
 
-  def set_url default
-    return if self.url
-    self.update_attribute(:url, default)
-  end
-
 end

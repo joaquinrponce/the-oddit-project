@@ -18,7 +18,7 @@ export default class PostsList extends React.Component {
   renderPosts () {
     const posts = []
     this.state.posts.forEach(post => {
-      posts.push(<PostCard key={post.id} post={post} postUrl={`/posts/${post.id}`} hallUrl={`/halls/${post.hall.name}`}/>)
+      posts.push(<PostCard key={post.id} post={post} postURL={`/posts/${post.id}`} hallURL={`/halls/${post.hall.name}`}/>)
     })
     return posts
   }
@@ -38,7 +38,7 @@ export default class PostsList extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props !== prevProps) {
+    if (this.props.title !== prevProps.title) {
       this.getPosts()
     }
   }

@@ -29,10 +29,13 @@ class Post extends React.Component {
 
   render () {
     if (!this.state.post) return null
+    console.log(this.state.post)
     return (
       <Card>
         <Card.Body>
           <Card.Title>{this.state.post.title}</Card.Title>
+          { this.state.post.image.url &&
+          <Card.Img src={this.state.post.image.url}/>}
           <Card.Text>{this.state.post.body}</Card.Text>
         </Card.Body>
       </Card>
