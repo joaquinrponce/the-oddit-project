@@ -137,6 +137,9 @@ export default class NewPostForm extends React.Component {
     data.append('image', params.image)
     fetch('/api/posts', {
       method: 'POST',
+      headers: {
+        'Bearer': 'test'
+      },
       body: data
       })
       .then(response => response.json())
@@ -146,19 +149,13 @@ export default class NewPostForm extends React.Component {
             newState.params = {title: '', body: '', url: '', image: '', hall: ''}
             newState.redirect = true
             newState.postURL = `/posts/${response.id}`
-            this.setState(newState, this.removeRedirect)
+            this.props.hideModal()
+            this.setState(newState, this.resetState)
           } else {
             console.log(response)
             alert('Something wrong with post chief')
           }
     })
-  }
-
-  removeRedirect = () => {
-    const newState = JSON.parse(JSON.stringify(this.state))
-    newState.postURL = null
-    newState.redirect = false
-    this.setState(newState)
   }
 
   resetState () {
@@ -184,17 +181,12 @@ export default class NewPostForm extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      this.resetState()
-      this.props.hideModal()
       return (
         <Redirect to={this.state.postURL}/>
       )
     }
     return(
-    <Modal show={this.props.show} onHide={() => {
-                                            this.resetState()
-                                            this.props.hideModal()
-                                            }}>
+    <Modal show={this.props.show} onHide={this.props.hideModal}>
       <Modal.Header closeButton>New Post</Modal.Header>
       <Modal.Body>
         <Form onSubmit={(e) => {
