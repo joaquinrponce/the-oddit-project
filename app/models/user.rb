@@ -15,6 +15,10 @@ class User < ApplicationRecord
     self.find_by name: name
   end
 
+  def self.from_token_payload payload
+      self.find_by id: payload['sub']['id']
+  end
+
   def to_token_payload
     {sub: {id: self.id, name: self.name}}
   end
