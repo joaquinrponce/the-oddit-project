@@ -130,7 +130,7 @@ export default class NewPostForm extends React.Component {
   submitPost(params) {
     let data = new FormData()
     data.append('title', params.title)
-    data.append('user_id', this.props.userID)
+    data.append('user_id', this.props.user.id)
     data.append('hall_id', params.hall.toLowerCase())
     data.append('body', params.body)
     data.append('url', params.url)
@@ -138,7 +138,7 @@ export default class NewPostForm extends React.Component {
     fetch('/api/posts', {
       method: 'POST',
       headers: {
-        'Bearer': 'test'
+        'Authorization': 'Bearer ' + this.props.user.token
       },
       body: data
       })

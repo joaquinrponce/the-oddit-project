@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :authenticate_user, only: [:feed]
+  before_action :authenticate_user, only: [:feed, :create]
   before_action :get_hall
 
   # GET /posts

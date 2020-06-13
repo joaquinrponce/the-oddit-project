@@ -53,7 +53,8 @@ class App extends React.Component {
         id: user.id,
         token: data.jwt,
       }))
-      this.setState({user: {name: user.name, id: user.id,}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
+      console.log(data.jwt)
+      this.setState({user: {name: user.name, id: user.id, token: data.jwt}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
     })
     .catch(error => console.log('error', error))
   }
@@ -104,7 +105,7 @@ class App extends React.Component {
         <Router>
           <Navigation showPostModal={this.showPostModal} showLoginModal={this.showLoginModal}/>
           { !this.state.loggedIn && <Login show={this.state.showLoginModal} hideModal={this.hideLoginModal}/> }
-          {  this.state.loggedIn && <NewPostForm userID={this.state.user.id} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal}/>  }
+          {  this.state.loggedIn && <NewPostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal}/>  }
           <Container fluid className='mt-5'>
           <Switch>
             <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
