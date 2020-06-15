@@ -71,10 +71,21 @@ class App extends React.Component {
     })
   }
 
+  tokenIsExpired = (token) => {
+    const payload = jwtDecode(token)
+    const expiry = parseInt(payload.exp)
+    const time = Date.now().valueOf() / 1000
+    if (time >= expiry) return true
+  }
+
   componentDidMount() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'))
     if (currentUser && currentUser.token) {
+      if (!this.tokenIsExpired(currentUser.token)) {
       this.setState({user: {name: currentUser.name, id: currentUser.id, token: currentUser.token}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true})
+    } else {
+        localStorage.removeItem('currentUser')
+      }
     }
   }
 
@@ -105,7 +116,7 @@ class App extends React.Component {
         <Router>
           <Navigation showPostModal={this.showPostModal} showLoginModal={this.showLoginModal}/>
           { !this.state.loggedIn && <Login show={this.state.showLoginModal} hideModal={this.hideLoginModal}/> }
-          {  this.state.loggedIn && <NewPostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal}/>  }
+          {  this.state.loggedIn && <NewPostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal} tokenIsExpired={this.tokenIsExpired}/>  }
           <Container fluid className='mt-5'>
           <Switch>
             <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
@@ -119,7 +130,8 @@ class App extends React.Component {
             <Route path={'/posts/:id'}>
               <Post />
             </Route>
-            <Route path="/" render={(props) => <PostsList title={'feed'}{...props}/>} />
+            { this.state.loggedIn && <Route path="/" render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
+            { !this.state.loggedIn && <Route path="/" render={(props) => <PostsList title={'all'}{...props}/>} /> }
           </Switch>
           </Container>
         </Router>

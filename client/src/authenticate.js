@@ -1,4 +1,4 @@
-export default const authenticate = function (url, callback) {
+/* export default const authenticate = function (url, callback) {
   fetch(url, {
     method: 'POST',
     body: JSON.stringify({auth: {name: 'Koko', password: 'test'}}),
@@ -33,4 +33,4 @@ fetch('/api/user_token', {
   console.log(data)
 })
 .catch(error => console.log('error', error));
-}
+} */

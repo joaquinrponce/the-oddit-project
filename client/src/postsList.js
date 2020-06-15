@@ -3,7 +3,6 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-import Post from './post.js'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
 
@@ -28,7 +27,17 @@ export default class PostsList extends React.Component {
     if (this.props.match.params.id) {
       url = `/api/halls/${this.props.match.params.id.toLowerCase()}/posts`
     }
-    fetch(url).then(response => response.json()).then(posts => {
+    switch (this.props.title) {
+      case 'feed':
+          url =`/api/posts/feed`
+          break
+      default:
+          break
+    }
+    fetch(url, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.props.token }
+    }).then(response => response.json()).then(posts => {
       this.setState({ posts: posts })
     })
   }
@@ -45,11 +54,11 @@ export default class PostsList extends React.Component {
 
   render () {
     if (!this.state.posts) {
-      return(
+      return (
         <Container className='d-flex justify-content-center align-items-center' fluid>
-        <Spinner animation='grow' variant='warning' role='status'>
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+          <Spinner animation='grow' variant='warning' role='status'>
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         </Container>
       )
     }
