@@ -54,16 +54,17 @@ export default class VoteController extends React.Component {
 
   submitVote = (value) => {
     console.log('i should be SUBMITTING')
-    const request = {
+    const request = { vote: {
       user_id: this.context.user.id,
       voteable_type: this.props.voteableType,
       voteable_id: this.props.voteableId,
       value: value
     }
+    }
     fetch(`/api/votes/`, {
       method: 'POST',
-      body: JSON.stringify(request),
-      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token }
+      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
+      body: JSON.stringify(request)
     })
     .then(response => {
       if (response) {
@@ -92,8 +93,8 @@ export default class VoteController extends React.Component {
     console.log('i should be UPDATING')
     fetch(`/api/votes/${id}`, {
       method: 'PATCH',
-      body: JSON.stringify({value: value}),
-      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token }
+      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
+      body: JSON.stringify({vote: {value: value}})
     })
     .then(response => {
       if (response) {
