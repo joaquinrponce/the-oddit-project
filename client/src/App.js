@@ -130,8 +130,8 @@ class App extends React.Component {
             <Route path={'/posts/:id'}>
               <Post />
             </Route>
-            { this.state.loggedIn && <Route path="/" render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
-            { !this.state.loggedIn && <Route path="/" render={(props) => <PostsList title={'all'}{...props}/>} /> }
+            { this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
+            { !this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
           </Switch>
           </Container>
         </Router>

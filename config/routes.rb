@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope '/api' do
     post 'user_token' => 'user_token#create'
     get '/posts/feed' => 'posts#feed'
+    get '/votes/search' => 'votes#search'
     resources :users
     resources :posts
     resources :comments

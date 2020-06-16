@@ -17,7 +17,7 @@ export default class PostsList extends React.Component {
   renderPosts () {
     const posts = []
     this.state.posts.forEach(post => {
-      posts.push(<PostCard key={post.id} post={post} postURL={`/posts/${post.id}`} hallURL={`/halls/${post.hall.name}`}/>)
+      posts.push(<PostCard user={this.props.user} key={post.id} post={post} postURL={`/posts/${post.id}`} hallURL={`/halls/${post.hall.name}`}/>)
     })
     return posts
   }
