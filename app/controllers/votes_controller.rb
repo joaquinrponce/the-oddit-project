@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:update, :destroy]
-  before_action :authenticate_user, only: [:create, :destroy]
+  before_action :authenticate_user, only: [:create, :update, :destroy]
 
   def search
     @vote = Vote.find_by(search_params)
