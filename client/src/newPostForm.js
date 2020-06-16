@@ -59,7 +59,6 @@ export default class NewPostForm extends React.Component {
     if (params.url) {
       const regex = new RegExp(/https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)
       if (!params.url.match(regex)) {
-        console.log('it aint match')
         newState.errors.url = true
         newState.formInvalid = true
       }
@@ -154,7 +153,6 @@ export default class NewPostForm extends React.Component {
         }
       })
       .then(response => {
-        console.log(response)
         if (response.id) {
           const newState = JSON.parse(JSON.stringify(this.state))
           newState.params = { title: '', body: '', url: '', image: '', hall: '' }

@@ -11,14 +11,15 @@ export default class VoteButton extends React.Component {
   }
 
   handleClick = (e) => {
-    console.log('Yippee!')
     this.props.handleVote(this.props.value)
   }
 
   render () {
     const symbol = this.props.value === 1 ? '▲' : '▼'
+    let className = this.props.value === 1 ? 'upvote' : 'downvote'
+    className += this.props.active ? ' active' : ''
     return (
-      <div onClick={this.handleClick}>{symbol}</div>
+      <div className={className} onClick={this.handleClick}>{symbol}</div>
     )
   }
 }

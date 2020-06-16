@@ -53,7 +53,6 @@ class App extends React.Component {
         id: user.id,
         token: data.jwt,
       }))
-      console.log(data.jwt)
       this.setState({user: {name: user.name, id: user.id, token: data.jwt}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
     })
     .catch(error => console.log('error', error))

@@ -1,9 +1,9 @@
 class VotesController < ApplicationController
-
+  before_action :set_vote, only: [:update, :destroy]
   before_action :authenticate_user, only: [:create, :destroy]
 
   def search
-    @vote = Vote.find_by(vote_params)
+    @vote = Vote.find_by(search_params)
 
     render json: @vote
   end
@@ -33,7 +33,16 @@ class VotesController < ApplicationController
   private
 
   def vote_params
+    params.require(:vote).permit(:user_id, :voteable_id, :voteable_type, :value)
+  end
+
+  def search_params
     params.permit(:user_id, :voteable_id, :voteable_type, :value)
   end
+
+  def set_vote
+    @vote = Vote.find(params[:id])
+  end
+
 
 end

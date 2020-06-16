@@ -9,3 +9,17 @@ a:not(.disabled) {
 .nav-link:not(.disabled) {
   color: #cc9543 !important;
 }
+
+.upvote, .downvote {
+  font-size: 20pt;
+  color: #afa9a9;
+  cursor: pointer;
+}
+
+.upvote.active {
+  color: #399c0e
+}
+
+.downvote.active {
+  color: #2c6eb1
+}

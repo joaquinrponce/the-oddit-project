@@ -11,7 +11,7 @@ class Post < ApplicationRecord
   has_many :votes, as: :voteable
 
   def score
-    votes.sum(:value)
+    votes.sum(:value) || 0
   end
 
   def upvotes

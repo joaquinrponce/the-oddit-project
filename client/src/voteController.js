@@ -9,25 +9,26 @@ export default class VoteController extends React.Component {
   }
 
   getVoteData = (id) => {
-    fetch(`/api/votes/search?user_id=${id}&voteable_id=${this.props.voteableId}`)
+    fetch(`/api/votes/search?user_id=${id}&voteable_id=${this.props.voteableId}&voteable_type=${this.props.voteableType}`)
     .then(response => {
-      if (response) {
+      if (response.ok) {
         return response.json()
       }
       else {
         return
       }})
     .then(response => {
-      if (response.id) {
-        console.log(response)
+      if (response && response.id) {
         const newState = JSON.parse(JSON.stringify(this.state))
         newState.currentVote = response
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
-        console.log(newState)
+        newState.score = this.props.score
         this.setState(newState)
       } else {
-        console.log('rofl')
+        const newState = JSON.parse(JSON.stringify(this.state))
+        newState.score = this.props.score
+        this.setState(newState)
       }
     }).catch(error => {
       console.log(error)
@@ -35,7 +36,6 @@ export default class VoteController extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.context.loggedIn) return
     this.getVoteData(this.context.user.id)
   }
 
@@ -45,7 +45,6 @@ export default class VoteController extends React.Component {
       return
     }
     if (this.state.currentVote) {
-      console.log('yes')
      this.updateVote(value, this.state.currentVote.id)
     } else {
      this.submitVote(value)
@@ -53,7 +52,6 @@ export default class VoteController extends React.Component {
   }
 
   submitVote = (value) => {
-    console.log('i should be SUBMITTING')
     const request = { vote: {
       user_id: this.context.user.id,
       voteable_type: this.props.voteableType,
@@ -75,11 +73,11 @@ export default class VoteController extends React.Component {
       }})
     .then(response => {
       if (response.id) {
-        console.log(response)
         const newState = JSON.parse(JSON.stringify(this.state))
         newState.currentVote = response
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
+        newState.score = this.state.score += value
         this.setState(newState)
       } else {
         console.log('rofl')
@@ -90,11 +88,15 @@ export default class VoteController extends React.Component {
   }
 
   updateVote = (value, id) => {
-    console.log('i should be UPDATING')
+    let newValue = value
+    let newScore = this.state.score
+    if ((value === 1 && this.state.upvoted) || (value === -1 && this.state.downvoted)) {
+      newValue = 0
+    }
     fetch(`/api/votes/${id}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
-      body: JSON.stringify({vote: {value: value}})
+      body: JSON.stringify({vote: {value: newValue}})
     })
     .then(response => {
       if (response) {
@@ -105,11 +107,17 @@ export default class VoteController extends React.Component {
       }})
     .then(response => {
       if (response.id) {
-        console.log(response)
         const newState = JSON.parse(JSON.stringify(this.state))
         newState.currentVote = response
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
+        if (newValue === 0 && (this.state.upvoted || this.state.downvoted)) {
+          newState.score += value * -1
+        } else if (newValue !== 0 && (this.state.upvoted || this.state.downvoted)){
+          newState.score += value * 2
+        } else {
+          newState.score += value
+        }
         this.setState(newState)
       } else {
         console.log('rofl')
@@ -122,9 +130,9 @@ export default class VoteController extends React.Component {
   render () {
     return (
       <div>
-        <VoteButton disabled={!this.state.upvoted} handleVote={this.handleVote} value={1}/>
-        <div>{this.props.score}</div>
-        <VoteButton disabled={!this.state.downvoted} handleVote={this.handleVote} value={-1}/>
+        <VoteButton active={this.state.upvoted} handleVote={this.handleVote} value={1}/>
+        <div>{this.state.score}</div>
+        <VoteButton active={this.state.downvoted} handleVote={this.handleVote} value={-1}/>
       </div>
     )
   }
