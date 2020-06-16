@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
+import VoteController from './voteController'
 
 class Post extends React.Component {
   constructor (props) {
@@ -32,6 +33,7 @@ class Post extends React.Component {
     return (
       <Card>
         <Card.Body>
+          <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
           <Card.Title>{this.state.post.title}</Card.Title>
           { this.state.post.image.url &&
           <Card.Img src={this.state.post.image.url}/>}

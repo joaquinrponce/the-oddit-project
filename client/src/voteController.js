@@ -24,6 +24,7 @@ export default class VoteController extends React.Component {
         newState.currentVote = response
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
+        console.log(newState)
         this.setState(newState)
       } else {
         console.log('rofl')
@@ -43,7 +44,8 @@ export default class VoteController extends React.Component {
       alert("you're not fucking logged in, you stupid little cunt, you absolute buffoon")
       return
     }
-    if (this.currentVote) {
+    if (this.state.currentVote) {
+      console.log('yes')
      this.updateVote(value, this.state.currentVote.id)
     } else {
      this.submitVote(value)
@@ -51,6 +53,7 @@ export default class VoteController extends React.Component {
   }
 
   submitVote = (value) => {
+    console.log('i should be SUBMITTING')
     const request = {
       user_id: this.context.user.id,
       voteable_type: this.props.voteableType,
@@ -86,9 +89,10 @@ export default class VoteController extends React.Component {
   }
 
   updateVote = (value, id) => {
-    fetch(`/api/votes/`, {
+    console.log('i should be UPDATING')
+    fetch(`/api/votes/${id}`, {
       method: 'PATCH',
-      body: JSON.stringify({value: value})
+      body: JSON.stringify({value: value}),
       headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token }
     })
     .then(response => {

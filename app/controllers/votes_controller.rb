@@ -22,6 +22,14 @@ class VotesController < ApplicationController
     @vote.destroy
   end
 
+  def update
+    if @vote.update(vote_params)
+      render json: @vote
+    else
+      render json: @vote.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def vote_params
