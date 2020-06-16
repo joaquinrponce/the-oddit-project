@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom"
 import Navigation from './navigation.js'
-import Container from 'react-bootstrap/Container'
+import {Container, Col, Row} from 'react-bootstrap'
 import {userContext} from './userContext.js'
 import Login from './login.js'
 import Logout from './logout.js'
@@ -117,6 +117,8 @@ class App extends React.Component {
           { !this.state.loggedIn && <Login show={this.state.showLoginModal} hideModal={this.hideLoginModal}/> }
           {  this.state.loggedIn && <NewPostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal} tokenIsExpired={this.tokenIsExpired}/>  }
           <Container fluid className='mt-5'>
+          <Row>
+          <Col md='8'>
           <Switch>
             <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
             <Route path="/new" render={(props) => <PostsList title={'new'}{...props}/>} />
@@ -132,6 +134,11 @@ class App extends React.Component {
             { this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
             { !this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
           </Switch>
+          </Col>
+          <Col md='auto'>
+          <div>I'm part of the cool stuff.</div>
+          </Col>
+          </Row>
           </Container>
         </Router>
       </Container>

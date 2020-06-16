@@ -69,6 +69,7 @@ export default class PostsList extends React.Component {
             <Container fluid>
               { this.props.match.params.id && <h1>{this.props.match.params.id}</h1>}
               { this.renderPosts() }
+              { this.state.posts.length === 0 && <div>Nothing to see here</div> }
             </Container>
           </Route>
         </Switch>

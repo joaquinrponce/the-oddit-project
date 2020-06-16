@@ -1,6 +1,6 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
+import { withRouter, Link } from 'react-router-dom'
+import { Card, Col, Row } from 'react-bootstrap'
 import VoteController from './voteController'
 
 class Post extends React.Component {
@@ -33,11 +33,20 @@ class Post extends React.Component {
     return (
       <Card>
         <Card.Body>
+          <Row>
+          <Col md='auto'>
           <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
+          </Col>
+          <Col>
+          <Card.Subtitle className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by {this.state.post.user.name}
+          </Card.Subtitle>
           <Card.Title>{this.state.post.title}</Card.Title>
           { this.state.post.image.url &&
-          <Card.Img src={this.state.post.image.url}/>}
+          <Card.Img variant="bottom" src={this.state.post.image.url}/>}
           <Card.Text>{this.state.post.body}</Card.Text>
+          <Card.Link>{this.state.post.url}</Card.Link>
+          </Col>
+          </Row>
         </Card.Body>
       </Card>
     )

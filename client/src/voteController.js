@@ -1,8 +1,10 @@
 import React from 'react'
 import { userContext } from './userContext.js'
 import VoteButton from './voteButton.js'
+import { Card } from 'react-bootstrap'
 
 export default class VoteController extends React.Component {
+  _isMounted = false
   constructor(props) {
     super(props)
     this.state = {upvoted: false, downvoted: false, currentVote: null}
@@ -18,6 +20,7 @@ export default class VoteController extends React.Component {
         return
       }})
     .then(response => {
+      if (!this._isMounted) return
       if (response && response.id) {
         const newState = JSON.parse(JSON.stringify(this.state))
         newState.currentVote = response
@@ -36,7 +39,12 @@ export default class VoteController extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true
     this.getVoteData(this.context.user.id)
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   handleVote = (value) => {
@@ -129,9 +137,9 @@ export default class VoteController extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='vote-controller'>
         <VoteButton active={this.state.upvoted} handleVote={this.handleVote} value={1}/>
-        <div>{this.state.score}</div>
+        <div className='score'>{this.state.score}</div>
         <VoteButton active={this.state.downvoted} handleVote={this.handleVote} value={-1}/>
       </div>
     )
