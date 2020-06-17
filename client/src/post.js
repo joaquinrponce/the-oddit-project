@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom'
 import { Card, Col, Row, Container } from 'react-bootstrap'
 import VoteController from './voteController'
 import CommentList from './commentList.js'
+import CommentForm from './commentForm.js'
 
 class Post extends React.Component {
   constructor (props) {
@@ -27,6 +28,10 @@ class Post extends React.Component {
     if (prevProps !== this.props) {
       this.getPostData()
     }
+  }
+
+  updateForNewComments = () => {
+    this.getPostData()
   }
 
   renderComments = () => {
@@ -59,7 +64,8 @@ class Post extends React.Component {
           </Row>
         </Card.Body>
       </Card>
-      <CommentList comments={this.state.post.comments}/>
+      <CommentForm updateParent={this.updateForNewComments} commentableId={this.state.post.id} commentableType='Post'/>
+      <CommentList indent={1} comments={this.state.post.comments}/>
       </Container>
     )
   }

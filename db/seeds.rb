@@ -48,12 +48,9 @@ end
   end
 end
 
-allComments = Comment.all
-
-2.times do
+3.times do
   user = users.sample
-  allComments.each do |comment|
+  Comment.all.each do |comment|
     comment.replies.create(body: "Test reply!", user: user)
   end
 end
-

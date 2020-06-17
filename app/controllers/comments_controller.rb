@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   def show
     @comment = Comment.find(params[:id])
 
-    render json: @comment, include: :replies
+    render json: @comment, methods: [:score, :upvotes, :downvotes], include: {replies: {}, user: {only: [:id, :name]}}, except: [:user_id]
   end
 
   private

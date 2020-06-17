@@ -137,7 +137,7 @@ export default class VoteController extends React.Component {
 
   render () {
     return (
-      <div className='vote-controller'>
+      <div className={`vote-controller vote-${this.props.voteableType}`}>
         <VoteButton active={this.state.upvoted} handleVote={this.handleVote} value={1}/>
         <div className='score'>{this.state.score}</div>
         <VoteButton active={this.state.downvoted} handleVote={this.handleVote} value={-1}/>

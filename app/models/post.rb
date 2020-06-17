@@ -5,7 +5,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :hall
-  has_many :comments, as: :commentable
+  has_many :comments, -> { order('created_at DESC')}, as: :commentable
   accepts_nested_attributes_for :comments
 
   has_many :votes, as: :voteable

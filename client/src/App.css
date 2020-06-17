@@ -39,3 +39,27 @@ a:not(.disabled) {
   height: 20vw;
   object-fit: cover;
 }
+
+.comment-list {
+  margin-top: 10px;
+}
+
+.indent-2 {
+  margin-left: 10px;
+}
+
+.indent-3 {
+  margin-left: 15px;
+}
+
+.indent-4 {
+  margin-left: 20px;
+}
+
+.indent-5 {
+  margin-left: 25px;
+}
+
+.vote-Comment {
+  transform: scale(.7)
+}
