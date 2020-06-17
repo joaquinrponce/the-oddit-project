@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Card, Col, Row } from 'react-bootstrap'
+import { Card, Col, Row, Container } from 'react-bootstrap'
 import VoteController from './voteController'
 
 class Post extends React.Component {
@@ -27,10 +27,19 @@ class Post extends React.Component {
       this.getPostData()
     }
   }
+  
+  renderComments = () => {
+    const comments = []
+    this.state.post.comments.forEach(comment => {
+      comments.push(<div>{comment.body}</div>)
+    })
+    return comments
+  }
 
   render () {
     if (!this.state.post) return null
     return (
+      <Container>
       <Card>
         <Card.Body>
           <Row>
@@ -49,6 +58,8 @@ class Post extends React.Component {
           </Row>
         </Card.Body>
       </Card>
+      { this.renderComments() }
+      </Container>
     )
   }
 }

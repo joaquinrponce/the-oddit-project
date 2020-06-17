@@ -33,9 +33,27 @@ titles = [
     'Ralph Waldo Emerson'
 ]
 
+
 2.times do
   user = users.sample
   halls.each do |hall|
     post = user.posts.create(title: titles.sample, body: content, hall: hall)
   end
 end
+
+2.times do
+  user = users.sample
+  Post.all.each do |post|
+    post.comments.create(body: "Test comment!", user: user)
+  end
+end
+
+allComments = Comment.all
+
+2.times do
+  user = users.sample
+  allComments.each do |comment|
+    comment.replies.create(body: "Test reply!", user: user)
+  end
+end
+

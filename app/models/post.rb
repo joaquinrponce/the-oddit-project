@@ -5,7 +5,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :hall
-  has_many :comments
+  has_many :comments, as: :commentable
   accepts_nested_attributes_for :comments
 
   has_many :votes, as: :voteable

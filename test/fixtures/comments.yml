@@ -1,1 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first:
+  post_id: 1
+  user_id: 1
+  body: 'I am another test comment'

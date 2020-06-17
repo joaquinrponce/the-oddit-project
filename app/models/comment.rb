@@ -1,10 +1,9 @@
 class Comment < ApplicationRecord
   belongs_to :user
-  belongs_to :post
-  belongs_to :parent, class_name: 'Comment', optional: true
+  belongs_to :commentable, polymorphic: true
 
   has_many :votes, as: :voteable
-  has_many :replies, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy
+  has_many :replies, as: :commentable, class_name: 'Comment', dependent: :destroy
 
   def score
     votes.sum(:value)
@@ -17,5 +16,5 @@ class Comment < ApplicationRecord
   def downvotes
     votes.where(value: -1).count
   end
-  
+
 end
