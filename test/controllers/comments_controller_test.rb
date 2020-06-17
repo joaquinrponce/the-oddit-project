@@ -21,7 +21,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "creates a comment on a post" do
     assert_difference('Comment.count') do
-      post comments_url, headers: { Authorization: "Bearer #{log_in}"}, params: { comment: { post_id: @post.id, user_id: @user.id, body: 'I am a test comment' } }, as: :json
+      post comments_url, headers: { Authorization: "Bearer #{log_in}"}, params: { comment: { commentable_type: 'Post', commentable_id: @post.id, user_id: @user.id, body: 'I am a test comment' } }, as: :json
     end
     assert_response 201
     assert_equal Comment.last.body, 'I am a test comment'
@@ -29,7 +29,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "creates a reply on another comment" do
     assert_difference('Comment.count') do
-      post comments_url, headers: { Authorization: "Bearer #{log_in}"}, params: { comment: { parent_id: @comment.id, post_id: @post.id, user_id: @user.id, body: 'I am a reply' } }, as: :json
+      post comments_url, headers: { Authorization: "Bearer #{log_in}"}, params: { comment: { commentable_type: 'Comment', commentable_id: @comment.id, post_id: @post.id, user_id: @user.id, body: 'I am a reply' } }, as: :json
     end
     assert_response 201
     assert_equal @comment.replies.first.body, 'I am a reply'

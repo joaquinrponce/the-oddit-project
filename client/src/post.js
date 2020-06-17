@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { Card, Col, Row, Container } from 'react-bootstrap'
 import VoteController from './voteController'
+import CommentList from './commentList.js'
 
 class Post extends React.Component {
   constructor (props) {
@@ -27,7 +28,7 @@ class Post extends React.Component {
       this.getPostData()
     }
   }
-  
+
   renderComments = () => {
     const comments = []
     this.state.post.comments.forEach(comment => {
@@ -58,7 +59,7 @@ class Post extends React.Component {
           </Row>
         </Card.Body>
       </Card>
-      { this.renderComments() }
+      <CommentList comments={this.state.post.comments}/>
       </Container>
     )
   }
