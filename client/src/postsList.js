@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
+import SubscriptionButton from './subscriptionButton.js'
 
 export default class PostsList extends React.Component {
   constructor (props) {
@@ -68,6 +69,7 @@ export default class PostsList extends React.Component {
           <Route exact path={`${this.props.match.path}`}>
             <Container fluid>
               { this.props.match.params.id && <h1>{this.props.match.params.id}</h1>}
+              { this.props.match.params.id && <SubscriptionButton hall={this.props.match.params.id.toLowerCase()}/>}
               { this.renderPosts() }
               { this.state.posts.length === 0 && <div>Nothing to see here</div> }
             </Container>

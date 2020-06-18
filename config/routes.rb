@@ -4,10 +4,12 @@ Rails.application.routes.draw do
     post 'user_token' => 'user_token#create'
     get '/posts/feed' => 'posts#feed'
     get '/votes/search' => 'votes#search'
+    get '/subscriptions/search' => 'subscriptions#search'
     resources :users
     resources :posts
     resources :comments
     resources :votes
+    resources :subscriptions
     resources :halls do
       resources :posts
     end
