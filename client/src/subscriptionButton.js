@@ -5,7 +5,7 @@ import { userContext } from './userContext.js'
 export default class SubscriptionButton extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {subscription: null}
+    this.state = {subscription: null, checked: false}
   }
 
   getSubscriptionData = () => {
@@ -14,14 +14,14 @@ export default class SubscriptionButton extends React.Component {
       if (response.ok) {
         return response.json()
       } else {
-        return
       }
     }
     ).then(response => {
-      if (response.id) {
-        this.setState({subscription: response})
+      console.log('yup yup')
+      if (response && response.id) {
+        this.setState({subscription: response, checked: true})
       } else {
-        return
+        this.setState({subscription: null, checked: true})
       }
     }).catch(error => console.log(error))
   }
@@ -43,7 +43,7 @@ export default class SubscriptionButton extends React.Component {
       .then(response => {
         console.log(response)
         if (response.id) {
-          this.setState({subscription: response})
+          this.setState({subscription: response, checked: true})
         }
       }).catch(error => console.log(error))
   }
@@ -54,19 +54,11 @@ export default class SubscriptionButton extends React.Component {
       method: 'DELETE',
       body: JSON.stringify(request),
       headers: {'Content-Type': 'application/json' }
-      }).then( response => {
-        if (response.ok) {
-          return response.json()
-        } else {
-          return
-        }
       })
-      .then(response => {
-        if (response) {
-          this.setState({subscription: null})
-        }
-      }).catch(error => console.log(error))
-      this.setState({subscription: null})
+      .then(response => 
+        this.setState({subscription: null, checked: true})
+      )
+      .catch(error => console.log(error))
   }
 
   componentDidMount = () => {
@@ -82,6 +74,7 @@ export default class SubscriptionButton extends React.Component {
   }
 
   render () {
+    if (!this.state.checked) return null
     const text = this.state.subscription ? 'Leave' : 'Join'
     return(
       <Button variant='danger' onClick={this.handleClick}>{ text }</Button>
