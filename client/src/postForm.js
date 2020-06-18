@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Modal, Form, Button, Alert } from 'react-bootstrap'
 
-export default class NewPostForm extends React.Component {
+export default class PostForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {

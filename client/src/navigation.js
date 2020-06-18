@@ -15,9 +15,11 @@ export default class Navigation extends React.Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav variant="tabs">
+                  { loggedIn &&
                   <Nav.Link as={Link} to="/">
                       Home
                   </Nav.Link>
+                  }             
                   <Nav.Link as={Link} to="/all">
                         All
                   </Nav.Link>

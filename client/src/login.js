@@ -27,9 +27,9 @@ export default class Login extends React.Component {
     return (
       <userContext.Consumer>
         {({ user, logInUser, logOutUser, loggedIn }) => {
+          if (loggedIn) return <Redirect to="/"/>
           return (
             <Modal show={this.props.show} onHide={this.props.hideModal}>
-              { loggedIn && <Redirect to="/"/> }
               <Modal.Header closeButton>
                 <Modal.Title>Login</Modal.Title>
               </Modal.Header>
