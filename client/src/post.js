@@ -4,18 +4,19 @@ import { Card, Col, Row, Container } from 'react-bootstrap'
 import VoteController from './voteController'
 import CommentList from './commentList.js'
 import CommentForm from './commentForm.js'
+import Comment from './comment.js'
 
 class Post extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { post: null }
+    this.state = { post: null, newComments: [] }
     this.getPostData = this.getPostData.bind(this)
   }
 
   getPostData () {
     fetch(`/api/posts/${this.props.match.params.id}`).then(response => response.json()).then(
       post => {
-        this.setState({ post: post })
+        this.setState({ post: post, newComment: false })
       }
     )
   }
@@ -26,18 +27,21 @@ class Post extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (prevProps !== this.props) {
+      console.log('I got called.')
       this.getPostData()
     }
   }
 
-  updateForNewComments = () => {
-    this.getPostData()
+  updateForNewComments = (comment) => {
+    const comments = JSON.parse(JSON.stringify(this.state.newComments))
+    comments.unshift(comment)
+    this.setState({post: this.state.post, newComments: comments})
   }
 
-  renderComments = () => {
+  renderNewComments = () => {
     const comments = []
-    this.state.post.comments.forEach(comment => {
-      comments.push(<div>{comment.body}</div>)
+    this.state.newComments.forEach(comment => {
+      comments.push(<Comment className={`indent-1 mt-2 mb-2 mr-2`} indent={2} key={comment.id} comment={comment}/>)
     })
     return comments
   }
@@ -65,6 +69,7 @@ class Post extends React.Component {
         </Card.Body>
       </Card>
       <CommentForm updateParent={this.updateForNewComments} commentableId={this.state.post.id} commentableType='Post'/>
+      { this.renderNewComments() }
       <CommentList indent={1} comments={this.state.post.comments}/>
       </Container>
     )

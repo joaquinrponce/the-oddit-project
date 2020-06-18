@@ -60,6 +60,19 @@ a:not(.disabled) {
   margin-left: 25px;
 }
 
+.indent-6 {
+  margin-left: 30px;
+}
+
 .vote-Comment {
   transform: scale(.7)
+}
+
+.comment-control {
+  cursor: pointer;
+  user-select: none;
+}
+
+.comment-info {
+  font-size: 11pt !important;
 }

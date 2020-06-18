@@ -6,7 +6,7 @@ export default class CommentForm extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {comment: null}
+    this.state = {comment: ''}
   }
 
   handleChange = (e) => {
@@ -33,8 +33,8 @@ export default class CommentForm extends React.Component {
         console.log('error')
       }
     }).then(response => {
-      this.props.updateParent()
-      this.setState({comment: null})
+      this.props.updateParent(response)
+      this.setState({comment: ''})
       console.log(response)
     }
     )
@@ -49,7 +49,7 @@ export default class CommentForm extends React.Component {
       }}>
         <Form.Group>
           <Form.Label>Comment</Form.Label>
-          <Form.Control type='text' value={this.state.comment} onChange={this.handleChange}/>
+          <Form.Control as='textarea' value={this.state.comment} onChange={this.handleChange}/>
         </Form.Group>
         <Button variant='primary' type='submit'>Submit</Button>
       </Form>
