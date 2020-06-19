@@ -45,6 +45,11 @@ export default class Navigation extends React.Component {
                         Login
                       </Nav.Link>
                   }
+                  { !loggedIn &&
+                      <Nav.Link onClick={this.props.showSignUpModal}>
+                        Sign Up
+                      </Nav.Link>
+                  }
                   { loggedIn &&
                       <Nav.Link as={Link} to="/logout" onClick={logOutUser}>
                         Logout

@@ -22,7 +22,7 @@ import * as jwtDecode from 'jwt-decode'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state= {
+    this.state = {
       user: {name: 'Guest'},
       logInUser: this.logInUser,
       logOutUser: this.logOutUser,
@@ -108,6 +108,29 @@ class App extends React.Component {
 
   hidePostModal() {
       this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: false})
+  }
+
+  showPostModal() {
+    if (this.state.loggedIn) {
+      this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: true})
+    }
+  }
+
+  hidePostModal() {
+      this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: false})
+  }
+
+  showSignUpModal = () => {
+    const newState = Object.assign(this.state)
+    newState.showSignUpModal = true
+    this.setState(newState)
+  }
+
+
+  showSignUpModal = () => {
+      const newState = Object.assign(this.state)
+      newState.showSignUpModal = false
+      this.setState(newState)
   }
 
   render() {
