@@ -42,6 +42,7 @@ export default class CommentForm extends React.Component {
   }
 
   render() {
+    if (!this.context.loggedIn) return null
     return(
       <Form onSubmit={(e) => {
         e.preventDefault()

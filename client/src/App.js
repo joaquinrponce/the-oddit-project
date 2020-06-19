@@ -14,6 +14,7 @@ import {userContext} from './userContext.js'
 import Login from './login.js'
 import Logout from './logout.js'
 import PostForm from './postForm.js'
+import MainSidebar from './mainSidebar.js'
 import * as jwtDecode from 'jwt-decode'
 
 
@@ -134,6 +135,15 @@ class App extends React.Component {
             { this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
             { !this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
           </Switch>
+          </Col>
+          <Col>
+            <Switch>
+            <Route path="/all">
+            </Route>
+              <Route path="/">
+                <MainSidebar />
+              </Route>
+            </Switch>
           </Col>
           </Row>
           </Container>
