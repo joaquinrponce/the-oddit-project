@@ -26,18 +26,9 @@ class App extends React.Component {
       user: {name: 'Guest'},
       logInUser: this.logInUser,
       logOutUser: this.logOutUser,
+      tokenIsExpired: this.tokenIsExpired,
       loggedIn: false,
-      showLoginModal: false,
-      showPostModal: false,
-      redirectToPost: false,
-      postURL: null
     }
-    this.logInUser = this.logInUser.bind(this)
-    this.logOutUser = this.logOutUser.bind(this)
-    this.showLoginModal = this.showLoginModal.bind(this)
-    this.hideLoginModal = this.hideLoginModal.bind(this)
-    this.showPostModal = this.showPostModal.bind(this)
-    this.hidePostModal = this.hidePostModal.bind(this)
   }
 
   logInUser = (request) => {
@@ -55,21 +46,20 @@ class App extends React.Component {
         id: user.id,
         token: data.jwt,
       }))
-      this.setState({user: {name: user.name, id: user.id, token: data.jwt}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true, showLoginModal: false})
+      const newState = Object.assign(this.state)
+      newState.user = {name: user.name, id: user.id, token: data.jwt}
+      newState.loggedIn = true
+      this.setState(newState)
     })
     .catch(error => console.log('error', error))
   }
 
   logOutUser = () => {
     localStorage.removeItem('currentUser')
-    this.setState({
-      user: {name: 'Guest'},
-      logInUser: this.logInUser,
-      logOutUser: this.logOutUser,
-      loggedIn: false,
-      showLoginModal: false,
-      showPostModal: false,
-    })
+    const newState = Object.assign(this.state)
+    newState.loggedIn = false
+    newState.user = {name: 'Guest'}
+    this.setState(newState)
   }
 
   tokenIsExpired = (token) => {
@@ -83,64 +73,23 @@ class App extends React.Component {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'))
     if (currentUser && currentUser.token) {
       if (!this.tokenIsExpired(currentUser.token)) {
-      this.setState({user: {name: currentUser.name, id: currentUser.id, token: currentUser.token}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: true})
+        const newState = Object.assign(this.state)
+        newState.user = {name: currentUser.name, id: currentUser.id, token: currentUser.token}
+        newState.loggedIn = true
+        this.setState(newState)
     } else {
         localStorage.removeItem('currentUser')
       }
     }
   }
 
-  showLoginModal() {
-    if (!this.state.loggedIn) {
-      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showLoginModal: true})
-    }
-  }
-
-  hideLoginModal() {
-      this.setState({user: {name: 'Guest'}, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: false, showLoginModal: false})
-  }
-
-  showPostModal() {
-    if (this.state.loggedIn) {
-      this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: true})
-    }
-  }
-
-  hidePostModal() {
-      this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: false})
-  }
-
-  showPostModal() {
-    if (this.state.loggedIn) {
-      this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: true})
-    }
-  }
-
-  hidePostModal() {
-      this.setState({user: this.state.user, logInUser: this.logInUser, logOutUser: this.logOutUser, loggedIn: this.state.loggedIn, showLoginModal: this.state.showLoginModal, showPostModal: false})
-  }
-
-  showSignUpModal = () => {
-    const newState = Object.assign(this.state)
-    newState.showSignUpModal = true
-    this.setState(newState)
-  }
-
-
-  showSignUpModal = () => {
-      const newState = Object.assign(this.state)
-      newState.showSignUpModal = false
-      this.setState(newState)
-  }
 
   render() {
     return (
     <userContext.Provider value={this.state}>
       <Container fluid>
         <Router>
-          <Navigation showPostModal={this.showPostModal} showLoginModal={this.showLoginModal}/>
-          { !this.state.loggedIn && <Login show={this.state.showLoginModal} hideModal={this.hideLoginModal}/> }
-          {  this.state.loggedIn && <PostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal} tokenIsExpired={this.tokenIsExpired}/>  }
+          <Navigation/>
           <Container fluid className='mt-5'>
           <Row>
           <Col md='9'>

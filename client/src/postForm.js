@@ -1,6 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Modal, Form, Button, Alert } from 'react-bootstrap'
+import { userContext } from './userContext.js'
 
 export default class PostForm extends React.Component {
   constructor (props) {
@@ -126,7 +127,7 @@ export default class PostForm extends React.Component {
   }
 
   submitPost (params) {
-    if (this.props.tokenIsExpired(this.props.user.token)) {
+    if (this.context.tokenIsExpired(this.props.user.token)) {
       alert('Your session has expired. You will be redirected to the homepage. Please login again.')
       this.setState({redirect: true, redirectURL: "/"}, window.location.reload(true))
       return
@@ -237,3 +238,5 @@ export default class PostForm extends React.Component {
     )
   }
 }
+
+PostForm.contextType = userContext

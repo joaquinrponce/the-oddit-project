@@ -4,6 +4,8 @@ import {
 } from 'react-router-dom'
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { userContext } from './userContext.js'
+import UserControls from './userControls.js'
+import PageControls from './pageControls.js'
 
 export default class Navigation extends React.Component {
   render () {
@@ -14,48 +16,8 @@ export default class Navigation extends React.Component {
             <Navbar expand='lg' bg='light' className='fixed-top'>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id='basic-navbar-nav'>
-                <Nav variant="tabs">
-                  { loggedIn &&
-                  <Nav.Link as={Link} to="/feed">
-                      Home
-                  </Nav.Link>
-                  }
-                  <Nav.Link as={Link} to="/all">
-                        All
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/new">
-                        New
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/top">
-                      Top
-                  </Nav.Link>
-                </Nav>
-                <Nav variant='tabs' className='ml-auto justify-content-start'>
-                  { !loggedIn &&
-                      <Nav.Link as='div'>Guest</Nav.Link>
-                  }
-                  { loggedIn &&
-                      <Nav.Link as='div'>{user.name}</Nav.Link>
-                  }
-                  { loggedIn &&
-                      <Nav.Link as='button' onClick={this.props.showPostModal}>+ New Post</Nav.Link>
-                  }
-                  { !loggedIn &&
-                      <Nav.Link onClick={this.props.showLoginModal}>
-                        Login
-                      </Nav.Link>
-                  }
-                  { !loggedIn &&
-                      <Nav.Link onClick={this.props.showSignUpModal}>
-                        Sign Up
-                      </Nav.Link>
-                  }
-                  { loggedIn &&
-                      <Nav.Link as={Link} to="/logout" onClick={logOutUser}>
-                        Logout
-                      </Nav.Link>
-                  }
-                </Nav>
+                <PageControls/>
+                <UserControls/>
               </Navbar.Collapse>
             </Navbar>
           )
