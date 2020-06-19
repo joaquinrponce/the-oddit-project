@@ -14,6 +14,7 @@ import {userContext} from './userContext.js'
 import Login from './login.js'
 import Logout from './logout.js'
 import PostForm from './postForm.js'
+import HallSidebar from './hallSidebar.js'
 import MainSidebar from './mainSidebar.js'
 import * as jwtDecode from 'jwt-decode'
 
@@ -119,7 +120,7 @@ class App extends React.Component {
           {  this.state.loggedIn && <PostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal} tokenIsExpired={this.tokenIsExpired}/>  }
           <Container fluid className='mt-5'>
           <Row>
-          <Col md='8'>
+          <Col md='9'>
           <Switch>
             <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
             <Route path="/new" render={(props) => <PostsList title={'new'}{...props}/>} />
@@ -132,17 +133,16 @@ class App extends React.Component {
             <Route path={'/posts/:id'}>
               <Post />
             </Route>
-            { this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
-            { !this.state.loggedIn && <Route path="/" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
+            { this.state.loggedIn && <Route path="/feed" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
+            { !this.state.loggedIn && <Route path="/all" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
+            { this.state.loggedIn && <Route path="/"> <Redirect to="/feed"/> </Route> }
+            { !this.state.loggedIn && <Route path="/"> <Redirect to="/all"/> </Route> }
           </Switch>
           </Col>
           <Col>
             <Switch>
-            <Route path="/all">
-            </Route>
-              <Route path="/">
-                <MainSidebar />
-              </Route>
+              <Route path="/halls/:id" render={(props) => <HallSidebar {...props}/>} />
+              <Route exact path="/:id/" render={(props) => <MainSidebar {...props}/>} />
             </Switch>
           </Col>
           </Row>

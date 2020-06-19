@@ -16,10 +16,10 @@ export default class Navigation extends React.Component {
               <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav variant="tabs">
                   { loggedIn &&
-                  <Nav.Link as={Link} to="/">
+                  <Nav.Link as={Link} to="/feed">
                       Home
                   </Nav.Link>
-                  }             
+                  }
                   <Nav.Link as={Link} to="/all">
                         All
                   </Nav.Link>
@@ -27,7 +27,7 @@ export default class Navigation extends React.Component {
                         New
                   </Nav.Link>
                   <Nav.Link as={Link} to="/top">
-                      Best
+                      Top
                   </Nav.Link>
                 </Nav>
                 <Nav variant='tabs' className='ml-auto justify-content-start'>

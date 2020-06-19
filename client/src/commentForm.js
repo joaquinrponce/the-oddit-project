@@ -35,7 +35,6 @@ export default class CommentForm extends React.Component {
     }).then(response => {
       this.props.updateParent(response)
       this.setState({comment: ''})
-      console.log(response)
     }
     )
       .catch(error => console.log(error))

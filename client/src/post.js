@@ -27,7 +27,6 @@ class Post extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (prevProps !== this.props) {
-      console.log('I got called.')
       this.getPostData()
     }
   }

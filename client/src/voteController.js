@@ -88,7 +88,6 @@ export default class VoteController extends React.Component {
         newState.score = this.state.score += value
         this.setState(newState)
       } else {
-        console.log('rofl')
       }
     }).catch(error => {
       console.log(error)
@@ -128,7 +127,6 @@ export default class VoteController extends React.Component {
         }
         this.setState(newState)
       } else {
-        console.log('rofl')
       }
     }).catch(error => {
       console.log(error)

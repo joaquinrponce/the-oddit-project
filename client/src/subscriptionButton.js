@@ -17,7 +17,6 @@ export default class SubscriptionButton extends React.Component {
       }
     }
     ).then(response => {
-      console.log('yup yup')
       if (response && response.id) {
         this.setState({subscription: response, checked: true})
       } else {

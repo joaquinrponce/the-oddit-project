@@ -108,6 +108,10 @@ a:not(.disabled) {
   text-decoration: none !important;
 }
 
+.post-card-comments-link {
+  font-size: 9pt;
+}
+
 .post-info {
   font-size: 10pt;
 }
