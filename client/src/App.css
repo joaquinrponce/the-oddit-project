@@ -28,15 +28,18 @@ a:not(.disabled) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between !important;
+  transform: scale(0.8)
 }
 
 .score {
   font-size: 15pt;
 }
 
-.card-img {
-  max-width: 20vw;
-  height: 20vw;
+.post-card-img {
+  max-width: 75px;
+  height: 75px;
+  margin-top: 12px;
   object-fit: cover;
 }
 
@@ -44,35 +47,95 @@ a:not(.disabled) {
   margin-top: 10px;
 }
 
-.indent-2 {
-  margin-left: 10px;
-}
-
-.indent-3 {
-  margin-left: 15px;
-}
-
-.indent-4 {
-  margin-left: 20px;
-}
-
-.indent-5 {
-  margin-left: 25px;
-}
-
-.indent-6 {
-  margin-left: 30px;
-}
-
-.vote-Comment {
+.vote-comment {
   transform: scale(.7)
+}
+
+.vote-controller-container {
+  padding-right: 0px !important;
+}
+
+.vote-post-controller {
+  padding: 0px !important;
+}
+
+.comment {
+
+}
+
+.comment div {
+  padding: 0px;
 }
 
 .comment-control {
   cursor: pointer;
   user-select: none;
+  font-size: 11pt;
+  color: #cc9543;
 }
 
 .comment-info {
   font-size: 11pt !important;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.post-list div {
+  padding-left: 0px;
+}
+
+.post-card {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-bottom: 5px;
+  margin-left: 0px !important;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.post-card-info {
+  font-size: 9pt
+}
+
+.post-card-title a {
+  color: black !important;
+  font-size: 11pt;
+  text-decoration: none !important;
+}
+
+.post-info {
+  font-size: 10pt;
+}
+
+.post-title {
+  color: black;
+}
+.post-image {
+  max-width: 100%;
+}
+
+
+.indent-2 {
+  margin-left: 10px !important;
+}
+
+.indent-3 {
+  margin-left: 15px !important;
+}
+
+.indent-4 {
+  margin-left: 20px !important;
+}
+
+.indent-5 {
+  margin-left: 25px !important;
+}
+
+.indent-6 {
+  margin-left: 30px !important;
 }

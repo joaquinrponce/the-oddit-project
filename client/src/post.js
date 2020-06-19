@@ -50,24 +50,20 @@ class Post extends React.Component {
     if (!this.state.post) return null
     return (
       <Container>
-      <Card>
-        <Card.Body>
           <Row>
-          <Col md='auto'>
+          <Col className='vote-controller-container vote-post-controller' xs='auto' sm='auto' md='auto' lg='auto'>
           <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
           </Col>
           <Col>
-          <Card.Subtitle className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by {this.state.post.user.name}
-          </Card.Subtitle>
-          <Card.Title>{this.state.post.title}</Card.Title>
+          <div className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by {this.state.post.user.name}
+          </div>
+          <div className='post-title'>{this.state.post.title}</div>
           { this.state.post.image.url &&
-          <Card.Img variant="bottom" src={this.state.post.image.url}/>}
-          <Card.Text>{this.state.post.body}</Card.Text>
-          <Card.Link>{this.state.post.url}</Card.Link>
+          <img className='post-image' src={this.state.post.image.url}/>}
+          <div className='post-body'>{this.state.post.body}</div>
+          <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
           </Col>
           </Row>
-        </Card.Body>
-      </Card>
       <CommentForm updateParent={this.updateForNewComments} commentableId={this.state.post.id} commentableType='Post'/>
       { this.renderNewComments() }
       <CommentList indent={1} comments={this.state.post.comments}/>

@@ -114,7 +114,7 @@ class App extends React.Component {
       <Container fluid>
         <Router>
           <Navigation showPostModal={this.showPostModal} showLoginModal={this.showLoginModal}/>
-          <Login show={this.state.showLoginModal} hideModal={this.hideLoginModal}/>
+          { !this.state.loggedIn && <Login show={this.state.showLoginModal} hideModal={this.hideLoginModal}/> }
           {  this.state.loggedIn && <PostForm user={this.state.user} handleSubmit={this.submitPost} show={this.state.showPostModal} hideModal={this.hidePostModal} tokenIsExpired={this.tokenIsExpired}/>  }
           <Container fluid className='mt-5'>
           <Row>

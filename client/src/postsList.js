@@ -64,7 +64,7 @@ export default class PostsList extends React.Component {
       )
     }
     return (
-      <Container fluid className='mt-2'>
+      <Container fluid className='mt-2 post-list'>
         <Switch>
           <Route exact path={`${this.props.match.path}`}>
             <Container fluid>

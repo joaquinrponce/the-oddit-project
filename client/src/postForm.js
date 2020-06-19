@@ -52,7 +52,7 @@ export default class PostForm extends React.Component {
       newState.errors.hall = true
       newState.formInvalid = true
     }
-    if (!params.title || params.title.length > 100) {
+    if (!params.title || params.title.length > 250) {
       newState.errors.title = true
       newState.formInvalid = true
     }

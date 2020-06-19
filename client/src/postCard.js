@@ -2,30 +2,31 @@ import React from 'react'
 import {
   Link
 } from 'react-router-dom'
-import { Card, Row, Col } from 'react-bootstrap'
+import {  Row, Col, Container } from 'react-bootstrap'
 import VoteController from './voteController.js'
 
 export default class PostCard extends React.Component {
   render () {
     return (
-      <Card className='mt-2'>
-        <Card.Body>
+      <Container fluid className='post-card'>
         <Row>
-        <Col md='auto'>
+        <Col className='vote-controller-container' xs='auto' sm='auto' md='auto' lg='auto'>
           <VoteController voteableId={this.props.post.id} score={this.props.post.score} voteableType='Post'/>
         </Col>
         <Col>
-          <Card.Subtitle className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={this.props.hallURL}>{this.props.post.hall.name}</Link> by {this.props.post.user.name}
-          </Card.Subtitle>
-          <Card.Title><Link to={this.props.postURL}>{this.props.post.title}</Link></Card.Title>
-          { this.props.post.image.url &&
-          <Card.Img src={this.props.post.image.url}/>}
+          <div className='post-card-info mt-2 mb-2 text-muted'>Posted in <Link to={this.props.hallURL}>{this.props.post.hall.name}</Link> by {this.props.post.user.name}
+          </div>
+          <div className='post-card-title'><Link to={this.props.postURL}>{this.props.post.title}</Link></div>
+
           { this.props.post.url &&
-          <Card.Link href={this.props.post.url}>{this.props.post.url}</Card.Link>}
+          <a href={this.props.post.url}>🔗 {this.props.post.url}</a>}
+          { this.props.post.image.url &&
+          <div>
+            <img className='post-card-img' src={this.props.post.image.url}/>
+          </div>}
         </Col>
         </Row>
-        </Card.Body>
-      </Card>
+      </Container>
     )
   }
 }

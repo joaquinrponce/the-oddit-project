@@ -1,7 +1,7 @@
 import React from 'react'
 import { userContext } from './userContext.js'
 import VoteButton from './voteButton.js'
-import { Card } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 export default class VoteController extends React.Component {
   _isMounted = false
@@ -137,11 +137,11 @@ export default class VoteController extends React.Component {
 
   render () {
     return (
-      <div className={`vote-controller vote-${this.props.voteableType}`}>
+      <Container className={`vote-controller vote-${this.props.voteableType.toLowerCase()}`}>
         <VoteButton active={this.state.upvoted} handleVote={this.handleVote} value={1}/>
         <div className='score'>{this.state.score}</div>
         <VoteButton active={this.state.downvoted} handleVote={this.handleVote} value={-1}/>
-      </div>
+      </Container>
     )
   }
 }

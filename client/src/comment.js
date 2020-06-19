@@ -1,6 +1,6 @@
 import React from 'react'
 import CommentList from './commentList.js'
-import { Card, Col, Row } from 'react-bootstrap'
+import { Container, Col, Row } from 'react-bootstrap'
 import VoteController from './voteController.js'
 import CommentForm from './commentForm.js'
 
@@ -41,23 +41,21 @@ export default class Comment extends React.Component {
   render () {
     if (!this.state.comment) return null
     return (
-      <Card className={`${this.props.className} h-auto`}>
-        <Card.Body className='h-auto'>
-        <Row className='h-auto'>
-        <Col className='h-auto' md='auto'>
-        <VoteController voteableId={this.state.comment.id} voteableType={'Comment'} score={this.state.comment.score}/>
-        </Col>
-        <Col className='h-auto'>
-          <Card.Subtitle className='comment-info mb-2 text-muted'>{this.state.comment.user.name} says</Card.Subtitle>
-          <Card.Text>{this.state.comment.body}</Card.Text>
-          <Card.Link className='comment-control' onClick={this.showCommentForm}>Reply</Card.Link>
-        </Col>
+      <Container className={`${this.props.className} h-auto comment`}>
+        <Row>
+          <Col className='vote-controller-container' xs='auto' sm='auto' md='auto' lg='auto'>
+            <VoteController voteableId={this.state.comment.id} voteableType={'Comment'} score={this.state.comment.score}/>
+          </Col>
+          <Col className='comment-content'>
+            <div className='comment-info mb-2 text-muted'>{this.state.comment.user.name} says</div>
+            <div className='comment-body'>{this.state.comment.body}</div>
+            <div className='comment-control' onClick={this.showCommentForm}>Reply</div>
+          </Col>
         </Row>
         { this.state.showCommentForm && <CommentForm updateParent={this.updateForNewComments} commentableId={this.state.comment.id}  commentableType='Comment'/> }
-        </Card.Body>
         { this.renderNewComments() }
         <CommentList indent={this.props.indent}comments={this.state.comment.replies}/>
-      </Card>
+      </Container>
     )
   }
 }
