@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
 import {userContext} from './userContext.js'
 import Login from './login.js'
-import PostForm from './postForm.js'
+import PostModal from './postModal.js'
 
 export default class UserControls extends React.Component {
   constructor(props) {
@@ -58,7 +58,7 @@ export default class UserControls extends React.Component {
           </Nav.Link>
       }
         <Login show={this.state.showLoginModal} hideModal={this.toggleLoginModal}/>
-        <PostForm user={this.context.user} show={this.state.showPostModal} hideModal={this.togglePostModal} tokenIsExpired={this.tokenIsExpired}/>
+        <PostModal show={this.state.showPostModal} hideModal={this.togglePostModal}/>
       </Nav>
     )
   }

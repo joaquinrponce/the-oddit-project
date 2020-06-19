@@ -24,18 +24,10 @@ export default class PostForm extends React.Component {
       },
       formInvalid: true
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.submitPost = this.submitPost.bind(this)
-    this.handleImage = this.handleImage.bind(this)
-    this.checkImageFileType = this.checkImageFileType.bind(this)
-    this.getMimeType = this.getMimeType.bind(this)
-    this.validateImage = this.validateImage.bind(this)
-    this.validateFields = this.validateFields.bind(this)
-    this.resetState = this.resetState.bind(this)
     this.imageRef = React.createRef()
   }
 
-  handleChange (e) {
+  handleChange = (e) => {
     e.preventDefault()
     const newState = JSON.parse(JSON.stringify(this.state))
     newState.params[e.target.name] = e.target.value
@@ -43,7 +35,7 @@ export default class PostForm extends React.Component {
     this.setState(newState, this.validateFields)
   }
 
-  validateFields () {
+  validateFields = () => {
     const newState = JSON.parse(JSON.stringify(this.state))
     newState.params.image = this.state.params.image
     const params = newState.params
@@ -71,14 +63,14 @@ export default class PostForm extends React.Component {
     this.setState(newState)
   }
 
-  handleImage (e) {
+  handleImage = (e) => {
     e.preventDefault()
     const image = e.target.files[0]
     if (!image) return
     this.checkImageFileType(image, this.getMimeType, this.validateImage, e.target)
   }
 
-  checkImageFileType (image, getType, validate) {
+  checkImageFileType = (image, getType, validate) => {
     const filereader = new FileReader()
     filereader.onloadend = (evt) => {
       if (evt.target.readyState === FileReader.DONE) {
@@ -98,7 +90,7 @@ export default class PostForm extends React.Component {
     filereader.readAsArrayBuffer(blob)
   }
 
-  validateImage (signature, image) {
+  validateImage = (signature, image) => {
     const newState = JSON.parse(JSON.stringify(this.state))
     if (signature) {
       newState.params.image = image
@@ -112,7 +104,7 @@ export default class PostForm extends React.Component {
     }
   }
 
-  getMimeType (signature) {
+  getMimeType = (signature) => {
     switch (signature) {
       case '89504E47':
         return 'image/png'
@@ -126,15 +118,15 @@ export default class PostForm extends React.Component {
     }
   }
 
-  submitPost (params) {
-    if (this.context.tokenIsExpired(this.props.user.token)) {
+  submitPost = (params) => {
+    if (this.context.tokenIsExpired(this.context.user.token)) {
       alert('Your session has expired. You will be redirected to the homepage. Please login again.')
       this.setState({redirect: true, redirectURL: "/"}, window.location.reload(true))
       return
     }
     const data = new FormData()
     data.append('title', params.title)
-    data.append('user_id', this.props.user.id)
+    data.append('user_id', this.context.user.id)
     data.append('hall_id', params.hall.toLowerCase())
     data.append('body', params.body)
     data.append('url', params.url)
@@ -142,7 +134,7 @@ export default class PostForm extends React.Component {
     fetch('/api/posts', {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + this.props.user.token
+        Authorization: 'Bearer ' + this.context.user.token
       },
       body: data
     })
@@ -170,7 +162,7 @@ export default class PostForm extends React.Component {
       })
   }
 
-  resetState () {
+  resetState = () => {
     this.setState({
       params: {
         hall: '',
@@ -198,9 +190,6 @@ export default class PostForm extends React.Component {
       )
     }
     return (
-      <Modal show={this.props.show} onHide={this.props.hideModal}>
-        <Modal.Header closeButton>New Post</Modal.Header>
-        <Modal.Body>
           <Form onSubmit={(e) => {
             e.preventDefault()
             this.submitPost(this.state.params)
@@ -233,8 +222,6 @@ export default class PostForm extends React.Component {
             </Form.Group>
             <Button disabled={this.state.formInvalid} variant='primary' type='submit'>Post</Button>
           </Form>
-        </Modal.Body>
-      </Modal>
     )
   }
 }
