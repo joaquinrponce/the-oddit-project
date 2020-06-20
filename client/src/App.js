@@ -107,16 +107,12 @@ class App extends React.Component {
               <Post />
             </Route>
             { this.state.loggedIn && <Route path="/feed" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
-            { !this.state.loggedIn && <Route path="/all" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
-            { this.state.loggedIn && <Route path="/"> <Redirect to="/feed"/> </Route> }
-            { !this.state.loggedIn && <Route path="/"> <Redirect to="/all"/> </Route> }
-            <Route component={NotFound}/>
+            <Route path="/*" render={(props) => <PostsList title={'all'}{...props}/>} />
           </Switch>
           </Col>
           <Col>
             <Switch>
               <Route path="/halls/:id" render={(props) => <HallSidebar {...props}/>} />
-              <Route exact path="/:id/" render={(props) => <MainSidebar {...props}/>} />
             </Switch>
           </Col>
           </Row>

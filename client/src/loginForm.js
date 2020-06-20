@@ -19,11 +19,11 @@ export default class LoginForm extends React.Component {
 
 
   render() {
-    if (this.context.loggedIn) return <Redirect to="/feed"/>
     return(
       <Form onSubmit={(e) => {
         e.preventDefault()
         this.context.logInUser({ auth: { name: this.state.username, password: this.state.password } })
+        this.props.hideModal()
       }}>
         <Form.Group controlId='loginForm'>
           <Form.Label>Username</Form.Label>

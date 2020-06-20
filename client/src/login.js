@@ -7,14 +7,13 @@ import LoginForm from './loginForm.js'
 export default class Login extends React.Component {
 
   render () {
-    if (this.context.loggedIn) return <Redirect to="/"/>
     return(
       <Modal show={this.props.show} onHide={this.props.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
           <Modal.Body>
-            <LoginForm/>
+            <LoginForm hideModal={this.props.hideModal}/>
           </Modal.Body>
       </Modal>
     )

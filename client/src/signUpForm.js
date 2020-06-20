@@ -49,7 +49,6 @@ export default class SignUpForm extends React.Component {
   }
 
   render () {
-    if (this.context.loggedIn) return <Redirect to="/feed"/>
     return(
       <Form onSubmit={this.submitUser}>
         <Form.Group>
