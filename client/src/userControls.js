@@ -4,13 +4,14 @@ import { Nav } from 'react-bootstrap'
 import {userContext} from './userContext.js'
 import Login from './login.js'
 import PostModal from './postModal.js'
+import SignUp from './signUp.js'
 
 export default class UserControls extends React.Component {
   constructor(props) {
     super(props)
     this.state = { showPostModal: false, showLoginModal: false, showSignUpModal: false }
   }
-  
+
   toggleLoginModal = () =>  {
     const newState = Object.assign(this.state)
     newState.showLoginModal = !newState.showLoginModal
@@ -29,7 +30,7 @@ export default class UserControls extends React.Component {
     newState.showSignUpModal = !newState.showSignUpModal
     this.setState(newState)
   }
-  
+
   render() {
     return(
       <Nav variant='tabs' className='ml-auto justify-content-start'>
@@ -59,6 +60,7 @@ export default class UserControls extends React.Component {
       }
         <Login show={this.state.showLoginModal} hideModal={this.toggleLoginModal}/>
         <PostModal show={this.state.showPostModal} hideModal={this.togglePostModal}/>
+        <SignUp show={this.state.showSignUpModal} hideModal={this.toggleSignUpModal}/>
       </Nav>
     )
   }
