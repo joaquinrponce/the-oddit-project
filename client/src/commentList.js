@@ -2,10 +2,7 @@ import React from 'react'
 import Comment from './comment.js'
 
 export default class CommentList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
+  
   render() {
     return (<div className='comment-list'>
       {this.props.comments.map(comment => {

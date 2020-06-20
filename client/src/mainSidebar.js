@@ -1,6 +1,5 @@
 import React from 'react'
-import { Container, Col, Row, Button, Modal } from 'react-bootstrap'
-import HallForm from './hallForm.js'
+import { Container, Button } from 'react-bootstrap'
 import HallModal from './hallModal.js'
 import {userContext} from './userContext'
 

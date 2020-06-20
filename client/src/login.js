@@ -1,13 +1,10 @@
 import React from 'react'
-import { Form, Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { userContext } from './userContext.js'
 import LoginForm from './loginForm.js'
 
 export default class Login extends React.Component {
-  constructor (props) {
-    super(props)
-  }
 
   render () {
     if (this.context.loggedIn) return <Redirect to="/"/>

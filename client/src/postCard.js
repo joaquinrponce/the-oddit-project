@@ -19,10 +19,10 @@ export default class PostCard extends React.Component {
           <div className='post-card-title'><Link to={this.props.postURL}>{this.props.post.title}</Link></div>
 
           { this.props.post.url &&
-          <div> <a href={this.props.post.url}>🔗 {this.props.post.url}</a></div>}
+          <div> <a href={this.props.post.url}><span role='img' aria-label='link-emoji'>🔗</span> {this.props.post.url}</a></div>}
           { this.props.post.image.url &&
           <div>
-            <img className='post-card-img' src={this.props.post.image.url}/>
+            <img className='post-card-img' alt='post-attachment' src={this.props.post.image.url}/>
           </div>}
           <Link className='post-card-comments-link' to={this.props.postURL}>{this.props.post.comments.length} comments</Link>
         </Col>

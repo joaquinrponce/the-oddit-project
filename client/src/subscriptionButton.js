@@ -9,8 +9,8 @@ export default class SubscriptionButton extends React.Component {
   }
 
   getSubscriptionData = () => {
-    fetch(`/api/subscriptions/search?member_id=${this.context.user.id}&hall_id=${this.props.hall}`).
-    then(response => {
+    fetch(`/api/subscriptions/search?member_id=${this.context.user.id}&hall_id=${this.props.hall}`)
+    .then(response => {
       if (response.ok) {
         return response.json()
       } else {

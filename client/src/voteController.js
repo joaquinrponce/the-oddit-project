@@ -85,7 +85,7 @@ export default class VoteController extends React.Component {
         newState.currentVote = response
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
-        newState.score = this.state.score += value
+        newState.score += this.state.score + value
         this.setState(newState)
       } else {
       }
@@ -96,7 +96,6 @@ export default class VoteController extends React.Component {
 
   updateVote = (value, id) => {
     let newValue = value
-    let newScore = this.state.score
     if ((value === 1 && this.state.upvoted) || (value === -1 && this.state.downvoted)) {
       newValue = 0
     }

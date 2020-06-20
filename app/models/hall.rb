@@ -5,6 +5,8 @@ class Hall < ApplicationRecord
   has_many :members, through: :subscriptions
   has_many :posts
 
+  before_save :downcase_name
+
   def post_count
     posts.count
   end
@@ -12,5 +14,11 @@ class Hall < ApplicationRecord
   def member_count
     members.count
   end
-  
+
+  private
+
+  def downcase_name
+    self.name.downcase
+  end
+
 end

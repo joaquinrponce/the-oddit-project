@@ -5,9 +5,9 @@ import {
 } from 'react-router-dom'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
-import SubscriptionButton from './subscriptionButton.js'
 
 export default class PostsList extends React.Component {
+  _isMounted = false
   constructor (props) {
     super(props)
     this.state = { posts: null }
@@ -39,11 +39,13 @@ export default class PostsList extends React.Component {
       method: 'GET',
       headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.props.token }
     }).then(response => response.json()).then(posts => {
+      if (!this._isMounted) return
       this.setState({ posts: posts })
     })
   }
 
   componentDidMount () {
+    this._isMounted = true
     this.getPosts()
   }
 
@@ -53,6 +55,9 @@ export default class PostsList extends React.Component {
     }
   }
 
+  componentWillUnmount () {
+    this._isMounted = false
+  }
   render () {
     if (!this.state.posts) {
       return (

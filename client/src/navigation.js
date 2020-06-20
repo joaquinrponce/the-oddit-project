@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  Link
-} from 'react-router-dom'
-import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 import { userContext } from './userContext.js'
 import UserControls from './userControls.js'
 import PageControls from './pageControls.js'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Card, Col, Row, Container } from 'react-bootstrap'
+import { Col, Row, Container } from 'react-bootstrap'
 import VoteController from './voteController'
 import CommentList from './commentList.js'
 import CommentForm from './commentForm.js'
@@ -58,7 +58,7 @@ class Post extends React.Component {
           </div>
           <div className='post-title'>{this.state.post.title}</div>
           { this.state.post.image.url &&
-          <img className='post-image' src={this.state.post.image.url}/>}
+          <img alt='post-attachment' className='post-image' src={this.state.post.image.url}/>}
           <div className='post-body'>{this.state.post.body}</div>
           <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
           </Col>

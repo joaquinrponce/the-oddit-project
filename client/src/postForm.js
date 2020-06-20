@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Modal, Form, Button, Alert } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import { userContext } from './userContext.js'
 
 export default class PostForm extends React.Component {
@@ -50,7 +50,7 @@ export default class PostForm extends React.Component {
       newState.formInvalid = true
     }
     if (params.url) {
-      const regex = new RegExp(/https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)
+      const regex = new RegExp(/https:\/\/(www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/)
       if (!params.url.match(regex)) {
         newState.errors.url = true
         newState.formInvalid = true

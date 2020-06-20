@@ -1,8 +1,5 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
-import { Switch, Route, Link } from 'react-router-dom'
-import TopCommunities from './topCommunities.js'
-import TopPosts from './topPosts.js'
+import { Container } from 'react-bootstrap'
 import SubscriptionButton from './subscriptionButton'
 
  export default class HallSidebar extends React.Component {

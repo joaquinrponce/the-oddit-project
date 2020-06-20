@@ -1,20 +1,31 @@
 import React from 'react'
-import { Container, Form, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { userContext } from './userContext'
 
 export default class HallForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {name: '', redirect: false}
+    this.state = {name: '', redirect: false, errors: false}
   }
 
   handleChange = (e) => {
-    this.setState({name: e.target.value})
+    this.setState({name: e.target.value}, this.validateForm)
+  }
+
+  validateForm = () => {
+    const newState = JSON.parse(JSON.stringify(this.state))
+    const regex = new RegExp(/^\S+$/)
+    newState.errors = false
+    if (!this.state.name.match(regex) || this.state.name.length > 30) {
+      newState.errors = true
+    }
+    this.setState(newState)
   }
 
   submitHall = (e) => {
     e.preventDefault()
+    if (this.state.errors) return
     fetch('/api/halls', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
@@ -40,7 +51,8 @@ export default class HallForm extends React.Component {
       <Form onSubmit={this.submitHall}>
         <Form.Group>
           <Form.Label>Name your hall</Form.Label>
-          <Form.Control type='text' onChange={this.handleChange}/>
+          <Form.Control type='text' isInvalid={this.state.errors} onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>Must contain no spaces, and must not be longer than 30 characters.</Form.Text>
         </Form.Group>
         <Button type='submit'>Create</Button>
       </Form>
