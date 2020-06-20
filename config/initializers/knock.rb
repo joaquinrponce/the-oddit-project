@@ -1,11 +1,7 @@
 Knock.setup do |config|
 
   # Point knock to secret
-  if !Rails.env.production?
-    config.token_secret_signature_key = -> { Rails.application.credentials.fetch(:secret_key_base) }
-  else
-    config.token_secret_signature_key = ENV["SECRET_KEY_BASE"]
-  end
+  config.token_secret_signature_key = -> { Rails.application.credentials.secret_key_base }
 
   ## Expiration claim
   ## ----------------
