@@ -14,6 +14,8 @@ import {userContext} from './userContext.js'
 import Logout from './logout.js'
 import HallSidebar from './hallSidebar.js'
 import MainSidebar from './mainSidebar.js'
+import HallsList from './hallsList.js'
+import NotFound from './notFound.js'
 import * as jwtDecode from 'jwt-decode'
 
 
@@ -84,10 +86,10 @@ class App extends React.Component {
 
   render() {
     return (
-    <userContext.Provider value={this.state}>
+      <userContext.Provider value={this.state}>
       <Container fluid>
         <Router>
-          <Navigation/>
+            <Navigation/>
           <Container fluid className='mt-5'>
           <Row>
           <Col md='9'>
@@ -99,6 +101,7 @@ class App extends React.Component {
                                         <PostsList title={'woot'}{...props}/>
                                     }
                                     />
+            <Route path="/halls"><HallsList/></Route>
             <Route path="/logout"><Logout/></Route>
             <Route path={'/posts/:id'}>
               <Post />
@@ -107,6 +110,7 @@ class App extends React.Component {
             { !this.state.loggedIn && <Route path="/all" user={this.state.user} render={(props) => <PostsList title={'all'}{...props}/>} /> }
             { this.state.loggedIn && <Route path="/"> <Redirect to="/feed"/> </Route> }
             { !this.state.loggedIn && <Route path="/"> <Redirect to="/all"/> </Route> }
+            <Route component={NotFound}/>
           </Switch>
           </Col>
           <Col>
@@ -119,7 +123,7 @@ class App extends React.Component {
           </Container>
         </Router>
       </Container>
-    </userContext.Provider>
+      </userContext.Provider>
     )
   }
 }

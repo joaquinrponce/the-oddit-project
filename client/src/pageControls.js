@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap'
 import { userContext } from './userContext.js'
 
 export default class PageControls extends React.Component {
-  
+
   render () {
     return ( <Nav variant="tabs">
       { this.context.loggedIn &&
@@ -20,6 +20,9 @@ export default class PageControls extends React.Component {
       </Nav.Link>
       <Nav.Link as={Link} to="/top">
           Top
+      </Nav.Link>
+      <Nav.Link as={Link} to="/halls">
+          Halls
       </Nav.Link>
     </Nav>
     )
