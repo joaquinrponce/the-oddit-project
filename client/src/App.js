@@ -31,27 +31,16 @@ class App extends React.Component {
     }
   }
 
-  logInUser = (request) => {
-    fetch('/api/user_token', {
-      method: 'POST',
-      body: JSON.stringify(request),
-      headers: {'Content-Type': 'application/json' }
-    })
-    .then(response => response.json())
-    .then(data => {
-      const payload = jwtDecode(data.jwt)
-      const user = payload.sub
-      localStorage.setItem("currentUser", JSON.stringify({
-        name: user.name,
-        id: user.id,
-        token: data.jwt,
-      }))
-      const newState = Object.assign(this.state)
-      newState.user = {name: user.name, id: user.id, token: data.jwt}
-      newState.loggedIn = true
-      this.setState(newState)
-    })
-    .catch(error => console.log('error', error))
+  logInUser = (user) => {
+    const newState = Object.assign(this.state)
+    newState.user = {name: user.name, id: user.id, token: user.token}
+    newState.loggedIn = true
+    localStorage.setItem("currentUser", JSON.stringify({
+      name: user.name,
+      id: user.id,
+      token: user.token,
+    }))
+    this.setState(newState)
   }
 
   logOutUser = () => {

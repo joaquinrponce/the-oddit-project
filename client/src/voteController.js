@@ -42,10 +42,11 @@ export default class VoteController extends React.Component {
     this._isMounted = true
     this.getVoteData(this.context.user.id)
   }
-
+  
   componentWillUnmount() {
     this._isMounted = false
   }
+
 
   handleVote = (value) => {
     if (!this.context.loggedIn) {
@@ -85,7 +86,7 @@ export default class VoteController extends React.Component {
         newState.currentVote = response
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
-        newState.score += this.state.score + value
+        newState.score += value
         this.setState(newState)
       } else {
       }

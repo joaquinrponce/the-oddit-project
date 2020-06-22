@@ -142,10 +142,12 @@ export default class PostForm extends React.Component {
         if (response.ok) {
           return response.json()
         } else {
-          alert('Something went wrong')
+          alert('That hall does not exist.')
+          return
         }
       })
       .then(response => {
+        if (!response) return
         if (response.id) {
           const newState = JSON.parse(JSON.stringify(this.state))
           newState.params = { title: '', body: '', url: '', image: '', hall: '' }

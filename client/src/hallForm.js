@@ -15,7 +15,7 @@ export default class HallForm extends React.Component {
 
   validateForm = () => {
     const newState = JSON.parse(JSON.stringify(this.state))
-    const regex = new RegExp(/^\S+$/)
+    const regex = new RegExp(/^(\S[a-z0-9]*)$/)
     newState.errors = false
     if (!this.state.name.match(regex) || this.state.name.length > 30) {
       newState.errors = true

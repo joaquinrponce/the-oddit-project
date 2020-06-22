@@ -32,7 +32,6 @@ export default class SubscriptionButton extends React.Component {
       body: JSON.stringify(request),
       headers: {'Content-Type': 'application/json' }
       }).then( response => {
-        console.log(response)
         if (response.ok) {
           return response.json()
         } else {
@@ -40,7 +39,6 @@ export default class SubscriptionButton extends React.Component {
         }
       })
       .then(response => {
-        console.log(response)
         if (response.id) {
           this.setState({subscription: response, checked: true})
         }
@@ -54,7 +52,7 @@ export default class SubscriptionButton extends React.Component {
       body: JSON.stringify(request),
       headers: {'Content-Type': 'application/json' }
       })
-      .then(response => 
+      .then(response =>
         this.setState({subscription: null, checked: true})
       )
       .catch(error => console.log(error))

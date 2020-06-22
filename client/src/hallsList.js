@@ -30,8 +30,6 @@ export default class HallsList extends React.Component {
 
   render () {
     if (!this.state.halls) return null
-    console.log('rendering halls')
-    console.log(this.state)
     return(
       <Container className='mt-2'>
         {this.renderHalls()}

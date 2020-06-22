@@ -10,6 +10,11 @@ a:not(.disabled) {
   color: #cc9543 !important;
 }
 
+.invalid-credentials {
+  font-size: 10pt;
+  color: red;
+  margin-top: 8px;
+}
 .upvote, .downvote {
   font-size: 20pt;
   color: #afa9a9;
