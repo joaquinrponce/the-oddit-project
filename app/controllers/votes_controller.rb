@@ -1,4 +1,4 @@
-class VotesController < ApplicationController
+class VotesController < ApiController
   before_action :set_vote, only: [:update, :destroy]
   before_action :authenticate_user, only: [:create, :update, :destroy]
 

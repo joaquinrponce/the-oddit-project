@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+class PostsController < ApiController
   before_action :set_post, only: [:show, :update, :destroy]
   before_action :authenticate_user, only: [:feed, :create]
   before_action :get_hall

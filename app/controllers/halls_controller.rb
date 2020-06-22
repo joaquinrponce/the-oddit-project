@@ -1,4 +1,4 @@
-class HallsController < ApplicationController
+class HallsController < ApiController
 
   before_action :authenticate_user, only: [:create]
   def index

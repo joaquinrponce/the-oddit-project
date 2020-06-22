@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiController
   before_action :set_user, only: [:show, :update, :destroy]
   skip_before_action :verify_authenticity_token, raise: false
 
