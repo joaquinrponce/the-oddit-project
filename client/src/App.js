@@ -102,6 +102,7 @@ class App extends React.Component {
           <Col>
             <Switch>
               <Route path="/halls/:id" render={(props) => <HallSidebar {...props}/>} />
+              <Route path="/*" render={(props) => <MainSidebar {...props}/>} />
             </Switch>
           </Col>
           </Row>
