@@ -27,6 +27,7 @@ export default class VoteController extends React.Component {
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
         newState.score = this.props.score
+        console.log(response)
         this.setState(newState)
       } else {
         const newState = JSON.parse(JSON.stringify(this.state))
@@ -42,7 +43,7 @@ export default class VoteController extends React.Component {
     this._isMounted = true
     this.getVoteData(this.context.user.id)
   }
-  
+
   componentWillUnmount() {
     this._isMounted = false
   }
@@ -137,7 +138,7 @@ export default class VoteController extends React.Component {
     return (
       <Container className={`vote-controller vote-${this.props.voteableType.toLowerCase()}`}>
         <VoteButton active={this.state.upvoted} handleVote={this.handleVote} value={1}/>
-        <div className='score'>{this.state.score}</div>
+        <div className='score'>{this.state.score || this.props.score}</div>
         <VoteButton active={this.state.downvoted} handleVote={this.handleVote} value={-1}/>
       </Container>
     )

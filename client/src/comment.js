@@ -7,11 +7,7 @@ import CommentForm from './commentForm.js'
 export default class Comment extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {comment: null, showCommentForm: false, newComments: []}
-  }
-
-  componentDidMount () {
-    this.getCommentData()
+    this.state = {showCommentForm: false, newComments: []}
   }
 
   updateForNewComments = (comment) => {
@@ -28,33 +24,27 @@ export default class Comment extends React.Component {
     return comments
   }
 
-  getCommentData = () => {
-    fetch(`/api/comments/${this.props.comment.id}`)
-    .then(response => response.json())
-    .then(comment => this.setState({comment: comment, showCommentForm: false, newComments: []}))
-  }
 
   showCommentForm = () => {
-    this.setState({comment: this.state.comment, showCommentForm: !this.state.showCommentForm, newComments: this.state.newComments})
+    this.setState({showCommentForm: !this.state.showCommentForm, newComments: this.state.newComments})
   }
 
   render () {
-    if (!this.state.comment) return null
     return (
       <Container className={`${this.props.className} h-auto comment`}>
         <Row>
           <Col className='vote-controller-container' xs='auto' sm='auto' md='auto' lg='auto'>
-            <VoteController voteableId={this.state.comment.id} voteableType={'Comment'} score={this.state.comment.score}/>
+            <VoteController voteableId={this.props.comment.id} voteableType={'Comment'} score={this.props.comment.score}/>
           </Col>
           <Col className='comment-content'>
-            <div className='comment-info mb-2 text-muted'>{this.state.comment.user.name} says</div>
-            <div className='comment-body'>{this.state.comment.body}</div>
+            <div className='comment-info mb-2 text-muted'>{this.props.comment.user.name} says</div>
+            <div className='comment-body'>{this.props.comment.body}</div>
             <div className='comment-control' onClick={this.showCommentForm}>Reply</div>
           </Col>
         </Row>
-        { this.state.showCommentForm && <CommentForm updateParent={this.updateForNewComments} commentableId={this.state.comment.id}  commentableType='Comment'/> }
+        { this.state.showCommentForm && <CommentForm updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
         { this.renderNewComments() }
-        <CommentList indent={this.props.indent}comments={this.state.comment.replies}/>
+        <CommentList indent={this.props.indent}comments={this.props.comment.replies}/>
       </Container>
     )
   }

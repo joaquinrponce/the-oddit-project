@@ -12,7 +12,7 @@ class PostsController < ApiController
 
   # GET /posts/1
   def show
-    render json: @post.to_json(methods: [:score, :upvotes, :downvotes], include: {comments: {include: :replies}, hall: {}, user: {only: [:id, :name]}}, except: [:user_id, :updated_at, :hall_id])
+    render json: @post, include: 'comments.user,comments.replies.**,user,hall'
   end
 
   def feed
