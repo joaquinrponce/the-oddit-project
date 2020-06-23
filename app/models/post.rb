@@ -22,4 +22,12 @@ class Post < ApplicationRecord
     votes.where(value: -1).count
   end
 
+  def comments_count
+    count = self.comments.count
+    self.comments.each do |comment|
+      count += comment.replies_count
+    end
+    count
+  end
+
 end

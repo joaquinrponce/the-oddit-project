@@ -17,4 +17,12 @@ class Comment < ApplicationRecord
     votes.where(value: -1).count
   end
 
+  def replies_count
+    count = self.replies.count
+    self.replies.each do |reply|
+      count += reply.replies_count
+    end
+    count
+  end
+
 end

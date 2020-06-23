@@ -24,7 +24,7 @@ export default class PostCard extends React.Component {
           <div>
             <img className='post-card-img' alt='post-attachment' src={this.props.post.image.url}/>
           </div>}
-          <Link className='post-card-comments-link' to={this.props.postURL}>{this.props.post.comments.length} comments</Link>
+          <Link className='post-card-comments-link' to={this.props.postURL}>{this.props.post.comments_count} comments</Link>
         </Col>
         </Row>
       </Container>
