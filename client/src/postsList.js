@@ -1,7 +1,7 @@
 import React from 'react'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { userContext } from './userContext.js'
 
 class PostsList extends React.Component {
@@ -56,7 +56,7 @@ class PostsList extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (this.props !== prevProps) {
-      this.getPosts()
+      this.setState({posts: null}, this.getPosts())
     }
   }
 
@@ -64,6 +64,7 @@ class PostsList extends React.Component {
     this._isMounted = false
   }
   render () {
+    if (!this.context.loggedIn && this.props.location.pathname === '/feed' ) return <Redirect to="/all"/>
     if (!this.state.posts) {
       return (
         <Container className='d-flex justify-content-center align-items-center' fluid>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import PostsList from './postsList.js'
 import MainSidebar from './mainSidebar.js'
 import { Col, Row } from 'react-bootstrap'
@@ -19,6 +19,7 @@ class MainFeed extends React.Component {
   }
 
   render() {
+    if (this.props.location.pathname === '/') return <Redirect to="/all"/>
     return(
       <Row>
         <Col md='9'>
