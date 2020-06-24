@@ -66,9 +66,8 @@ export default class SignUpForm extends React.Component {
     }
     ).then(response => {
       if (response.id) {
+        this.context.logInUser({name: response.name, id: response.id, token: response.signup_token})
         this.props.hideModal()
-        this.context.logInUser({auth: {name: this.state.username, password: this.state.password}})
-        this.setState({username: '', password: '', passwordConfirmation: ''})
       }
     }).catch(error => console.log(error))
   }

@@ -5,9 +5,17 @@ import MainSidebar from './mainSidebar.js'
 import { Col, Row } from 'react-bootstrap'
 
 class MainFeed extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {}
+
+
+  componentDidMount() {
+    document.title = this.props.location.pathname + ' - oddit'
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps)
+     {
+       document.title = this.props.location.pathname + ' - oddit'
+     }
   }
 
   render() {

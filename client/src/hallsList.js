@@ -17,6 +17,7 @@ export default class HallsList extends React.Component {
 
   componentDidMount () {
     this.getHallData()
+    document.title = 'halls - oddit'
   }
 
   renderHalls = () => {

@@ -14,7 +14,10 @@ class Hall extends React.Component {
   getHallInfo = () => {
     fetch(`/api/halls/${this.props.match.params.id.toLowerCase()}`)
     .then(response => response.json())
-    .then(hall => this.setState({hall: hall}))
+    .then(hall => {
+      document.title = hall.name + ' - oddit'
+      this.setState({hall: hall})
+    })
     .catch(error => console.log(error))
   }
 

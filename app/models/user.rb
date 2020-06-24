@@ -22,5 +22,9 @@ class User < ApplicationRecord
   def to_token_payload
     {sub: {id: self.id, name: self.name}}
   end
+  
+  def signup_token
+    Knock::AuthToken.new(payload: {sub: {id: self.id, name: self.name}}).token
+  end
 
 end
