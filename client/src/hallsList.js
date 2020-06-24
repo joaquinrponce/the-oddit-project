@@ -22,7 +22,7 @@ export default class HallsList extends React.Component {
   renderHalls = () => {
     const halls = []
     this.state.halls.forEach(hall => {
-        halls.push(<HallCard hall={hall}/>)
+        halls.push(<HallCard key={hall.id} hall={hall}/>)
       }
     )
     return halls

@@ -1,8 +1,4 @@
 import React from 'react'
-import {
-  Switch,
-  Route
-} from 'react-router-dom'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'

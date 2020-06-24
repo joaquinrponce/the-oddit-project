@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter, Link, Redirect } from 'react-router-dom'
 import { Col, Row, Container } from 'react-bootstrap'
 import VoteController from './voteController'
 import CommentList from './commentList.js'
@@ -7,6 +7,7 @@ import CommentForm from './commentForm.js'
 import Comment from './comment.js'
 
 class Post extends React.Component {
+  _isMounted = false
   constructor (props) {
     super(props)
     this.state = { post: null, newComments: [] }
@@ -16,12 +17,14 @@ class Post extends React.Component {
   getPostData () {
     fetch(`/api/posts/${this.props.match.params.id}`).then(response => response.json()).then(
       post => {
+        if (!this._isMounted) return
         this.setState({ post: post, newComment: false })
       }
     )
   }
 
   componentDidMount () {
+    this._isMounted = true
     this.getPostData()
   }
 
@@ -29,6 +32,10 @@ class Post extends React.Component {
     if (prevProps !== this.props) {
       this.getPostData()
     }
+  }
+
+  componentWillUnmount () {
+    this._isMounted = false
   }
 
   updateForNewComments = (comment) => {
@@ -47,6 +54,9 @@ class Post extends React.Component {
 
   render () {
     if (!this.state.post) return null
+    if (this.state.post.status === 404) return(
+      <Redirect to="/404"/>
+    )
     return (
       <Container>
           <Row>

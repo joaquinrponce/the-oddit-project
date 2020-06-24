@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { userContext } from './userContext.js'
-import { Redirect } from 'react-router-dom'
 
 export default class SignUpForm extends React.Component {
   constructor(props){

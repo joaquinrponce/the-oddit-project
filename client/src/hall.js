@@ -29,7 +29,6 @@ class Hall extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     if (!this.state.hall) return null
     return(
       <Row>

@@ -3,8 +3,7 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from "react-router-dom"
 import Navigation from './navigation.js'
 import {Container, Col, Row} from 'react-bootstrap'

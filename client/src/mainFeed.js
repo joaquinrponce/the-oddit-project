@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import PostsList from './postsList.js'
 import MainSidebar from './mainSidebar.js'
 import { Col, Row } from 'react-bootstrap'

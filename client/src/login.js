@@ -1,6 +1,5 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
 import { userContext } from './userContext.js'
 import LoginForm from './loginForm.js'
 

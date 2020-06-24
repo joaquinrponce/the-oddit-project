@@ -27,7 +27,6 @@ export default class VoteController extends React.Component {
         newState.upvoted = response.value === 1 ? true : false
         newState.downvoted = response.value === -1 ? true : false
         newState.score = this.props.score
-        console.log(response)
         this.setState(newState)
       } else {
         const newState = JSON.parse(JSON.stringify(this.state))

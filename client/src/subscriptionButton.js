@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { userContext } from './userContext.js'
 
 export default class SubscriptionButton extends React.Component {
+  _isMounted = false
   constructor(props) {
     super(props)
     this.state = {subscription: null, checked: false}
@@ -17,6 +18,7 @@ export default class SubscriptionButton extends React.Component {
       }
     }
     ).then(response => {
+      if (!this._isMounted) return
       if (response && response.id) {
         this.setState({subscription: response, checked: true})
       } else {
@@ -58,8 +60,13 @@ export default class SubscriptionButton extends React.Component {
       .catch(error => console.log(error))
   }
 
-  componentDidMount = () => {
+  componentDidMount () {
+    this._isMounted = true
     this.getSubscriptionData()
+  }
+
+  componentWillUnmount () {
+    this._isMounted = false
   }
 
   handleClick = () => {

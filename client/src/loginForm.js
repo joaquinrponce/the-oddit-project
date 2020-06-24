@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
 import { userContext } from './userContext'
 import * as jwtDecode from 'jwt-decode'
 
@@ -32,7 +31,6 @@ export default class LoginForm extends React.Component {
       headers: {'Content-Type': 'application/json' }
     })
     .then(response => {
-      console.log(response)
       if (response.ok && response.status === 201) {
         return response.json()
       } else if (response.status === 404) {
