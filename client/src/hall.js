@@ -2,7 +2,7 @@ import React from 'react'
 import PostsList from './postsList.js'
 import HallSidebar from './hallSidebar.js'
 import { Row, Col } from 'react-bootstrap'
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import Post from './post.js'
 
 class Hall extends React.Component {
@@ -30,6 +30,7 @@ class Hall extends React.Component {
 
   render () {
     if (!this.state.hall) return null
+    if (this.state.hall.status === 404) return <Redirect to="/404"/>
     return(
       <Row>
         <Col md='9'>

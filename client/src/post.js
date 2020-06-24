@@ -15,8 +15,10 @@ class Post extends React.Component {
   }
 
   getPostData () {
-    fetch(`/api/posts/${this.props.match.params.id}`).then(response => response.json()).then(
-      post => {
+    fetch(`/api` + this.props.location.pathname)
+    .then(response =>
+      response.json())
+    .then( post => {
         if (!this._isMounted) return
         this.setState({ post: post, newComment: false })
       }
