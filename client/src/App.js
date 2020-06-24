@@ -90,9 +90,10 @@ class App extends React.Component {
             <Route path="/logout">
               <Logout/>
             </Route>
-            <Route path={"/all" | "/new" | "/top" | "/feed" }>
+            <Route exact path={["/all", "/new", "/top", "/feed", "/"] }>
               <MainFeed/>
             </Route>
+            <Route component={NotFound}/>
           </Switch>
           </Col>
           </Row>

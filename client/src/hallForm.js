@@ -15,7 +15,7 @@ export default class HallForm extends React.Component {
 
   validateForm = () => {
     const newState = JSON.parse(JSON.stringify(this.state))
-    const regex = new RegExp(/^(\S[a-z0-9]*)$/)
+    const regex = new RegExp(/^([a-z0-9]*)$/)
     newState.errors = false
     if (!this.state.name.match(regex) || this.state.name.length > 30) {
       newState.errors = true
@@ -52,9 +52,9 @@ export default class HallForm extends React.Component {
         <Form.Group>
           <Form.Label>Name your hall</Form.Label>
           <Form.Control type='text' isInvalid={this.state.errors} onChange={this.handleChange}/>
-          <Form.Text className='text-muted'>Must contain no spaces, and must not be longer than 30 characters.</Form.Text>
+          <Form.Text className='text-muted'>Must contain no spaces, no caps, and must not be longer than 30 characters.</Form.Text>
         </Form.Group>
-        <Button type='submit'>Create</Button>
+        <Button disabled={this.state.errors} type='submit'>Create</Button>
       </Form>
     )
   }

@@ -9,7 +9,7 @@ export default class NotFound extends React.Component {
         <h1>404 Not Found</h1>
         <h5>Seems you've lost your way, brave warrior. You may want to go back home.</h5>
         <div>If you believe you should see content here, please contact the site admin.</div>
-        <Link to='/'>Go back</Link>
+        <Link to='/all'>Ahhh! Save me!</Link>
       </Container>
     )
   }

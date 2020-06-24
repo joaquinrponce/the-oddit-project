@@ -152,7 +152,7 @@ export default class PostForm extends React.Component {
           const newState = JSON.parse(JSON.stringify(this.state))
           newState.params = { title: '', body: '', url: '', image: '', hall: '' }
           newState.redirect = true
-          newState.redirectURL = `/posts/${response.id}`
+          newState.redirectURL = `/halls/${response.hall.name}/posts/${response.id}`
           this.props.hideModal()
           this.setState(newState, this.resetState)
         } else {
