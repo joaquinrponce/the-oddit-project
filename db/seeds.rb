@@ -13,12 +13,12 @@ gaming = Hall.create(name: 'gaming')
 technology = Hall.create(name: 'technology')
 
 if !Rails.env.production?
-  first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 3)
+  first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 'admin')
   second = User.create(name: 'Kokozordo', password: 'testo', password_confirmation: 'testo')
   users = [first, second]
 
   halls = [valhalla, theodinproject, music, gaming, technology]
-  
+
   content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
           laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in

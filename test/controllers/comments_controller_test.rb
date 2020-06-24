@@ -34,4 +34,12 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_response 201
     assert_equal @comment.replies.first.body, 'I am a reply'
   end
+
+  test "destroys a comment" do
+    assert_difference('Comment.count', -1) do
+      delete comment_url @comment, headers: { Authorization: "Bearer #{log_in}"}, as: :json
+      byebug
+    end
+    assert_response 204
+  end
 end

@@ -1,6 +1,7 @@
 class PostsController < ApiController
+
+  before_action :authenticate_user, only: [:feed, :create, :destroy]
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :authenticate_user, only: [:feed, :create]
   before_action :get_hall
 
   # GET /posts
@@ -50,7 +51,11 @@ class PostsController < ApiController
 
   # DELETE /posts/1
   def destroy
-    @post.destroy
+    if current_user.present?
+      @post.destroy
+    else
+      render json: @post, status: 401
+    end
   end
 
   private
@@ -66,5 +71,10 @@ class PostsController < ApiController
 
     def get_hall
       @hall = Hall.friendly.find(params[:hall_id]) if params[:hall_id].present?
+    end
+
+    def authenticate_user
+      super
+      puts current_user
     end
 end

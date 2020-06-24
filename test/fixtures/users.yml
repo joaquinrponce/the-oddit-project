@@ -3,9 +3,9 @@
 one:
   name: TestUser
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
-  role: 1
+  role: admin
 
 two:
-  name: TestUser
+  name: OtherUser
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
-  role: 1
+  role: 0

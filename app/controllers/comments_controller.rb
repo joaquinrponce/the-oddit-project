@@ -17,6 +17,11 @@ class CommentsController < ApiController
     render json: @comment, methods: [:score, :upvotes, :downvotes], include: {replies: {}, user: {only: [:id, :name]}}, except: [:user_id]
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+  end
+
   private
 
   def comment_params
