@@ -9,31 +9,14 @@ import SubscriptionButton from './subscriptionButton'
      this.state = {hall: null}
    }
 
-   getHallInfo = () => {
-     fetch(`/api/halls/${this.props.match.params.id.toLowerCase()}`)
-     .then(response => response.json())
-     .then(hall => this.setState({hall: hall}))
-     .catch(error => console.log(error))
-   }
-
-   componentDidMount() {
-     this.getHallInfo()
-   }
-
-   componentDidUpdate(prevProps, prevState) {
-     if (prevProps.match !== this.props.match) {
-       this.getHallInfo()
-     }
-   }
 
   render () {
-    if (!this.state.hall) return null
     return(
     <Container fluid className='mt-2'>
-      <h2 className='hall-header'> {this.props.match.params.id}</h2>
-      { this.props.match.params.id && <SubscriptionButton hall={this.props.match.params.id.toLowerCase()}/>}
-      <h5>{this.state.hall.post_count} posts</h5>
-      <h5>{this.state.hall.member_count} members</h5>
+      <h2 className='hall-header'> {this.props.hall.name}</h2>
+      <SubscriptionButton hall={this.props.hall.name}/>
+      <h5>{this.props.hall.post_count} posts</h5>
+      <h5>{this.props.hall.member_count} members</h5>
     </Container>
   )
   }

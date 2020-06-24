@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-import PostsList from './postsList.js'
-import Post from './post.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,10 +10,10 @@ import Navigation from './navigation.js'
 import {Container, Col, Row} from 'react-bootstrap'
 import {userContext} from './userContext.js'
 import Logout from './logout.js'
-import HallSidebar from './hallSidebar.js'
-import MainSidebar from './mainSidebar.js'
+import Hall from './hall.js'
 import HallsList from './hallsList.js'
 import NotFound from './notFound.js'
+import MainFeed from './mainFeed.js'
 import * as jwtDecode from 'jwt-decode'
 
 
@@ -81,29 +79,21 @@ class App extends React.Component {
             <Navigation/>
           <Container fluid className='mt-5'>
           <Row>
-          <Col md='9'>
-          <Switch>
-            <Route path="/all" render={(props) => <PostsList title={'all'}{...props}/>} />
-            <Route path="/new" render={(props) => <PostsList title={'new'}{...props}/>} />
-            <Route path="/top" render={(props) => <PostsList title={'top'}{...props}/>} />
-            <Route path="/halls/:id" render={(props) =>
-                                        <PostsList title={'woot'}{...props}/>
-                                    }
-                                    />
-            <Route path="/halls"><HallsList/></Route>
-            <Route path="/logout"><Logout/></Route>
-            <Route path={'/posts/:id'}>
-              <Post />
-            </Route>
-            { this.state.loggedIn && <Route path="/feed" user={this.state.user} render={(props) => <PostsList token={this.state.user.token} title={'feed'}{...props}/>} /> }
-            <Route path="/*" render={(props) => <PostsList title={'all'}{...props}/>} />
-          </Switch>
-          </Col>
           <Col>
-            <Switch>
-              <Route path="/halls/:id" render={(props) => <HallSidebar {...props}/>} />
-              <Route path="/*" render={(props) => <MainSidebar {...props}/>} />
-            </Switch>
+          <Switch>
+            <Route path="/halls/:id">
+              <Hall/>
+            </Route>
+            <Route path="/halls">
+              <HallsList/>
+            </Route>
+            <Route path="/logout">
+              <Logout/>
+            </Route>
+            <Route path={"/all" | "/new" | "/top" | "/feed" }>
+              <MainFeed/>
+            </Route>
+          </Switch>
           </Col>
           </Row>
           </Container>

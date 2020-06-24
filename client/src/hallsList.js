@@ -31,7 +31,7 @@ export default class HallsList extends React.Component {
   render () {
     if (!this.state.halls) return null
     return(
-      <Container className='mt-2'>
+      <Container fluid className='mt-2'>
         {this.renderHalls()}
       </Container>
     )

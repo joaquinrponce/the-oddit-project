@@ -5,8 +5,10 @@ import {
 } from 'react-router-dom'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
+import { userContext } from './userContext.js'
 
-export default class PostsList extends React.Component {
+class PostsList extends React.Component {
   _isMounted = false
   constructor (props) {
     super(props)
@@ -18,18 +20,18 @@ export default class PostsList extends React.Component {
   renderPosts () {
     const posts = []
     this.state.posts.forEach(post => {
-      posts.push(<PostCard user={this.props.user} key={post.id} post={post} postURL={`/posts/${post.id}`} hallURL={`/halls/${post.hall.name}`}/>)
+      posts.push(<PostCard user={this.props.user} key={post.id} post={post} postURL={`/halls/${post.hall.name}/posts/${post.id}`} hallURL={`/halls/${post.hall.name}`}/>)
     })
     return posts
   }
 
   getPosts () {
     let url = '/api/posts'
-    if (this.props.match.params.id) {
-      url = `/api/halls/${this.props.match.params.id.toLowerCase()}/posts`
+    if (this.props.hall) {
+      url = `/api/halls/${this.props.hall}/posts`
     }
-    switch (this.props.title) {
-      case 'feed':
+    switch (this.props.location.pathname) {
+      case '/feed':
           url =`/api/posts/feed`
           break
       default:
@@ -37,9 +39,16 @@ export default class PostsList extends React.Component {
     }
     fetch(url, {
       method: 'GET',
-      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.props.token }
-    }).then(response => response.json()).then(posts => {
+      headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token }
+    }).then(response => {
+      if (response.ok) {
+        return response.json()
+    } else {
+      return
+      }
+    }).then(posts => {
       if (!this._isMounted) return
+      if (!posts) return
       this.setState({ posts: posts })
     })
   }
@@ -50,7 +59,7 @@ export default class PostsList extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props.title !== prevProps.title) {
+    if (this.props !== prevProps) {
       this.getPosts()
     }
   }
@@ -70,15 +79,15 @@ export default class PostsList extends React.Component {
     }
     return (
       <Container fluid className='mt-2 post-list'>
-        <Switch>
-          <Route exact path={`${this.props.match.path}`}>
-            <Container fluid>
-              { this.renderPosts() }
-              { this.state.posts.length === 0 && <div>Nothing to see here</div> }
-            </Container>
-          </Route>
-        </Switch>
+        <Container fluid>
+          { this.renderPosts() }
+          { this.state.posts.length === 0 && <div>Nothing to see here</div> }
+        </Container>
       </Container>
     )
   }
 }
+
+PostsList.contextType = userContext
+
+export default withRouter(PostsList)

@@ -2,8 +2,9 @@ import React from 'react'
 import { Container, Button } from 'react-bootstrap'
 import HallModal from './hallModal.js'
 import {userContext} from './userContext'
+import { withRouter } from 'react-router-dom'
 
-export default class MainSidebar extends React.Component {
+class MainSidebar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {showHallModal: false}
@@ -33,3 +34,5 @@ export default class MainSidebar extends React.Component {
 }
 
 MainSidebar.contextType = userContext
+
+export default withRouter(MainSidebar)
