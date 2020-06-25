@@ -3,8 +3,8 @@ import {
   Link
 } from 'react-router-dom'
 import {  Row, Col, Container } from 'react-bootstrap'
-import VoteController from './voteController.js'
-import ContentControls from './contentControls.js'
+import VoteController from './controls/voteController.js'
+import ContentControls from './controls/contentControls.js'
 
 export default class PostCard extends React.Component {
   render () {

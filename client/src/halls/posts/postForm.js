@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
-import { userContext } from './userContext.js'
+import { userContext } from '../../userContext.js'
 
 export default class PostForm extends React.Component {
   constructor (props) {

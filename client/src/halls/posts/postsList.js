@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
 import { withRouter, Redirect } from 'react-router-dom'
-import { userContext } from './userContext.js'
+import { userContext } from '../../userContext.js'
 
 class PostsList extends React.Component {
   _isMounted = false

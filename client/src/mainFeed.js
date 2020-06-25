@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
-import PostsList from './postsList.js'
+import PostsList from './halls/posts/postsList.js'
 import MainSidebar from './mainSidebar.js'
 import { Col, Row } from 'react-bootstrap'
 

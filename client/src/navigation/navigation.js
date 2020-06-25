@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
-import { userContext } from './userContext.js'
+import { userContext } from '../userContext.js'
 import UserControls from './userControls.js'
 import PageControls from './pageControls.js'
 

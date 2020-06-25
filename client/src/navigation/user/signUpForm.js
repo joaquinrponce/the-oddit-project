@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { userContext } from './userContext.js'
+import { userContext } from '../../userContext.js'
 
 export default class SignUpForm extends React.Component {
   constructor(props){

@@ -1,5 +1,5 @@
 import React from 'react'
-import { userContext } from './userContext.js'
+import { userContext } from '../../../userContext.js'
 import VoteButton from './voteButton.js'
 import { Container } from 'react-bootstrap'
 

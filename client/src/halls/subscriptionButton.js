@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import { userContext } from './userContext.js'
+import { userContext } from '../userContext.js'
 
 export default class SubscriptionButton extends React.Component {
   _isMounted = false

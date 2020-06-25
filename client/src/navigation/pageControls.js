@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
-import { userContext } from './userContext.js'
+import { userContext } from '../userContext.js'
 
 export default class PageControls extends React.Component {
 

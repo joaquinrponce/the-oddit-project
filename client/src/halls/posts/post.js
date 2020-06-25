@@ -1,10 +1,10 @@
 import React from 'react'
 import { withRouter, Link, Redirect } from 'react-router-dom'
 import { Col, Row, Container } from 'react-bootstrap'
-import VoteController from './voteController'
-import CommentList from './commentList.js'
-import CommentForm from './commentForm.js'
-import Comment from './comment.js'
+import VoteController from './controls/voteController.js'
+import CommentList from './comments/commentList.js'
+import CommentForm from './comments/commentForm.js'
+import Comment from './comments/comment.js'
 
 class Post extends React.Component {
   _isMounted = false

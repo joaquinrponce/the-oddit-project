@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
-import {userContext} from './userContext.js'
-import Login from './login.js'
-import PostModal from './postModal.js'
-import SignUp from './signUp.js'
+import {userContext} from '../userContext.js'
+import Login from './user/login.js'
+import PostModal from '../halls/posts/postModal.js'
+import SignUp from './user/signUp.js'
 
 export default class UserControls extends React.Component {
   constructor(props) {

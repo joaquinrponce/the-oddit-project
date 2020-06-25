@@ -5,12 +5,12 @@ import {
   Switch,
   Route
 } from "react-router-dom"
-import Navigation from './navigation.js'
+import Navigation from './navigation/navigation.js'
 import {Container, Col, Row} from 'react-bootstrap'
 import {userContext} from './userContext.js'
-import Logout from './logout.js'
-import Hall from './hall.js'
-import HallsList from './hallsList.js'
+import Logout from './navigation/user/logout.js'
+import Hall from './halls/hall.js'
+import HallsList from './halls/hallsList.js'
 import NotFound from './notFound.js'
 import MainFeed from './mainFeed.js'
 import * as jwtDecode from 'jwt-decode'

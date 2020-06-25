@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Button } from 'react-bootstrap'
-import HallModal from './hallModal.js'
+import HallModal from './halls/hallModal.js'
 import {userContext} from './userContext'
 import { withRouter } from 'react-router-dom'
 

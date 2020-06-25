@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
-import { userContext } from './userContext.js'
+import { userContext } from '../../userContext.js'
 import LoginForm from './loginForm.js'
 
 export default class Login extends React.Component {

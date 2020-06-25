@@ -1,5 +1,5 @@
 import React from 'react'
-import { userContext } from './userContext.js'
+import { userContext } from '../../../userContext.js'
 
 export default class Delete extends React.Component {
 

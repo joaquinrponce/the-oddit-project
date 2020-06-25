@@ -1,9 +1,9 @@
 import React from 'react'
-import PostsList from './postsList.js'
+import PostsList from './posts/postsList.js'
 import HallSidebar from './hallSidebar.js'
 import { Row, Col } from 'react-bootstrap'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import Post from './post.js'
+import Post from './posts/post.js'
 
 class Hall extends React.Component {
   constructor(props) {
