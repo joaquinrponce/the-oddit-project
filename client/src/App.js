@@ -30,12 +30,13 @@ class App extends React.Component {
 
   logInUser = (user) => {
     const newState = Object.assign(this.state)
-    newState.user = {name: user.name, id: user.id, token: user.token}
+    newState.user = {name: user.name, id: user.id, token: user.token, role: user.role}
     newState.loggedIn = true
     localStorage.setItem("currentUser", JSON.stringify({
       name: user.name,
       id: user.id,
       token: user.token,
+      role: user.role
     }))
     this.setState(newState)
   }
@@ -60,7 +61,7 @@ class App extends React.Component {
     if (currentUser && currentUser.token) {
       if (!this.tokenIsExpired(currentUser.token)) {
         const newState = Object.assign(this.state)
-        newState.user = {name: currentUser.name, id: currentUser.id, token: currentUser.token}
+        newState.user = {name: currentUser.name, id: currentUser.id, token: currentUser.token, role: currentUser.role}
         newState.loggedIn = true
         this.setState(newState)
     } else {
@@ -71,6 +72,7 @@ class App extends React.Component {
 
 
   render() {
+    console.log(this.state)
     return (
       <userContext.Provider value={this.state}>
       <Container fluid>

@@ -113,8 +113,14 @@ a:not(.disabled) {
   text-decoration: none !important;
 }
 
-.post-card-comments-link {
+.post-card-controls {
+  display: flex;
+  flex-direction: row;
   font-size: 9pt;
+}
+
+.post-card-controls div {
+  margin-right: 5px;
 }
 
 .post-info {

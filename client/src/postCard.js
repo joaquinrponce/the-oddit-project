@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom'
 import {  Row, Col, Container } from 'react-bootstrap'
 import VoteController from './voteController.js'
+import ContentControls from './contentControls.js'
 
 export default class PostCard extends React.Component {
   render () {
@@ -24,7 +25,7 @@ export default class PostCard extends React.Component {
           <div>
             <img className='post-card-img' alt='post-attachment' src={this.props.post.image.url}/>
           </div>}
-          <Link className='post-card-comments-link' to={this.props.postURL}>{this.props.post.comments_count} comments</Link>
+          <ContentControls id={this.props.post.user.id} type='post' path={this.props.postURL} comments_count={this.props.post.comments_count}/>
         </Col>
         </Row>
       </Container>
