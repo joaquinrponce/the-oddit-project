@@ -27,7 +27,7 @@ class User < ApplicationRecord
     Knock::AuthToken.new(payload: {sub: {id: self.id, name: self.name, role: self.role}}).token
   end
 
-  def self.admin?
+  def admin?
     self.role == "admin"
   end
 

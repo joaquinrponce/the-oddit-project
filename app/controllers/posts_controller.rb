@@ -51,7 +51,7 @@ class PostsController < ApiController
 
   # DELETE /posts/1
   def destroy
-    if current_user.present?
+    if current_user.present? && (current_user.admin? || current_user.id === @post.user_id )
       @post.destroy
     else
       render json: @post, status: 401

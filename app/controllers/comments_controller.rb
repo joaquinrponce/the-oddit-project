@@ -1,5 +1,6 @@
 class CommentsController < ApiController
   before_action :authenticate_user, only: [:create, :update, :destroy]
+  before_action :set_comment, only: [:show, :update, :destroy]
 
   def create
     @comment = Comment.new(comment_params)
@@ -12,17 +13,22 @@ class CommentsController < ApiController
   end
 
   def show
-    @comment = Comment.find(params[:id])
-
     render json: @comment, methods: [:score, :upvotes, :downvotes], include: {replies: {}, user: {only: [:id, :name]}}, except: [:user_id]
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
+    if current_user.present? && (current_user.admin? || current_user.id === @comment.user_id )
+      @comment.destroy
+    else
+      render json: @comment, status: 401
+    end
   end
 
   private
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 
   def comment_params
     params.require(:comment).permit(:user_id, :commentable_id, :commentable_type, :body)

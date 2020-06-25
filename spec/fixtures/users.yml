@@ -8,4 +8,4 @@ one:
 two:
   name: OtherUser
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
-  role: notadmin
+  role: 0
