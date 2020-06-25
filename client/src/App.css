@@ -113,13 +113,13 @@ a:not(.disabled) {
   text-decoration: none !important;
 }
 
-.post-card-controls {
+.content-controls {
   display: flex;
   flex-direction: row;
   font-size: 9pt;
 }
 
-.post-card-controls div {
+.content-controls div {
   margin-right: 5px;
 }
 

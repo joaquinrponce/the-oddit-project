@@ -3,6 +3,7 @@ import CommentList from './commentList.js'
 import { Container, Col, Row } from 'react-bootstrap'
 import VoteController from './voteController.js'
 import CommentForm from './commentForm.js'
+import ContentControls from './contentControls.js'
 
 export default class Comment extends React.Component {
   constructor(props) {
@@ -25,7 +26,8 @@ export default class Comment extends React.Component {
   }
 
 
-  showCommentForm = () => {
+  showCommentForm = (e) => {
+    e.preventDefault()
     this.setState({showCommentForm: !this.state.showCommentForm, newComments: this.state.newComments})
   }
 
@@ -39,7 +41,7 @@ export default class Comment extends React.Component {
           <Col className='comment-content'>
             <div className='comment-info mb-2 text-muted'>{this.props.comment.user.name} says</div>
             <div className='comment-body'>{this.props.comment.body}</div>
-            <div className='comment-control' onClick={this.showCommentForm}>Reply</div>
+            <ContentControls id={this.props.comment.user.id} path={`/comments/${this.props.comment.id}`} type='comment' showCommentForm={this.showCommentForm}/>
           </Col>
         </Row>
         { this.state.showCommentForm && <CommentForm updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
