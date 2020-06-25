@@ -10,7 +10,7 @@ export default class EditComment extends React.Component {
         body: comment
       }
     }
-    fetch(`/api/comments/${this.props.commentable.id}`, {
+    fetch(`/api/comments/${this.props.commentableId}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
       body: JSON.stringify(request)
@@ -21,6 +21,7 @@ export default class EditComment extends React.Component {
         console.log('error')
       }
     }).then(response => {
+      console.log(response)
       this.props.updateParent(response)
     }
     )
@@ -33,3 +34,5 @@ export default class EditComment extends React.Component {
     )
   }
 }
+
+EditComment.contextType = userContext

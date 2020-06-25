@@ -20,8 +20,8 @@ export default class Delete extends React.Component {
   }
   render () {
     return (
-      <div>
-      <a href="#" onClick={this.handleClick}>Delete</a>
+      <div className='content-control'>
+      <button className='control-button' onClick={this.handleClick}>Delete</button>
       </div>
     )
   }

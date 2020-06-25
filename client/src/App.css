@@ -64,19 +64,8 @@ a:not(.disabled) {
   padding: 0px !important;
 }
 
-.comment {
-
-}
-
 .comment div {
   padding: 0px;
-}
-
-.comment-control {
-  cursor: pointer;
-  user-select: none;
-  font-size: 11pt;
-  color: #cc9543;
 }
 
 .comment-info {
@@ -117,10 +106,24 @@ a:not(.disabled) {
   display: flex;
   flex-direction: row;
   font-size: 9pt;
+  align-items: center;
 }
 
-.content-controls div {
+.control-button {
+  color: #cc9543;
+  border: none;
+  background: none;
+  padding-left: 0px;
+  padding-right: 0px;
   margin-right: 5px;
+}
+
+.control-button:hover {
+  text-decoration: underline;
+}
+
+.control-button:focus {
+  outline: none;
 }
 
 .post-info {

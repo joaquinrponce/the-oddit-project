@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import PostControls from './postControls.js'
+import CommentControls from './commentControls.js'
 import Delete from './delete.js'
 import Can from '../../permissions/can.js'
 import { userContext } from '../../../userContext.js'
@@ -8,16 +9,8 @@ export default class ContentControls extends React.Component {
   render () {
     return(
       <div className='content-controls'>
-      { this.props.type === 'post' && <div>
-      <Link className='post-card-comments-link' to={this.props.path}>{this.props.comments_count} comments</Link>
-      </div> }
-      { this.props.type ==='comment' && <div><a href="#"onClick={this.props.showCommentForm}>Reply</a></div> }
-      <Can
-      role={this.context.user.role}
-      perform={`${this.props.type}s:edit`}
-      data={{userId: this.context.user.id, authorId: this.props.id}}
-      no={null}
-      yes={<div><a href="#"onClick={this.props.showEditForm}>Edit</a></div>}/>
+      { this.props.type === 'post' && <PostControls type='post' path={this.props.path} commentsCount={this.props.comments_count}/> }
+      { this.props.type === 'comment' && <CommentControls data={{userId: this.context.user.id, authorId: this.props.id}} type='comment' showCommentForm={this.props.showCommentForm} showEditForm={this.props.showEditForm}/> }
       <Can
       role={this.context.user.role}
       perform={`${this.props.type}s:destroy`}

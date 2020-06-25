@@ -30,6 +30,7 @@ RSpec.describe "Posts", type: :request do
       expect(response).to have_http_status(201)
     end
   end
+
   describe "DELETE /posts" do
     fixtures :users, :halls
     before(:each) do
@@ -58,6 +59,37 @@ RSpec.describe "Posts", type: :request do
     it "allows admin to delete any posts" do
       delete post_path(@other_post), headers: auth(@user)
       expect(response).to have_http_status(204)
+    end
+  end
+
+  describe "PATCH /posts" do
+    fixtures :users, :halls
+    before(:each) do
+      @hall = halls(:one)
+      @user = users(:one)
+      @other_user = users(:two)
+      @post = @user.posts.create(title:'test', body: 'test', hall: @hall)
+      @other_post = @other_user.posts.create(title: 'test', body: 'test', hall: @hall)
+    end
+
+    it "does not allow unauthorized patch requests" do
+      patch post_path(@post)
+      expect(response).to have_http_status(401)
+    end
+
+    it "does not allow non-admin user to patch other peoples posts" do
+      patch post_path(@post), headers: auth(@other_user), params: { title: 'update-test', body: 'body-test'}
+      expect(response).to have_http_status(401)
+    end
+
+    it "allows author to patch their own posts" do
+      patch post_path(@other_post), headers: auth(@other_user), params: { title: 'update-test', body: 'body-test'}
+      expect(response).to have_http_status(200)
+    end
+
+    it "allows admin to patch any posts" do
+      patch post_path(@other_post), headers: auth(@user), params: { title: 'update-test', body: 'body-test'}
+      expect(response).to have_http_status(200)
     end
   end
 end

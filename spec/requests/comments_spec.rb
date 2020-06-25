@@ -53,4 +53,35 @@ RSpec.describe "Comments", type: :request do
       expect(response).to have_http_status(204)
     end
   end
+
+  describe "PATCH /comments" do
+    fixtures :users, :posts
+    before(:each) do
+      @user = users(:one)
+      @post = posts(:first)
+      @other_user = users(:two)
+      @comment = @user.comments.create(body: 'meowzers', commentable_type: 'Post', commentable_id: @post.id)
+      @other_comment = @other_user.comments.create(body: 'meowzers', commentable_type: 'Post', commentable_id: @post.id)
+    end
+
+    it "does not allow unauthorized patch requests" do
+      patch comment_path(@comment)
+      expect(response).to have_http_status(401)
+    end
+
+    it "does not allow non-admin user to edit other peoples comments" do
+      patch comment_path(@comment), headers: auth(@other_user)
+      expect(response).to have_http_status(401)
+    end
+
+    it "allows author to edit their own comments" do
+      patch comment_path(@other_comment), headers: auth(@other_user), params: { comment: {body: 'test'}}
+      expect(response).to have_http_status(200)
+    end
+
+    it "allows admin to edit any comments" do
+      patch comment_path(@other_comment), headers: auth(@user), params: { comment: {body: 'test'}}
+      expect(response).to have_http_status(200)
+    end
+  end
 end

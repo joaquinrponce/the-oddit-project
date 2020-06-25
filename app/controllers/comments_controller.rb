@@ -24,6 +24,18 @@ class CommentsController < ApiController
     end
   end
 
+  def update
+    if current_user.present? && (current_user.admin? || current_user.id === @comment.user_id )
+      if @comment.update(comment_params)
+        render json: @comment, status: 200
+      else
+        render json: @comment, status: :unprocessable_entity
+      end
+    else
+      render json: @comment, status: 401
+    end
+  end
+
   private
 
   def set_comment

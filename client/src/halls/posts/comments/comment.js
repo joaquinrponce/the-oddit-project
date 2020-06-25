@@ -2,7 +2,6 @@ import React from 'react'
 import CommentList from './commentList.js'
 import { Container, Col, Row } from 'react-bootstrap'
 import VoteController from '../controls/voteController.js'
-import CommentForm from './commentForm.js'
 import ContentControls from '../controls/contentControls.js'
 import CreateComment from './createComment.js'
 import EditComment from './editComment.js'
@@ -30,6 +29,7 @@ export default class Comment extends React.Component {
   updateForEdit = (comment) => {
     const newState = JSON.parse(JSON.stringify(this.state))
     newState.newCommentBody = comment.body
+    newState.showEditForm = false
     this.setState(newState)
   }
 
@@ -59,7 +59,7 @@ export default class Comment extends React.Component {
           </Col>
           <Col className='comment-content'>
             <div className='comment-info mb-2 text-muted'>{this.props.comment.user.name} says</div>
-            <div className='comment-body'>{this.state.editedComment || this.props.comment.body}</div>
+            <div className='comment-body'>{this.state.newCommentBody || this.props.comment.body}</div>
             <ContentControls id={this.props.comment.user.id} path={`/comments/${this.props.comment.id}`} type='comment' showCommentForm={this.toggleCommentForm} showEditForm={this.toggleEditForm}/>
           </Col>
         </Row>

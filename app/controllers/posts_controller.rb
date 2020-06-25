@@ -42,10 +42,14 @@ class PostsController < ApiController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
-      render json: @post
+    if current_user.present? && (current_user.admin? || current_user.id === @post.user_id )
+      if @post.update(post_params)
+        render json: @post, status: 200
+      else
+        render json: @post, status: :unprocessable_entity
+      end
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post, status: 401
     end
   end
 

@@ -2,6 +2,7 @@ const rules = {
   0: {
     static: [
       "posts:create",
+      "comments:create",
       "halls:create",
       "feed:visit",
     ],

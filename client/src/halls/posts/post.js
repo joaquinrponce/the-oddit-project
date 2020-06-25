@@ -5,6 +5,7 @@ import VoteController from './controls/voteController.js'
 import CommentList from './comments/commentList.js'
 import CommentForm from './comments/commentForm.js'
 import Comment from './comments/comment.js'
+import CreateComment from './comments/createComment.js'
 
 class Post extends React.Component {
   _isMounted = false
@@ -75,7 +76,7 @@ class Post extends React.Component {
           <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
           </Col>
           </Row>
-      <CommentForm updateParent={this.updateForNewComments} commentableId={this.state.post.id} commentableType='Post'/>
+      <CreateComment updateParent={this.updateForNewComments} commentableId={this.state.post.id} commentableType='Post'/>
       { this.renderNewComments() }
       <CommentList indent={1} comments={this.state.post.comments}/>
       </Container>
