@@ -15,6 +15,7 @@ export default class Delete extends React.Component {
         return
       } else {
         console.log(response)
+        return
       }
     })
   }

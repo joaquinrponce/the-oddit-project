@@ -38,7 +38,7 @@ export default class UserControls extends React.Component {
           <Nav.Link as='div'>Guest</Nav.Link>
       }
       { this.context.loggedIn &&
-          <Nav.Link as='div'>{this.context.user.name}</Nav.Link>
+          <Nav.Link className='user-nav-link' as='div'>{this.context.user.name}</Nav.Link>
       }
       { this.context.loggedIn &&
           <Nav.Link as='button' onClick={this.togglePostModal}>+ New Post</Nav.Link>

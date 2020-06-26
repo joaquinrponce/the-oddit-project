@@ -1,9 +1,9 @@
 import React from 'react'
 import { withRouter, Link, Redirect } from 'react-router-dom'
 import { Col, Row, Container } from 'react-bootstrap'
+import LinkPreview from './linkPreview.js'
 import VoteController from './controls/voteController.js'
 import CommentList from './comments/commentList.js'
-import CommentForm from './comments/commentForm.js'
 import Comment from './comments/comment.js'
 import CreateComment from './comments/createComment.js'
 
@@ -11,7 +11,7 @@ class Post extends React.Component {
   _isMounted = false
   constructor (props) {
     super(props)
-    this.state = { post: null, newComments: [] }
+    this.state = { preview: null, post: null, newComments: [] }
     this.getPostData = this.getPostData.bind(this)
   }
 
@@ -21,7 +21,7 @@ class Post extends React.Component {
       response.json())
     .then( post => {
         if (!this._isMounted) return
-        this.setState({ post: post, newComment: false })
+        this.setState({ post: post, newComments: [] })
       }
     )
   }
@@ -61,10 +61,13 @@ class Post extends React.Component {
       <Redirect to="/404"/>
     )
     return (
-      <Container>
-          <Row>
+      <Container className='post-container'>
+          <Row className='post'>
           <Col className='vote-controller-container vote-post-controller' xs='auto' sm='auto' md='auto' lg='auto'>
           <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
+          </Col>
+          <Col xs='auto' sm='auto' md='auto' lg='auto' className='post-preview-container'>
+          { this.state.post.url && <LinkPreview url={this.state.post.url}/> }
           </Col>
           <Col>
           <div className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by {this.state.post.user.name}

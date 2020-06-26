@@ -5,17 +5,12 @@ import {
 import {  Row, Col, Container } from 'react-bootstrap'
 import VoteController from './controls/voteController.js'
 import ContentControls from './controls/contentControls.js'
-import { ReactTinyLink } from 'react-tiny-link'
-import PostCardPreview from './postCardPreview.js'
+import LinkPreview from './linkPreview.js'
 
 export default class PostCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {preview: null}
-  }
-
-  renderPreview = (data) => {
-    this.setState({preview: <PostCardPreview data={data}/>})
   }
 
   render () {
@@ -26,10 +21,7 @@ export default class PostCard extends React.Component {
           <VoteController voteableId={this.props.post.id} score={this.props.post.score} voteableType='Post'/>
         </Col>
         <Col xs='auto' sm='auto' md='auto' lg='auto' className='post-preview-container'>
-        { this.props.post.url &&
-          <div className='tiny-link-card'>
-          <ReactTinyLink url={this.props.post.url} onSuccess={(data) => this.renderPreview(data)}/></div>}
-        { this.state.preview }
+        { this.props.post.url && <LinkPreview url={this.props.post.url}/> }
         { this.props.post.image.url &&
         <div>
           <img className='post-card-img' alt='post-attachment' src={this.props.post.image.url}/>
@@ -40,7 +32,7 @@ export default class PostCard extends React.Component {
           </div>
           <div className='post-card-title-container'><Link className='post-card-title' to={this.props.postURL}>{this.props.post.title}</Link></div>
           { this.props.post.url &&
-          <div className='post-card-link'> <a className='post-link' href={this.props.post.url}><span role='img' aria-label='link-emoji'>🔗</span> {this.props.post.url}</a></div>}
+          <div className='post-card-link'> <a className='post-link' href={this.props.post.url}>{this.props.post.url}</a></div>}
           <ContentControls id={this.props.post.user.id} type='post' path={this.props.postURL} comments_count={this.props.post.comments_count}/>
         </Col>
         </Row>

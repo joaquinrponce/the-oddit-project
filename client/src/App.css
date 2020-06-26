@@ -18,6 +18,10 @@ body {
   color: #cc9543 !important
 }
 
+.user-nav-link {
+  cursor: default;
+}
+
 /* vote controller styling */
 .upvote, .downvote {
   font-size: 20pt;
@@ -68,9 +72,9 @@ body {
 .post-card {
   padding-left: 0px !important;
   padding-right: 0px !important;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   margin-left: 0px !important;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   border-bottom: 1px solid rgb(220, 220, 220);
 }
 
@@ -83,6 +87,14 @@ body {
 
 .post-card-info {
   font-size: 9pt
+}
+
+.post-card-content {
+  margin-left: 10px;
+}
+
+.post-preview-container {
+  padding: 0px
 }
 
 /* color links in info row */
@@ -111,6 +123,11 @@ body {
   align-items: center;
 }
 
+/* no padding on post view preview */
+.post .post-preview-container {
+  padding: 0;
+}
+
 /* hide tiny-link component */
 
 .tiny-link-card {
@@ -134,6 +151,13 @@ body {
 }
 
 /*comments styling*/
+
+.comment {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
 
 .comment-list {
   margin-top: 10px;

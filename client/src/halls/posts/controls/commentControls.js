@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import EditComment from './editComment.js'
 import Reply from './reply.js'
 import Can from '../../permissions/can.js'
