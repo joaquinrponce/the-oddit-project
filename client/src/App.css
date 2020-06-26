@@ -141,8 +141,8 @@ a:not(.disabled) {
 .post-link  {
   overflow-wrap: break-word;
   word-wrap: break-word;
+  color: green;
 }
-
 
 .indent-2 {
   margin-left: 10px !important;

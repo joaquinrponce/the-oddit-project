@@ -5,6 +5,7 @@ import {
 import {  Row, Col, Container } from 'react-bootstrap'
 import VoteController from './controls/voteController.js'
 import ContentControls from './controls/contentControls.js'
+import { ReactTinyLink } from 'react-tiny-link'
 
 export default class PostCard extends React.Component {
   render () {
@@ -20,6 +21,8 @@ export default class PostCard extends React.Component {
           <div className='post-card-title'><Link to={this.props.postURL}>{this.props.post.title}</Link></div>
           { this.props.post.url &&
           <div className='post-card-link'> <a className='post-link' href={this.props.post.url}><span role='img' aria-label='link-emoji'>🔗</span> {this.props.post.url}</a></div>}
+          { this.props.post.url &&
+            <ReactTinyLink cardSize='small' header={''} showGraphic={true} maxLine={1} minLine={1} url={this.props.post.url}/>}
           { this.props.post.image.url &&
           <div>
             <img className='post-card-img' alt='post-attachment' src={this.props.post.image.url}/>
