@@ -76,10 +76,8 @@ class PostsList extends React.Component {
     }
     return (
       <Container fluid className='mt-2 post-list'>
-        <Container fluid>
           { this.renderPosts() }
           { this.state.posts.length === 0 && <div>Nothing to see here</div> }
-        </Container>
       </Container>
     )
   }

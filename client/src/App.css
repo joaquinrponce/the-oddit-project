@@ -1,20 +1,24 @@
+/* account for navbar taking space*/
+
 body {
   padding-top: 20px;
 }
 
-a:not(.disabled) {
-  color: #cc9543 !important;
-}
-
-.nav-link:not(.disabled) {
-  color: #cc9543 !important;
-}
+/* signup form error styling */
 
 .invalid-credentials {
   font-size: 10pt;
   color: red;
   margin-top: 8px;
 }
+
+/*additional navigation styling*/
+
+.nav-link {
+  color: #cc9543 !important
+}
+
+/* vote controller styling */
 .upvote, .downvote {
   font-size: 20pt;
   color: #afa9a9;
@@ -37,21 +41,6 @@ a:not(.disabled) {
   transform: scale(0.8)
 }
 
-.score {
-  font-size: 15pt;
-}
-
-.post-card-img {
-  max-width: 75px;
-  height: 75px;
-  margin-top: 12px;
-  object-fit: cover;
-}
-
-.comment-list {
-  margin-top: 10px;
-}
-
 .vote-comment {
   transform: scale(.7)
 }
@@ -62,6 +51,92 @@ a:not(.disabled) {
 
 .vote-post-controller {
   padding: 0px !important;
+}
+
+.score {
+  font-size: 15pt;
+}
+
+/* post card styling*/
+
+/* padding is ugly*/
+
+.post-list div {
+  padding-left: 0px;
+}
+
+.post-card {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-bottom: 5px;
+  margin-left: 0px !important;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.post-card-img {
+  width: 13vh;
+  height: 13vh;
+  margin-top: 12px;
+  object-fit: cover;
+}
+
+.post-card-info {
+  font-size: 9pt
+}
+
+/* color links in info row */
+
+.post-card-info a {
+  color: #cc9543;
+}
+
+.post-card-title {
+  color: black !important;
+  font-size: 11pt;
+  text-decoration: none !important;
+}
+
+
+/* links wrap for smaller devices */
+
+.post-link  {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-size: 10pt;
+}
+
+.post-preview-container {
+  display: flex;
+  align-items: center;
+}
+
+/* hide tiny-link component */
+
+.tiny-link-card {
+  display: none;
+}
+
+/*general post styling */
+
+.post-info {
+  font-size: 10pt;
+}
+
+.post-title {
+  color: black;
+}
+
+/* post images bigger  in full view */
+
+.post-image {
+  max-width: 100%;
+}
+
+/*comments styling*/
+
+.comment-list {
+  margin-top: 10px;
 }
 
 .comment div {
@@ -79,28 +154,29 @@ a:not(.disabled) {
   border-bottom: 1px solid rgb(220, 220, 220);
 }
 
-.post-list div {
-  padding-left: 0px;
+/*indent replies for easier readability */
+
+.indent-2 {
+  margin-left: 10px !important;
 }
 
-.post-card {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  margin-bottom: 5px;
-  margin-left: 0px !important;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(220, 220, 220);
+.indent-3 {
+  margin-left: 15px !important;
 }
 
-.post-card-info {
-  font-size: 9pt
+.indent-4 {
+  margin-left: 20px !important;
 }
 
-.post-card-title a {
-  color: black !important;
-  font-size: 11pt;
-  text-decoration: none !important;
+.indent-5 {
+  margin-left: 25px !important;
 }
+
+.indent-6 {
+  margin-left: 30px !important;
+}
+
+/*control links styling*/
 
 .content-controls {
   display: flex;
@@ -126,40 +202,46 @@ a:not(.disabled) {
   outline: none;
 }
 
-.post-info {
-  font-size: 10pt;
-}
+/*media queries*/
 
-.post-title {
-  color: black;
-}
+@media screen and (max-width: 480px) {
+  .post-card-content {
+    font-size: 8pt;
+  }
 
-.post-image {
-  max-width: 100%;
-}
+  .post-card-title {
+    font-size: 10pt;
+  }
 
-.post-link  {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  color: green;
-}
+  /*votes on the right side of screen where thumb reaches*/
 
-.indent-2 {
-  margin-left: 10px !important;
-}
+  .vote-controller-container {
+    order: 5 !important;
+    display: flex;
+    align-items: center;
+  }
 
-.indent-3 {
-  margin-left: 15px !important;
-}
+  /*i tell you, padding is ugly*/
 
-.indent-4 {
-  margin-left: 20px !important;
-}
+  .vote-controller {
+    padding-right: 0 !important
+  }
 
-.indent-5 {
-  margin-left: 25px !important;
-}
+  .main {
+    padding: 0 !important
+  }
 
-.indent-6 {
-  margin-left: 30px !important;
+  .main-posts-container {
+    padding-left: 10px !important;
+    padding-right: 5px !important;
+  }
+
+  /*appropiate post card img size */
+  .post-card-img {
+    width: 10vh;
+    height: 8vh;
+    margin-top: 12px;
+    object-fit: cover;
+  }
+
 }

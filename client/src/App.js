@@ -74,10 +74,10 @@ class App extends React.Component {
   render() {
     return (
       <userContext.Provider value={this.state}>
-      <Container fluid>
+      <Container className='main' fluid>
         <Router>
             <Navigation/>
-          <Container fluid className='mt-5'>
+          <Container fluid className='main-posts-container mt-5'>
           <Row>
           <Col>
           <Switch>
