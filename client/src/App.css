@@ -133,8 +133,14 @@ a:not(.disabled) {
 .post-title {
   color: black;
 }
+
 .post-image {
   max-width: 100%;
+}
+
+.post-link  {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 
