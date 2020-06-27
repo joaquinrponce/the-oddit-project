@@ -17,6 +17,9 @@ import SubscriptionButton from './subscriptionButton'
       <SubscriptionButton hall={this.props.hall.name}/>
       <h5>{this.props.hall.post_count} posts</h5>
       <h5>{this.props.hall.member_count} members</h5>
+      <div className='hall-description'>
+      {this.props.hall.description}
+      </div>
     </Container>
   )
   }

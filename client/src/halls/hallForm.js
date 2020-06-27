@@ -6,30 +6,38 @@ import { userContext } from '../userContext.js'
 export default class HallForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {name: '', redirect: false, errors: false}
+    this.state = {name: '', description: '', redirect: false, formInvalid: false, errors: { name: false, description: false}}
   }
 
   handleChange = (e) => {
-    this.setState({name: e.target.value}, this.validateForm)
+    const newState = JSON.parse(JSON.stringify(this.state))
+    newState[e.target.name] = e.target.value
+    this.setState(newState, this.validateForm)
   }
 
   validateForm = () => {
     const newState = JSON.parse(JSON.stringify(this.state))
     const regex = new RegExp(/^([a-z0-9]*)$/)
-    newState.errors = false
+    newState.errors = {name: false, description: false}
+    newState.formInvalid = false
     if (!this.state.name.match(regex) || this.state.name.length > 30) {
-      newState.errors = true
+      newState.errors.name = true
+      newState.formInvalid = true
+    }
+    if (this.state.description.length > 500) {
+      newState.errors.description = true
+      newState.formInvalid = true
     }
     this.setState(newState)
   }
 
   submitHall = (e) => {
     e.preventDefault()
-    if (this.state.errors) return
+    if (this.state.formInvalid) return
     fetch('/api/halls', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
-      body: JSON.stringify({hall: {name: this.state.name}})
+      body: JSON.stringify({hall: {name: this.state.name, description: this.state.description}})
     }).then(response => {
       if (response.ok) {
         response.json()
@@ -50,11 +58,14 @@ export default class HallForm extends React.Component {
     return (
       <Form onSubmit={this.submitHall}>
         <Form.Group>
-          <Form.Label>Name your hall</Form.Label>
-          <Form.Control type='text' isInvalid={this.state.errors} onChange={this.handleChange}/>
+          <Form.Label>Name</Form.Label>
+          <Form.Control type='text' name='name' isInvalid={this.state.errors.name} onChange={this.handleChange}/>
           <Form.Text className='text-muted'>Must contain no spaces, no caps, and must not be longer than 30 characters.</Form.Text>
+          <Form.Label>Description</Form.Label>
+          <Form.Control as='textarea' name='description' isInvalid={this.state.errors.description} onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>A description of what your hall is about. Will be shown on the sidebar of your hall's page.</Form.Text>
         </Form.Group>
-        <Button disabled={this.state.errors} type='submit'>Create</Button>
+        <Button disabled={this.state.formInvalid} type='submit'>Create</Button>
       </Form>
     )
   }

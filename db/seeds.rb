@@ -6,18 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-valhalla = Hall.create(name: 'valhalla')
-theodinproject =  Hall.create(name: 'theodinproject')
-music = Hall.create(name: 'music')
-gaming = Hall.create(name: 'gaming')
-technology = Hall.create(name: 'technology')
+theodinproject =  Hall.create(name: 'theodinproject', description: 'A hall dedicated to TheOdinProject, an open source online curriculum for learning web development.')
+music = Hall.create(name: 'music', description: 'A hall for all things music related: songs, artists, media, and more.')
+gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betrayals, steam sales, victory screenshots, and more!')
+technology = Hall.create(name: 'technology', description: 'News and info on modern technologies.')
 
 if !Rails.env.production?
   first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 'admin')
   second = User.create(name: 'Kokozordo', password: 'testo', password_confirmation: 'testo')
   users = [first, second]
 
-  halls = [valhalla, theodinproject, music, gaming, technology]
+  halls = [theodinproject, music, gaming, technology]
 
   content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -34,7 +33,7 @@ if !Rails.env.production?
   ]
 
 
-  2.times do
+  3.times do
     user = users.sample
     halls.each do |hall|
       post = user.posts.create(title: titles.sample, body: content, hall: hall)

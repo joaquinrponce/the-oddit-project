@@ -24,7 +24,7 @@ class HallsController < ApiController
   end
 
   def hall_params
-    params.require(:hall).permit(:name)
+    params.require(:hall).permit(:name, :description)
   end
 
 end
