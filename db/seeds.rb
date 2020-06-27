@@ -6,10 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-theodinproject =  Hall.create(name: 'theodinproject', description: 'A hall dedicated to TheOdinProject, an open source online curriculum for learning web development.')
-music = Hall.create(name: 'music', description: 'A hall for all things music related: songs, artists, media, and more.')
-gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betrayals, steam sales, victory screenshots, and more!')
-technology = Hall.create(name: 'technology', description: 'News and info on modern technologies.')
+theodinproject =  Hall.create(name: 'theodinproject', description:
+  'A hall dedicated to **TheOdinProject**, an open source online curriculum for learning web development. Find it at: https://theodinproject.com')
+music = Hall.create(name: 'music', description: 'A hall for all things **music** related: **songs, artists, media,** and more.')
+gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betrayals, **steam sales**, victory screenshots, and more!')
+technology = Hall.create(name: 'technology', description: '**News** and **info** on modern technologies.')
 
 if !Rails.env.production?
   first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 'admin')
