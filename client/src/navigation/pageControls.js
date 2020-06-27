@@ -9,20 +9,14 @@ export default class PageControls extends React.Component {
     return ( <Nav variant="tabs">
       { this.context.loggedIn &&
       <Nav.Link as={Link} to="/feed">
-          Home
+          My Halls
       </Nav.Link>
       }
       <Nav.Link as={Link} to="/all">
             All
       </Nav.Link>
-      <Nav.Link as={Link} to="/new">
-            New
-      </Nav.Link>
-      <Nav.Link as={Link} to="/top">
-          Top
-      </Nav.Link>
       <Nav.Link as={Link} to="/halls">
-          Halls
+          List of Halls
       </Nav.Link>
     </Nav>
     )

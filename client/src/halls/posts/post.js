@@ -67,6 +67,7 @@ class Post extends React.Component {
           <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
           </Col>
           <Col xs='auto' sm='auto' md='auto' lg='auto' className='post-preview-container'>
+          { !this.state.post.url && !this.state.post.image.url && <img alt='oddit-icon' className='post-card-img' src="/favicon.ico"/>}
           { this.state.post.url && <LinkPreview url={this.state.post.url}/> }
           </Col>
           <Col>

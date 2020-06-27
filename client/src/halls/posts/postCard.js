@@ -21,6 +21,7 @@ export default class PostCard extends React.Component {
           <VoteController voteableId={this.props.post.id} score={this.props.post.score} voteableType='Post'/>
         </Col>
         <Col xs='auto' sm='auto' md='auto' lg='auto' className='post-preview-container'>
+        { !this.props.post.url && !this.props.post.image.url && <img alt='oddit-icon' className='post-card-img' src="/favicon.ico"/>}
         { this.props.post.url && <LinkPreview url={this.props.post.url}/> }
         { this.props.post.image.url &&
         <div>
