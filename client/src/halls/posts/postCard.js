@@ -34,7 +34,7 @@ export default class PostCard extends React.Component {
           <div className='post-card-title-container'><Link className='post-card-title' to={this.props.postURL}>{this.props.post.title}</Link></div>
           { this.props.post.url &&
           <div className='post-card-link'> <a className='post-link' href={this.props.post.url}>{this.props.post.url}</a></div>}
-          <ContentControls id={this.props.post.user.id} type='post' path={this.props.postURL} comments_count={this.props.post.comments_count}/>
+          <ContentControls postCard={true} id={this.props.post.user.id} type='post' path={this.props.postURL} comments_count={this.props.post.comments_count}/>
         </Col>
         </Row>
       </Container>

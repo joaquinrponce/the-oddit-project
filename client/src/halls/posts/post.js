@@ -6,12 +6,17 @@ import VoteController from './controls/voteController.js'
 import CommentList from './comments/commentList.js'
 import Comment from './comments/comment.js'
 import CreateComment from './comments/createComment.js'
+import ContentControls from './controls/contentControls.js'
+import EditPostForm from './controls/editPostForm.js'
+import Marked from 'marked'
+import DOMPurify from 'dompurify'
+import { userContext } from '../../userContext.js'
 
 class Post extends React.Component {
   _isMounted = false
   constructor (props) {
     super(props)
-    this.state = { preview: null, post: null, newComments: [] }
+    this.state = {showEditForm: false, post: null, newComments: [] }
     this.getPostData = this.getPostData.bind(this)
   }
 
@@ -21,9 +26,14 @@ class Post extends React.Component {
       response.json())
     .then( post => {
         if (!this._isMounted) return
-        this.setState({ post: post, newComments: [] })
+        this.setState({showEditForm: false, post: post, newComments: this.state.newComments })
       }
     )
+  }
+
+  makePostBody = () =>  {
+    const description = Marked(DOMPurify.sanitize(this.state.post.body))
+    return {__html: description}
   }
 
   componentDidMount () {
@@ -55,6 +65,34 @@ class Post extends React.Component {
     return comments
   }
 
+  showEditForm = () => {
+    const newState = JSON.parse(JSON.stringify(this.state))
+    newState.showEditForm = !this.state.showEditForm
+    this.setState(newState)
+  }
+
+  handleSubmit = (post) => {
+    const data = new FormData()
+    data.append('body', post)
+    fetch(`/api/posts/${this.state.post.id}`, {
+      method: 'PATCH',
+      headers: { Authorization: 'Bearer ' + this.context.user.token },
+      body: data
+    }).then(response => {
+      if (response && response.ok) {
+        return response.json()
+      } else {
+        console.log(response)
+        console.log('error')
+      }
+    }).then(response => {
+      console.log(response)
+      this.getPostData()
+    }
+    )
+      .catch(error => console.log(error))
+  }
+
   render () {
     if (!this.state.post) return null
     if (this.state.post.status === 404) return(
@@ -76,16 +114,25 @@ class Post extends React.Component {
           <div className='post-title'>{this.state.post.title}</div>
           { this.state.post.image.url &&
           <img alt='post-attachment' className='post-image' src={this.state.post.image.url}/>}
-          <div className='post-body'>{this.state.post.body}</div>
+          <div className='post-body' dangerouslySetInnerHTML={this.makePostBody()}/>
           <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
+          <ContentControls id={this.state.post.user.id} type='post' showEditForm={this.showEditForm}/>
           </Col>
           </Row>
+      <Row>
+      <Col>
+      { this.state.showEditForm && <EditPostForm body={this.state.post.body} handleSubmit={this.handleSubmit}/>}
       <CreateComment updateParent={this.updateForNewComments} commentableId={this.state.post.id} commentableType='Post'/>
       { this.renderNewComments() }
+      <h4 className='comments-header'>Comments</h4>
+      </Col>
+      </Row>
       <CommentList indent={1} comments={this.state.post.comments}/>
+
       </Container>
     )
   }
 }
 
+Post.contextType = userContext
 export default withRouter(Post)

@@ -1,5 +1,5 @@
 import React from 'react'
-import EditComment from './editComment.js'
+import EditButton from './editButton.js'
 import Reply from './reply.js'
 import Can from '../../permissions/can.js'
 import { userContext } from '../../../userContext.js'
@@ -18,7 +18,7 @@ export default class CommentControls extends React.Component {
       perform={`${this.props.type}s:edit`}
       data={this.props.data}
       no={null}
-      yes={<EditComment onClick={this.props.showEditForm}/>}/>
+      yes={<EditButton onClick={this.props.showEditForm}/>}/>
       </>
     )
   }

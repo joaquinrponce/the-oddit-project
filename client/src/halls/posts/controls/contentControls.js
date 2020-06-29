@@ -9,7 +9,7 @@ export default class ContentControls extends React.Component {
   render () {
     return(
       <div className='content-controls'>
-      { this.props.type === 'post' && <PostControls type='post' path={this.props.path} commentsCount={this.props.comments_count}/> }
+      { this.props.type === 'post' && <PostControls postCard={this.props.postCard} type='post' path={this.props.path} showEditForm={this.props.showEditForm} commentsCount={this.props.comments_count} data={{userId: this.context.user.id, authorId: this.props.id}}/> }
       { this.props.type === 'comment' && <CommentControls data={{userId: this.context.user.id, authorId: this.props.id}} type='comment' showCommentForm={this.props.showCommentForm} showEditForm={this.props.showEditForm}/> }
       <Can
       role={this.context.user.role}

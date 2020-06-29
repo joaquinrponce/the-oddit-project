@@ -142,6 +142,11 @@ body {
 
 .post-title {
   color: black;
+  font-size: 14pt;
+}
+
+.post-body {
+  font-size: 11pt;
 }
 
 /* post images bigger  in full view */
@@ -152,15 +157,17 @@ body {
 
 /*comments styling*/
 
+.comments-header {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
 .comment {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-}
-
-.comment-list {
-  margin-top: 10px;
+  font-size: 11pt;
 }
 
 .comment div {

@@ -220,7 +220,7 @@ export default class PostForm extends React.Component {
             <Form.Group controlId='body'>
               <Form.Label>Body</Form.Label>
               <Form.Control isInvalid={this.state.errors.body} disabled={this.state.params.url || this.state.params.image}name='body' as="textarea" rows="5" onChange={this.handleChange}/>
-              <Form.Text className='text-muted'>... or write an essay.</Form.Text>
+              <Form.Text className='text-muted'>... or write an essay. You can add formatting following <a href='https://marked.js.org/demo/'>this demo.</a></Form.Text>
             </Form.Group>
             <Button disabled={this.state.formInvalid} variant='primary' type='submit'>Post</Button>
           </Form>

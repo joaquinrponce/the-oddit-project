@@ -63,7 +63,7 @@ export default class HallForm extends React.Component {
           <Form.Text className='text-muted'>Must contain no spaces, no caps, and must not be longer than 30 characters.</Form.Text>
           <Form.Label>Description</Form.Label>
           <Form.Control as='textarea' name='description' isInvalid={this.state.errors.description} onChange={this.handleChange}/>
-          <Form.Text className='text-muted'>A description of what your hall is about. Will be shown on the sidebar of your hall's page. You can add markup following <a href='https://marked.js.org/demo/'>this demo.</a></Form.Text>
+          <Form.Text className='text-muted'>A description of what your hall is about. Will be shown on the sidebar of your hall's page. You can add formatting following <a href='https://marked.js.org/demo/'>this demo.</a></Form.Text>
         </Form.Group>
         <Button disabled={this.state.formInvalid} type='submit'>Create</Button>
       </Form>
