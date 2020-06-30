@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :votes
     resources :subscriptions
+    resources :moderationships
     resources :halls do
       resources :posts
     end

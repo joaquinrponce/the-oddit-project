@@ -17,7 +17,7 @@ class CommentsController < ApiController
   end
 
   def destroy
-    if current_user.present? && (current_user.admin? || current_user.id === @comment.user_id || current_user.moderated_halls.include?(@comment.get_hall))
+    if user_is_allowed
       @comment.destroy
     else
       render json: @comment, status: 401
@@ -46,4 +46,7 @@ class CommentsController < ApiController
     params.require(:comment).permit(:user_id, :commentable_id, :commentable_type, :body)
   end
 
+  def user_is_allowed
+    current_user.present? && (current_user.admin? || current_user.id === @comment.user_id || current_user.moderated_halls.include?(@comment.get_hall))
+  end
 end

@@ -55,7 +55,7 @@ class PostsController < ApiController
 
   # DELETE /posts/1
   def destroy
-    if current_user.present? && (current_user.admin? || current_user.id === @post.user_id || current_user.moderated_halls.include?(@post.hall))
+    if user_is_allowed
       @post.destroy
     else
       render json: @post, status: 401
@@ -75,6 +75,10 @@ class PostsController < ApiController
 
     def get_hall
       @hall = Hall.friendly.find(params[:hall_id]) if params[:hall_id].present?
+    end
+    
+    def user_is_allowed 
+      current_user.present? && (current_user.admin? || current_user.id === @post.user_id || current_user.moderated_halls.include?(@post.hall))
     end
 
 end
