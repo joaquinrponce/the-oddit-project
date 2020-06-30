@@ -21,15 +21,19 @@ class User < ApplicationRecord
   end
 
   def to_token_payload
-    {sub: {id: self.id, name: self.name, role: self.role}}
+    {sub: {id: self.id, name: self.name, role: self.role, moderated_halls: self.moderated_hall_ids}}
   end
 
   def signup_token
-    Knock::AuthToken.new(payload: {sub: {id: self.id, name: self.name, role: self.role}}).token
+    Knock::AuthToken.new(payload: self.to_token_payload).token
   end
 
   def admin?
     self.role == "admin"
+  end
+  
+  def moderated_hall_ids
+    self.moderated_halls.map {|hall| hall.id}
   end
 
 end

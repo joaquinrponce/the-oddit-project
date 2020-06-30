@@ -116,7 +116,7 @@ class Post extends React.Component {
           <img alt='post-attachment' className='post-image' src={this.state.post.image.url}/>}
           <div className='post-body' dangerouslySetInnerHTML={this.makePostBody()}/>
           <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
-          <ContentControls id={this.state.post.user.id} type='post' showEditForm={this.showEditForm}/>
+          <ContentControls hallId={this.state.post.hall.id} id={this.state.post.user.id} type='post' showEditForm={this.showEditForm}/>
           </Col>
           </Row>
       <Row>
@@ -127,7 +127,7 @@ class Post extends React.Component {
       <h4 className='comments-header'>Comments</h4>
       </Col>
       </Row>
-      <CommentList indent={1} comments={this.state.post.comments}/>
+      <CommentList hallId={this.state.post.hall.id} indent={1} comments={this.state.post.comments}/>
 
       </Container>
     )

@@ -44,7 +44,7 @@ export default class LoginForm extends React.Component {
       if (!data) return
       const payload = jwtDecode(data.jwt)
       const userInfo = payload.sub
-      const user = {name: userInfo.name, id: userInfo.id, token: data.jwt, role: userInfo.role}
+      const user = {name: userInfo.name, id: userInfo.id, token: data.jwt, role: userInfo.role, moderatedHalls: userInfo.moderated_halls}
       this.context.logInUser(user)
       this.props.hideModal()
       window.location.reload()

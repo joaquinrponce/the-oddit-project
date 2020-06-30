@@ -29,13 +29,14 @@ class App extends React.Component {
 
   logInUser = (user) => {
     const newState = Object.assign(this.state)
-    newState.user = {name: user.name, id: user.id, token: user.token, role: user.role}
+    newState.user = {name: user.name, id: user.id, token: user.token, role: user.role, moderatedHalls: user.moderated_halls}
     newState.loggedIn = true
     localStorage.setItem("currentUser", JSON.stringify({
       name: user.name,
       id: user.id,
       token: user.token,
-      role: user.role
+      role: user.role,
+      moderatedHalls:  user.moderatedHalls
     }))
     this.setState(newState)
   }
@@ -60,7 +61,7 @@ class App extends React.Component {
     if (currentUser && currentUser.token) {
       if (!this.tokenIsExpired(currentUser.token)) {
         const newState = Object.assign(this.state)
-        newState.user = {name: currentUser.name, id: currentUser.id, token: currentUser.token, role: currentUser.role}
+        newState.user = {name: currentUser.name, id: currentUser.id, token: currentUser.token, role: currentUser.role, moderatedHalls: currentUser.moderatedHalls}
         newState.loggedIn = true
         this.setState(newState)
     } else {
