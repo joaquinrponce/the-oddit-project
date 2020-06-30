@@ -10,7 +10,7 @@ class Hall < ApplicationRecord
   belongs_to :owner, class_name: 'User'
 
   before_save :downcase_name
-  before_save :create_owner_moderationship
+  after_create :create_owner_moderationship
   validate :owner_exists
 
   def post_count

@@ -233,6 +233,13 @@ body {
   outline: none;
 }
 
+/*sidebar styling*/
+
+.sidebar-container {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
 /*media queries*/
 
 @media screen and (max-width: 480px) {

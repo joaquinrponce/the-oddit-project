@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :subscribed_halls, through: :subscriptions, source: :hall
   has_many :moderationships, foreign_key: 'moderator_id'
   has_many :moderated_halls, through: :moderationships, source: :hall
+  has_many :owned_halls, class_name: 'Hall', foreign_key: 'owner_id'
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, on: :create
 
@@ -21,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def to_token_payload
-    {sub: {id: self.id, name: self.name, role: self.role, moderated_halls: self.moderated_hall_ids}}
+    {sub: {id: self.id, name: self.name, role: self.role, moderated_halls: self.moderated_hall_ids, owned_halls: self.owned_hall_ids}}
   end
 
   def signup_token
@@ -34,6 +35,10 @@ class User < ApplicationRecord
   
   def moderated_hall_ids
     self.moderated_halls.map {|hall| hall.id}
+  end
+  
+  def owned_hall_ids
+    self.owned_halls.map {|hall| hall.id}
   end
 
 end

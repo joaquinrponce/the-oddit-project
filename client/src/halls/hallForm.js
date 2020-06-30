@@ -37,7 +37,7 @@ export default class HallForm extends React.Component {
     fetch('/api/halls', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
-      body: JSON.stringify({hall: {name: this.state.name, description: this.state.description}})
+      body: JSON.stringify({hall: {name: this.state.name, description: this.state.description, owner_id: this.context.user.id}})
     }).then(response => {
       if (response.ok) {
         response.json()

@@ -10,7 +10,11 @@ class HallsController < ApiController
   def show
     @hall = Hall.friendly.find(params[:id])
 
-    render json: @hall.to_json(methods: [:post_count, :member_count], include: {members: {only: [:name]}})
+    render json: @hall.to_json(methods: [:post_count, :member_count], include: {
+                                                                      members: {only: [:id,:name]},
+                                                                      moderators: {only: [:id, :name]}, 
+                                                                      owner: {only: [:id, :name]}
+                                                                    })
   end
 
   def create
