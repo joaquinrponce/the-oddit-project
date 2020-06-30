@@ -25,4 +25,18 @@ class Comment < ApplicationRecord
     count
   end
 
+  def hall
+    false
+  end
+
+  def get_hall
+    if self.commentable.hall
+      return self.commentable.hall
+    else
+      self.commentable.get_hall
+    end
+  end
+
+
+
 end

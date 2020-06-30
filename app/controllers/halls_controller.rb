@@ -15,16 +15,19 @@ class HallsController < ApiController
 
   def create
     @hall = Hall.new(hall_params)
-
-    if @hall.save
-      render json: @hall, status: :created, location: @hall
-    else
-      render json: @hall.errors, status: :unprocessable_entity
+    if current_user.id == @hall.owner_id
+      if @hall.save
+        render json: @hall, status: 200, location: @hall
+      else
+        render json: @hall.errors, status: :unprocessable_entity
+      end
+    else 
+      render json: {errors: {owner_id: 'must match user id'}}, status: :unauthorized
     end
   end
 
   def hall_params
-    params.require(:hall).permit(:name, :description)
+    params.require(:hall).permit(:name, :description, :owner_id)
   end
 
 end

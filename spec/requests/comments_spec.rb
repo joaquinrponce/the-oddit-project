@@ -24,13 +24,22 @@ RSpec.describe "Comments", type: :request do
   end
 
   describe "DELETE /comments" do
-    fixtures :users, :comments, :posts
+    fixtures :users, :comments, :posts, :halls
     before(:each) do
-      @post = posts(:first)
+
+      @moderated_hall = halls(:two)
       @user = users(:one)
       @other_user = users(:two)
+      @normal_user = users(:three)
+
+      @other_user.moderationships.create(hall_id: @moderated_hall.id)
+
+      @post = posts(:first)
+      @other_post = @moderated_hall.posts.create(title: 'test', body: 'test', user_id: @user.id, hall_id: @moderated_hall.id)
+
       @comment = @user.comments.create(body: 'meowzers', commentable_type: 'Post', commentable_id: @post.id)
       @other_comment = @other_user.comments.create(body: 'meowzers', commentable_type: 'Post', commentable_id: @post.id)
+      @moderated_comment = @normal_user.comments.create(body: 'meowzers', commentable_type: 'Post', commentable_id: @other_post.id)
     end
 
     it "does not allow unauthorized delete requests" do
@@ -50,6 +59,12 @@ RSpec.describe "Comments", type: :request do
 
     it "allows admin to delete any comments" do
       delete comment_path(@other_comment), headers: auth(@user)
+      expect(response).to have_http_status(204)
+    end
+
+    it 'allows a moderator to delete a post in a moderated hall' do
+      expect(@other_user.moderated_halls).to include(@other_post.hall)
+      delete comment_path(@moderated_comment), headers: auth(@other_user)
       expect(response).to have_http_status(204)
     end
   end

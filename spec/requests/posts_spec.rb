@@ -12,6 +12,7 @@ RSpec.describe "Posts", type: :request do
       expect(response).to have_http_status(200)
     end
   end
+  
   describe "POST /posts" do
 
     fixtures :users, :posts, :halls
@@ -25,6 +26,7 @@ RSpec.describe "Posts", type: :request do
       post posts_path, params: {title: 'test', body: 'test', hall_id: @hall.id, user_id: @user.id}
       expect(response).to have_http_status(401)
     end
+    
     it "allows authorized users to create posts" do
       post posts_path, params: {title: 'test', body: 'test', hall_id: @hall.id, user_id: @user.id}, headers: auth(@user)
       expect(response).to have_http_status(201)
@@ -35,10 +37,15 @@ RSpec.describe "Posts", type: :request do
     fixtures :users, :halls
     before(:each) do
       @hall = halls(:one)
+      @moderated_hall = halls(:two)
+      
       @user = users(:one)
       @other_user = users(:two)
+      @normal_user = users(:three)
+      
       @post = @user.posts.create(title:'test', body: 'test', hall: @hall)
       @other_post = @other_user.posts.create(title: 'test', body: 'test', hall: @hall)
+      @moderated_post = @normal_user.posts.create(title: 'test', body: 'test', hall: @moderated_hall)
     end
 
     it "does not allow unauthorized delete requests" do
@@ -58,6 +65,12 @@ RSpec.describe "Posts", type: :request do
 
     it "allows admin to delete any posts" do
       delete post_path(@other_post), headers: auth(@user)
+      expect(response).to have_http_status(204)
+    end
+    
+    it 'allows a moderator to delete a post in a moderated hall' do 
+      @other_user.moderationships.create(hall_id: @moderated_hall.id)
+      delete post_path(@moderated_post), headers: auth(@other_user)
       expect(response).to have_http_status(204)
     end
   end

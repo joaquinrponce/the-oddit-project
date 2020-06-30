@@ -2,6 +2,8 @@
 
 one:
   name: Valhalla
+  id: 1
 
 two:
   name: Sanctuary
+  id: 2

@@ -11,12 +11,14 @@ class UsersController < ApiController
 
   # GET /users/1
   def show
-    render json: @user, only: [:name], include: {
+    render json: @user, only: [:id, :name], include: {
                                                   subscribed_halls: {only: [:id, :name]},
+                                                  moderated_halls: {only: [:id, :name]},
                                                   posts: {except: [:updated_at, :user_id, :hall_id],
                                                           include: {
                                                                     hall: {only: [:name, :id]}}
-                                                        }
+                                                        },
+                                                  comments: {}
                                                  }
   end
 

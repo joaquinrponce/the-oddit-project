@@ -17,7 +17,7 @@ class CommentsController < ApiController
   end
 
   def destroy
-    if current_user.present? && (current_user.admin? || current_user.id === @comment.user_id )
+    if current_user.present? && (current_user.admin? || current_user.id === @comment.user_id || current_user.moderated_halls.include?(@comment.get_hall))
       @comment.destroy
     else
       render json: @comment, status: 401
