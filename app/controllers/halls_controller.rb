@@ -1,6 +1,9 @@
 class HallsController < ApiController
 
-  before_action :authenticate_user, only: [:create]
+  before_action :authenticate_user, only: [:create, :destroy]
+  before_action :set_hall, only: [:update, :destroy]
+  before_action :authorize_user, only: [:destroy]
+
   def index
     @halls = Hall.all
 
@@ -35,8 +38,22 @@ class HallsController < ApiController
     end
   end
 
+  def destroy
+    @hall.destroy
+  end
+
+  private
+
   def hall_params
     params.require(:hall).permit(:name, :description, :owner_id)
+  end
+
+  def set_hall
+    @hall = Hall.friendly.find(params[:id])
+  end
+
+  def authorize_user
+    render json: {errors: {authorization: "User is not authorized to update or destroy requested hall."}}, status: 401 if !current_user.admin? && current_user != @hall.owner
   end
 
 end
