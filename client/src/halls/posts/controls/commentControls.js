@@ -1,6 +1,6 @@
 import React from 'react'
-import EditButton from './editButton.js'
-import Reply from './reply.js'
+import ControlButton from './controlButton.js'
+import Delete from './delete.js'
 import Can from '../../permissions/can.js'
 import { userContext } from '../../../userContext.js'
 
@@ -10,15 +10,21 @@ export default class CommentControls extends React.Component {
       <>
       <Can
       role={this.context.user.role}
-      perform={`${this.props.type}s:create`}
+      perform={`comments:create`}
       no={null}
-      yes={<Reply onClick={this.props.showCommentForm}/>}/>
+      yes={<ControlButton text='Reply' onClick={this.props.showCommentForm}/>}/>
       <Can
       role={this.context.user.role}
-      perform={`${this.props.type}s:edit`}
+      perform={`comments:edit`}
       data={this.props.data}
       no={null}
-      yes={<EditButton onClick={this.props.showEditForm}/>}/>
+      yes={<ControlButton text='Edit' onClick={this.props.showEditForm}/>}/>
+      <Can
+      role={this.context.user.role}
+      perform={`comments:destroy`}
+      data={this.props.data}
+      no={null}
+      yes={<Delete path={this.props.path}/>}/>
       </>
     )
   }

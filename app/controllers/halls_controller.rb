@@ -12,7 +12,12 @@ class HallsController < ApiController
 
     render json: @hall.to_json(methods: [:post_count, :member_count], include: {
                                                                       members: {only: [:id,:name]},
-                                                                      moderators: {only: [:id, :name]}, 
+                                                                      moderationships: {
+                                                                        include: {
+                                                                          moderator: {only: [:id, :name]}
+                                                                          },
+                                                                        only: [:id]
+                                                                      },
                                                                       owner: {only: [:id, :name]}
                                                                     })
   end
@@ -25,7 +30,7 @@ class HallsController < ApiController
       else
         render json: @hall.errors, status: :unprocessable_entity
       end
-    else 
+    else
       render json: {errors: {owner_id: 'must match user id'}}, status: :unauthorized
     end
   end

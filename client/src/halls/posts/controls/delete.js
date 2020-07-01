@@ -1,4 +1,5 @@
 import React from 'react'
+import ControlButton from './controlButton.js'
 import { userContext } from '../../../userContext.js'
 
 export default class Delete extends React.Component {
@@ -21,9 +22,7 @@ export default class Delete extends React.Component {
   }
   render () {
     return (
-      <div className='content-control'>
-      <button className='control-button' onClick={this.handleClick}>Delete</button>
-      </div>
+      <ControlButton text={'Delete'} onClick={this.handleClick}/>
     )
   }
 }

@@ -52,7 +52,7 @@ export default class Comment extends React.Component {
 
   render () {
     return (
-      <Container className={`${this.props.className} h-auto comment`}>
+      <Container className={`${this.props.className}  comment`}>
         <Row>
           <Col className='vote-controller-container' xs='auto' sm='auto' md='auto' lg='auto'>
             <VoteController voteableId={this.props.comment.id} voteableType={'Comment'} score={this.props.comment.score}/>

@@ -240,6 +240,16 @@ body {
   word-wrap: break-word;
 }
 
+.hall-stats {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 10pt;
+}
+
+.hall-stats span {
+  font-weight: bold;
+}
+
 /*media queries*/
 
 @media screen and (max-width: 480px) {

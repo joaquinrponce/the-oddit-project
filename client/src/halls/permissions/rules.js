@@ -22,10 +22,30 @@ const rules = {
         return userId === authorId
       },
       "comments:destroy": ({userId, authorId, hallId, moderatedHalls = []}) => {
-        console.log(userId, authorId, hallId, moderatedHalls)
         if (!userId || !authorId || !hallId) return false
         if (userId === authorId) return true
         if (moderatedHalls.includes(hallId)) return true
+        return false
+      },
+      "halls:edit": ({userId, ownerId, hallId, moderatedHalls = []}) => {
+        if (!userId || !ownerId || !hallId) return false
+        if (userId === ownerId) return true
+        if (moderatedHalls.includes(hallId)) return true
+        return false
+      },
+      "halls:destroy": ({userId, ownerId, hallId}) => {
+        if (!userId || !ownerId || !hallId) return false
+        if (userId === ownerId) return true
+        return false
+      },
+      "moderators:create": ({userId, ownerId, hallId}) => {
+        if (!userId || !ownerId || !hallId) return false
+        if (userId === ownerId) return true
+        return false
+      },
+      "moderators:destroy": ({userId, ownerId, hallId}) => {
+        if (!userId || !ownerId || !hallId) return false
+        if (userId === ownerId) return true
         return false
       },
     }
@@ -38,6 +58,8 @@ const rules = {
       "halls:create",
       "halls:edit",
       "halls:destroy",
+      "moderators:create",
+      "moderators:destroy",
       "comments:create",
       "comments:edit",
       "comments:destroy",

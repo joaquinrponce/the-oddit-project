@@ -4,20 +4,36 @@ import SubscriptionButton from './subscriptionButton'
 import Marked from 'marked'
 import DOMPurify from 'dompurify'
 import ContentControls from './posts/controls/contentControls.js'
+import ModeratorModal from './posts/controls/ModeratorModal.js'
 
- export default class HallSidebar extends React.Component {
+export default class HallSidebar extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {showModal: false, modalType: 'add'}
+  }
 
    makeDescription = () => {
      const description = Marked(DOMPurify.sanitize(this.props.hall.description))
      return {__html: description}
    }
-   
+
    renderModerators = () => {
      const mods = []
-     this.props.hall.moderators.forEach(mod => {
-       mods.push(<div className='moderator-name'>{mod.name}</div>)
+     this.props.hall.moderationships.forEach(mod => {
+       mods.push(<div key={mod.moderator.id} className='moderator-name'>{mod.moderator.name}</div>)
      })
      return mods
+   }
+
+   toggleModal = (type = 'add') => {
+     this.setState({showModal: !this.state.showModal, modalType: type})
+   }
+
+   moderationships = () => {
+     return this.props.hall.moderationships.map(mod => {
+       return {id: mod.id, name: mod.moderator.name}
+     })
    }
 
   render () {
@@ -25,15 +41,24 @@ import ContentControls from './posts/controls/contentControls.js'
     <Container fluid className='mt-2 sidebar-container'>
       <h2 className='hall-header'> {this.props.hall.name}</h2>
       <SubscriptionButton hall={this.props.hall.name}/>
-      <h5>{this.props.hall.post_count} posts</h5>
-      <h5>{this.props.hall.member_count} members</h5>
-      <div className='hall-description' dangerouslySetInnerHTML={this.makeDescription()}>
+      <div className='hall-stats'>
+      <div><span>{this.props.hall.post_count}</span> posts</div>
+      <div><span>{this.props.hall.member_count}</span> members</div>
       </div>
-      <h5>Moderators</h5>
+      <div className='hall-description' dangerouslySetInnerHTML={this.makeDescription()}/>
+      <h5 className='hall-sidebar-mod-header'>Moderators</h5>
       <div className='moderators-list'>
       {this.renderModerators()}
       </div>
-      <ContentControls type='hall' hallId={this.props.hall.id} ownerId={this.props.hall.owner.id}/>
+      <ContentControls
+      path={`/halls/${this.props.hall.name}`} 
+      toggleModal={this.toggleModal}
+      type='hall' hallId={this.props.hall.id} id={this.props.hall.owner.id}/>
+      <ModeratorModal
+      hallId={this.props.hall.id}
+      type={this.state.modalType}
+      moderationships={this.moderationships()}
+      show={this.state.showModal} hideModal={this.toggleModal}/>
     </Container>
   )
   }
