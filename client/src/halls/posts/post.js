@@ -109,7 +109,7 @@ class Post extends React.Component {
           { this.state.post.url && <LinkPreview url={this.state.post.url}/> }
           </Col>
           <Col>
-          <div className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by {this.state.post.user.name}
+          <div className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by <Link to={`/users/${this.state.post.user.name}`}>{this.state.post.user.name}</Link>
           </div>
           <div className='post-title'>{this.state.post.title}</div>
           { this.state.post.image.url &&

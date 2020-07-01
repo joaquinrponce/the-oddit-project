@@ -21,7 +21,7 @@ export default class LoginForm extends React.Component {
   handleSubmit = () => {
     const request = {
       auth: {
-        name: this.state.username,
+        name: this.state.username.toLowerCase(),
         password: this.state.password
       }
     }

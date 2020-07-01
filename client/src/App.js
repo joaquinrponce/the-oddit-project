@@ -10,6 +10,7 @@ import {userContext} from './userContext.js'
 import Logout from './navigation/user/logout.js'
 import Hall from './halls/hall.js'
 import HallsList from './halls/hallsList.js'
+import UserProfile from './user/userProfile.js'
 import NotFound from './notFound.js'
 import MainFeed from './mainFeed.js'
 import * as jwtDecode from 'jwt-decode'
@@ -75,6 +76,9 @@ class App extends React.Component {
           <Row>
           <Col>
           <Switch>
+          <Route path="/users/:id">
+            <UserProfile/>
+          </Route>
             <Route path="/halls/:id">
               <Hall/>
             </Route>

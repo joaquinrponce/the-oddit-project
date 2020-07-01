@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   has_many :posts, dependent: :nullify
   has_many :comments, dependent: :nullify
   has_many :votes, dependent: :nullify
@@ -11,6 +13,7 @@ class User < ApplicationRecord
   has_many :owned_halls, class_name: 'Hall', foreign_key: 'owner_id'
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, on: :create
+  before_save :downcase_name
 
   def self.from_token_request request
     name = request.params["auth"] && request.params["auth"]["name"]
@@ -39,6 +42,12 @@ class User < ApplicationRecord
   
   def owned_hall_ids
     self.owned_halls.map {|hall| hall.id}
+  end
+  
+  private 
+  
+  def downcase_name
+    self.name.downcase
   end
 
 end

@@ -66,7 +66,7 @@ export default class Comment extends React.Component {
         { this.state.showCommentForm && <CreateComment updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
         { this.state.showEditForm && <EditComment body={this.props.comment.body} updateParent={this.updateForEdit} commentableId={this.props.comment.id}  commentableType='Comment'/> }
         { this.renderNewComments() }
-        <CommentList hallId={this.props.hallId} indent={this.props.indent} comments={this.props.comment.replies}/>
+        { this.props.comment.replies && <CommentList hallId={this.props.hallId} indent={this.props.indent} comments={this.props.comment.replies}/> }
       </Container>
     )
   }

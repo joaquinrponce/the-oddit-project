@@ -13,18 +13,26 @@ class UsersController < ApiController
   def show
     render json: @user, only: [:id, :name], include: {
                                                   subscribed_halls: {only: [:id, :name]},
+                                                  owned_halls: {only: [:id, :name]},
                                                   moderated_halls: {only: [:id, :name]},
                                                   posts: {except: [:updated_at, :user_id, :hall_id],
                                                           include: {
-                                                                    hall: {only: [:name, :id]}}
+                                                                    hall: {
+                                                                      only: [:name, :id]
+                                                                    },
+                                                                    user: {
+                                                                      only: [:id, :name]
+                                                                    }
+                                                                  },
+                                                          methods: [:comments_count, :score]
                                                         },
                                                   comments: {
-                                                    only: [:body], include: {
+                                                    only: [:id, :body, :created_at], include: {
                                                                     post: {
                                                                       only: [:id, :title], include: {
                                                                                                       hall: {
                                                                                                         only: [:id, :name]
-                                                                                                      }
+                                                                                                      },
                                                                                             }
                                                                       }
                                                                     }
@@ -60,7 +68,7 @@ class UsersController < ApiController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.friendly.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

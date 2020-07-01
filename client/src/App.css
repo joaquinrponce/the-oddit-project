@@ -254,6 +254,37 @@ body {
   font-weight: bold;
 }
 
+/* profile comment styling */
+
+.profile-comment {
+  padding: 0 !important;
+}
+
+.profile-comment .comment-content {
+  height: 10vh;
+}
+
+/* profile sidebar styling */
+
+.user-sidebar h6 span {
+  font-weight: bold;
+}
+
+.user-sidebar-name {
+  font-weight: bold;
+}
+
+.user-owned-halls, .user-moderated-halls {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.user-sidebar a {
+  color: #cc9543;
+}
+
+
 /*media queries*/
 
 @media screen and (max-width: 480px) {
