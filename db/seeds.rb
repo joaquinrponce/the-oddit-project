@@ -6,14 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
+first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 'admin')
+
 theodinproject =  Hall.create(name: 'theodinproject', description:
-  'A hall dedicated to **TheOdinProject**, an open source online curriculum for learning web development. Find it at: https://theodinproject.com')
-music = Hall.create(name: 'music', description: 'A hall for all things **music** related: **songs, artists, media,** and more.')
-gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betrayals, **steam sales**, victory screenshots, and more!')
-technology = Hall.create(name: 'technology', description: '**News** and **info** on modern technologies.')
+  'A hall dedicated to **TheOdinProject**, an open source online curriculum for learning web development. Find it at: https://theodinproject.com', owner_id: first.id)
+music = Hall.create(name: 'music', description: 'A hall for all things **music** related: **songs, artists, media,** and more.', owner_id: first.id)
+gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betrayals, **steam sales**, victory screenshots, and more!', owner_id: first.id)
+technology = Hall.create(name: 'technology', description: '**News** and **info** on modern technologies.', owner_id: first.id)
 
 if !Rails.env.production?
-  first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 'admin')
   second = User.create(name: 'Kokozordo', password: 'testo', password_confirmation: 'testo')
   users = [first, second]
 
@@ -44,7 +46,7 @@ if !Rails.env.production?
   2.times do
     user = users.sample
     Post.all.each do |post|
-      post.comments.create(body: "Test comment!", user: user)
+      post.replies.create(body: "Test comment!", user: user)
     end
   end
 

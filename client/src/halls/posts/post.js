@@ -127,7 +127,7 @@ class Post extends React.Component {
       <h4 className='comments-header'>Comments</h4>
       </Col>
       </Row>
-      <CommentList hallId={this.state.post.hall.id} indent={1} comments={this.state.post.comments}/>
+      <CommentList hallId={this.state.post.hall.id} indent={1} comments={this.state.post.replies}/>
 
       </Container>
     )

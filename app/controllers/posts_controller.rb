@@ -14,7 +14,7 @@ class PostsController < ApiController
   # GET /posts/1
   def show
     if @hall.present? && @post.hall == @hall
-      render json: @post, include: 'comments.user,comments.replies.**,user,hall'
+      render json: @post, include: 'replies.user,replies.replies.**,user,hall'
     elsif @hall.present? && @post.hall != @hall
       render json: {error: "Not Found", status: 404, exception: "Could not find post with ID '#{@post.id}' in hall with ID '#{@hall.slug}'"}.to_json
     else

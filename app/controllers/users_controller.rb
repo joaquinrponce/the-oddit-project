@@ -18,7 +18,17 @@ class UsersController < ApiController
                                                           include: {
                                                                     hall: {only: [:name, :id]}}
                                                         },
-                                                  comments: {only: [:id, :created_at, :body], include: {commentable: {only: [:id, :title, :body]} } }
+                                                  comments: {
+                                                    only: [:body], include: {
+                                                                    post: {
+                                                                      only: [:id, :title], include: {
+                                                                                                      hall: {
+                                                                                                        only: [:id, :name]
+                                                                                                      }
+                                                                                            }
+                                                                      }
+                                                                    }
+                                                              }
                                                  }
   end
 

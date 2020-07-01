@@ -3,5 +3,6 @@
 first:
   commentable_id: 1
   commentable_type: 'Post'
+  post_id: 1
   user_id: 1
   body: 'I am another test comment'

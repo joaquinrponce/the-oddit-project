@@ -1,9 +1,11 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+  belongs_to :post
 
   has_many :votes, as: :voteable
   has_many :replies, as: :commentable, class_name: 'Comment', dependent: :destroy
+  before_validation :set_post_id
 
   def score
     votes.sum(:value)
@@ -26,17 +28,17 @@ class Comment < ApplicationRecord
   end
 
   def hall
-    false
+    self.post.hall
   end
 
-  def get_hall
-    if self.commentable.hall
-      return self.commentable.hall
+  private
+
+  def set_post_id
+    if self.commentable_type == 'Post'
+      self.post_id = self.commentable_id
     else
-      self.commentable.get_hall
+      self.post_id = self.commentable.post.id
     end
   end
-
-
 
 end

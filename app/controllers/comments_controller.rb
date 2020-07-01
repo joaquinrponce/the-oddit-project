@@ -47,6 +47,6 @@ class CommentsController < ApiController
   end
 
   def user_is_allowed
-    current_user.present? && (current_user.admin? || current_user.id === @comment.user_id || current_user.moderated_halls.include?(@comment.get_hall))
+    current_user.present? && (current_user.admin? || current_user.id === @comment.user_id || current_user.moderated_halls.include?(@comment.hall))
   end
 end
