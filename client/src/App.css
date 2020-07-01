@@ -97,6 +97,10 @@ body {
   padding: 0px
 }
 
+.post-info a {
+  color: #cc9543;
+}
+
 /* color links in info row */
 
 .post-card-info a {

@@ -20,7 +20,7 @@ export default class HallControls extends React.Component {
       perform={`halls:edit`}
       data={this.props.data}
       no={null}
-      yes={<ControlButton text='Edit Sidebar' id={this.props.id} path={this.props.path}/>}/>
+      yes={<ControlButton onClick={this.props.toggleEditForm} text='Edit Sidebar' id={this.props.id} path={this.props.path}/>}/>
       <Can
       role={this.context.user.role}
       perform={`moderators:create`}

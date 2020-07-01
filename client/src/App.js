@@ -51,7 +51,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
     if (currentUser && currentUser.token) {
       if (!this.tokenIsExpired(currentUser.token)) {
         const newState = Object.assign(this.state)

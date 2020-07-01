@@ -1,8 +1,9 @@
 class HallsController < ApiController
 
-  before_action :authenticate_user, only: [:create, :destroy]
+  before_action :authenticate_user, except: [:show, :index]
   before_action :set_hall, only: [:update, :destroy]
   before_action :authorize_user, only: [:destroy]
+  before_action :authorize_user_and_mods, only: [:update]
 
   def index
     @halls = Hall.all
@@ -38,6 +39,15 @@ class HallsController < ApiController
     end
   end
 
+  def update
+    if @hall.update(hall_params)
+      render json: @post, status: 200
+    else
+      render json: @post, status: :unprocessable_entity
+    end
+  end
+
+
   def destroy
     @hall.destroy
   end
@@ -54,6 +64,10 @@ class HallsController < ApiController
 
   def authorize_user
     render json: {errors: {authorization: "User is not authorized to update or destroy requested hall."}}, status: 401 if !current_user.admin? && current_user != @hall.owner
+  end
+
+  def authorize_user_and_mods
+    render json: {errors: {authorization: "User is not authorized to update or destroy requested hall."}}, status: 401 if !current_user.admin? && current_user != @hall.owner && !current_user.moderated_halls.include?(@hall)
   end
 
 end
