@@ -1,6 +1,7 @@
 import React from 'react'
 import PostCard from '../halls/posts/postCard.js'
 import ProfileComment from './profileComment.js'
+import { Container } from 'react-bootstrap'
 
 export default class UserContent extends React.Component {
 
@@ -32,9 +33,9 @@ export default class UserContent extends React.Component {
 
   render () {
     return(
-      <div>
-      <div>{this.renderContent()}</div>
-      </div>
+      <Container fluid className='mt-2 post-list'>
+      {this.renderContent()}
+      </Container>
     )
   }
 }
