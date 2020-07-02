@@ -11,7 +11,7 @@ class UsersController < ApiController
 
   # GET /users/1
   def show
-    render json: @user, only: [:id, :name], include: {
+    render json: @user, only: [:id, :name], methods: [:score], include: {
                                                   subscribed_halls: {only: [:id, :name]},
                                                   owned_halls: {only: [:id, :name]},
                                                   moderated_halls: {only: [:id, :name]},

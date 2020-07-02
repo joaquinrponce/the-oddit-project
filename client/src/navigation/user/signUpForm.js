@@ -48,7 +48,7 @@ export default class SignUpForm extends React.Component {
     e.preventDefault()
     const request = {
       user: {
-        name: this.state.username,
+        name: this.state.username.toLowerCase(),
         password: this.state.password,
         password_confirmation: this.state.passwordConfirmation
       }

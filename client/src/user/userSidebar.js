@@ -16,8 +16,9 @@ export default class UserSidebar extends React.Component {
       <Container className='user-sidebar' fluid>
       <div className='user-sidebar-info'>
         <h4 className='user-sidebar-name'>{this.props.name}</h4>
-        <h6><span>Posts:</span> {this.props.postCount}</h6>
-        <h6><span>Comments:</span> {this.props.commentCount}</h6>
+        <h6><span>{this.props.upvotes}</span> upvotes</h6>
+        <h6><span>{this.props.postCount}</span> posts</h6>
+        <h6><span>{this.props.commentCount}</span> comments</h6>
       </div>
       <div className='user-owned-halls'>
         <h6><span>Creator of: </span></h6>

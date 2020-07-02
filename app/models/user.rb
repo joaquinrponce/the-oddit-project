@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   extend FriendlyId
   friendly_id :name, use: :slugged
-  
+
   has_many :posts, dependent: :nullify
   has_many :comments, dependent: :nullify
   has_many :votes, dependent: :nullify
@@ -35,17 +35,24 @@ class User < ApplicationRecord
   def admin?
     self.role == "admin"
   end
-  
+
   def moderated_hall_ids
     self.moderated_halls.map {|hall| hall.id}
   end
-  
+
   def owned_hall_ids
     self.owned_halls.map {|hall| hall.id}
   end
-  
-  private 
-  
+
+  def score
+    score = 0
+    self.posts.each {|post| score += post.score}
+    self.comments.each {|comment| score += comment.score }
+    return score
+  end
+
+  private
+
   def downcase_name
     self.name.downcase
   end

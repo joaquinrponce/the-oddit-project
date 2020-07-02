@@ -58,7 +58,7 @@ class UserProfile extends React.Component {
           <UserContent userId={this.state.user.id} posts={this.state.user.posts} comments={this.state.user.comments}/>
         </Col>
         <Col className='user-profile-sidebar'>
-          <UserSidebar name={this.state.user.name} postCount={this.state.user.posts.length} commentCount={this.state.user.comments.length} moderatedHalls={this.state.user.moderated_halls} ownedHalls={this.state.user.owned_halls}/>
+          <UserSidebar upvotes={this.state.user.score} name={this.state.user.name} postCount={this.state.user.posts.length} commentCount={this.state.user.comments.length} moderatedHalls={this.state.user.moderated_halls} ownedHalls={this.state.user.owned_halls}/>
         </Col>
       </Row>
     )
