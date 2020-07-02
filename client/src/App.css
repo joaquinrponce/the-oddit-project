@@ -254,6 +254,14 @@ body {
   font-weight: bold;
 }
 
+.moderator-name {
+  color: #cc9543;
+}
+
+.moderators-list {
+  display: flex;
+  flex-direction: column;
+}
 /* profile comment styling */
 
 .profile-comment {

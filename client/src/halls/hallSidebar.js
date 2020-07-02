@@ -6,6 +6,7 @@ import DOMPurify from 'dompurify'
 import ContentControls from './posts/controls/contentControls.js'
 import ModeratorModal from './posts/controls/ModeratorModal.js'
 import EditSidebar from './posts/controls/editSidebar.js'
+import { Link } from 'react-router-dom'
 import { userContext } from '../userContext.js'
 
 export default class HallSidebar extends React.Component {
@@ -23,7 +24,7 @@ export default class HallSidebar extends React.Component {
    renderModerators = () => {
      const mods = []
      this.props.hall.moderationships.forEach(mod => {
-       mods.push(<div key={mod.moderator.id} className='moderator-name'>{mod.moderator.name}</div>)
+       mods.push(<Link to={`/users/${mod.moderator.name}`} key={mod.moderator.id} className='moderator-name'>{mod.moderator.name}</Link>)
      })
      return mods
    }

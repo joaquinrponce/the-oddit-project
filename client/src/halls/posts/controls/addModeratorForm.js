@@ -14,7 +14,7 @@ export default class AddModeratorForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const request = { moderationship: {hall_id: this.props.hallId, name: this.state.name}}
+    const request = { moderationship: {hall_id: this.props.hallId, name: this.state.name.toLowerCase()}}
     fetch(`/api/moderationships`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.context.user.token },
