@@ -1,5 +1,5 @@
 class UsersController < ApiController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :content, :destroy]
   skip_before_action :verify_authenticity_token, raise: false
 
   # GET /users
@@ -40,6 +40,11 @@ class UsersController < ApiController
                                                  }
   end
 
+  def content
+    @content = @user.posts
+    render json: @content, gay: {current_page: 4}
+  end
+
   # POST /users
   def create
     @user = User.new(user_params)
@@ -68,7 +73,7 @@ class UsersController < ApiController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.friendly.find(params[:id])
+      @user = User.friendly.find(params[:id] || params[:user_id])
     end
 
     # Only allow a trusted parameter "white list" through.
