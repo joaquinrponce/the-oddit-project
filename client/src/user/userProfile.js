@@ -11,7 +11,7 @@ class UserProfile extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {user: null, page: 1}
+    this.state = {user: null, page: 1, lastPage: false}
   }
 
   getUserData = () => {
@@ -26,7 +26,7 @@ class UserProfile extends React.Component {
     })
     .then(user => {
       if (user && this._isMounted) {
-        this.setState({user: user})
+        this.setState({user: user, lastPage: user.last_page})
       } else {
         return
       }
@@ -42,8 +42,15 @@ class UserProfile extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((this.props !== prevProps) || this.state.page !== prevState.page) {
+    if (this.props !== prevProps) {
+      this.setState({user: null, page: 1, last_page: false}, this.getUserData())
+      window.scrollTo(0,0)
+      return
+    }
+    if (this.state.page !== prevState.page) {
       this.getUserData()
+      window.scrollTo(0,0)
+      return
     }
   }
 
@@ -62,7 +69,7 @@ class UserProfile extends React.Component {
       <Row>
         <Col md='9' className='user-profile-content'>
           <UserContent userId={this.state.user.id} content={this.state.user.content}/>
-          <PaginationControls page={this.state.page} lastPage={this.state.last_page} onClick={this.updatePage}/>
+          <PaginationControls page={this.state.page} lastPage={this.state.lastPage} onClick={this.updatePage}/>
         </Col>
         <Col className='user-profile-sidebar'>
           <UserSidebar upvotes={this.state.user.score} name={this.state.user.name} postCount={this.state.user.post_count} commentCount={this.state.user.comment_count} moderatedHalls={this.state.user.moderated_halls} ownedHalls={this.state.user.owned_halls}/>

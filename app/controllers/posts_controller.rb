@@ -8,8 +8,10 @@ class PostsController < ApiController
   def index
     page = params[:page].present? ? params[:page].to_i : 1
     @posts = @hall.present? ? @hall.posts.order("created_at DESC").paginate(page: page, per_page: 10) : Post.all.order("created_at DESC").paginate(page: page, per_page: 10)
+    last_page = @posts.length < 10
+    data = {posts: ActiveModelSerializers::SerializableResource.new(@posts, include: 'hall,user').serializable_hash, last_page: last_page}
 
-    render json: @posts, include: 'hall,user'
+    render json: data
   end
 
   # GET /posts/1
@@ -24,9 +26,12 @@ class PostsController < ApiController
   end
 
   def feed
+    page = params[:page].present? ? params[:page].to_i : 1
     redirect_to action: 'index' if !current_user.present?
-    @posts = Post.subscribed(current_user.subscribed_halls)
-    render json: @posts
+    @posts = Post.subscribed(current_user.subscribed_halls).paginate(page: page, per_page: 10)
+    last_page = @posts.length < 10
+    data = {posts: ActiveModelSerializers::SerializableResource.new(@posts, include: 'hall,user').serializable_hash, last_page: last_page}
+    render json: data
   end
 
   # POST /posts

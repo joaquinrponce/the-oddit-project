@@ -237,6 +237,23 @@ body {
   outline: none;
 }
 
+.pagination-controls {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-button {
+  margin: 5px;
+  border: none;
+  color: #cc9543;
+  background-color: #f8f9fa;
+}
+
+.pagination-button:focus {
+  outline: none;
+}
 /*sidebar styling*/
 
 .sidebar-container {

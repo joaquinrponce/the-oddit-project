@@ -9,7 +9,7 @@ class PostsList extends React.Component {
   _isMounted = false
   constructor (props) {
     super(props)
-    this.state = { posts: null, page: 1 }
+    this.state = { posts: null, page: 1, lastPage: false }
     this.getPosts = this.getPosts.bind(this)
     this.renderPosts = this.renderPosts.bind(this)
   }
@@ -23,13 +23,13 @@ class PostsList extends React.Component {
   }
 
   getPosts () {
-    let url = '/api/posts'
+    let url = `/api/posts?page=${this.state.page}`
     if (this.props.hall) {
       url = `/api/halls/${this.props.hall}/posts?page=${this.state.page}`
     }
     switch (this.props.location.pathname) {
       case '/feed':
-          url =`/api/posts/feed`
+          url =`/api/posts/feed?page=${this.state.page}`
           break
       default:
           break
@@ -43,10 +43,10 @@ class PostsList extends React.Component {
     } else {
       return
       }
-    }).then(posts => {
+    }).then(data => {
       if (!this._isMounted) return
-      if (!posts) return
-      this.setState({ posts: posts })
+      if (!data) return
+      this.setState({ posts: data.posts, lastPage: data.last_page })
     })
   }
 
@@ -56,8 +56,15 @@ class PostsList extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props !== prevProps || this.state.page !== prevState.page) {
-      this.setState({posts: null}, this.getPosts())
+    if (this.props !== prevProps) {
+      this.setState({posts: null, page: 1, last_page: false}, this.getPosts())
+      window.scrollTo(0,0)
+      return
+    }
+    if (this.state.page !== prevState.page) {
+      this.getPosts()
+      window.scrollTo(0,0)
+      return
     }
   }
 
@@ -83,7 +90,7 @@ class PostsList extends React.Component {
       <Container fluid className='mt-2 post-list'>
           { this.renderPosts() }
           { this.state.posts.length === 0 && <div>Nothing to see here</div> }
-          <PaginationControls page={this.state.page} lastPage={false} onClick={this.updatePage}/>
+          <PaginationControls page={this.state.page} lastPage={this.state.lastPage} onClick={this.updatePage}/>
       </Container>
     )
   }
