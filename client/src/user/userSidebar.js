@@ -6,7 +6,7 @@ export default class UserSidebar extends React.Component {
   renderHallsList = (list) => {
     const halls = []
     list.forEach(hall => {
-      halls.push(<Link to={`/halls/${hall.name}`}>{hall.name}</Link>)
+      halls.push(<Link key={hall.id} to={`/halls/${hall.name}`}>{hall.name}</Link>)
     })
     return halls
   }

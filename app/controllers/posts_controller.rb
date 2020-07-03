@@ -6,7 +6,8 @@ class PostsController < ApiController
 
   # GET /posts
   def index
-    @posts = @hall.present? ? @hall.posts.order("created_at DESC") : Post.all.order("created_at DESC")
+    page = params[:page].present? ? params[:page].to_i : 1
+    @posts = @hall.present? ? @hall.posts.order("created_at DESC").paginate(page: page, per_page: 10) : Post.all.order("created_at DESC").paginate(page: page, per_page: 10)
 
     render json: @posts, include: 'hall,user'
   end
@@ -76,8 +77,8 @@ class PostsController < ApiController
     def get_hall
       @hall = Hall.friendly.find(params[:hall_id]) if params[:hall_id].present?
     end
-    
-    def user_is_allowed 
+
+    def user_is_allowed
       current_user.present? && (current_user.admin? || current_user.id === @post.user_id || current_user.moderated_halls.include?(@post.hall))
     end
 

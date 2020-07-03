@@ -79,8 +79,8 @@ body {
 }
 
 .post-card-img {
-  width: 13vh;
-  height: 13vh;
+  width: 5rem;
+  height: 5rem;
   margin-top: 12px;
   object-fit: cover;
 }
@@ -269,7 +269,7 @@ body {
 }
 
 .profile-comment .comment-content {
-  height: 10vh;
+  height: 5rem;
 }
 
 /* profile sidebar styling */
@@ -329,8 +329,8 @@ body {
 
   /*appropiate post card img size */
   .post-card-img {
-    width: 10vh;
-    height: 8vh;
+    width: 4rem;
+    height: 4rem;
     margin-top: 12px;
     object-fit: cover;
   }

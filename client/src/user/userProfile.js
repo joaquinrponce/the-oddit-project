@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import UserSidebar from './userSidebar.js'
 import UserContent from './userContent.js'
 import { Row, Col } from 'react-bootstrap'
+import PaginationControls from '../halls/posts/controls/paginationControls.js'
 
 class UserProfile extends React.Component {
 
@@ -10,11 +11,11 @@ class UserProfile extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {user: null}
+    this.state = {user: null, page: 1}
   }
 
   getUserData = () => {
-    fetch(`/api/users/${this.props.match.params.id.toLowerCase()}`)
+    fetch(`/api/users/${this.props.match.params.id.toLowerCase()}?page=${this.state.page}`)
     .then(response => {
       if (response && response.ok) {
         return response.json()
@@ -41,7 +42,7 @@ class UserProfile extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.props !== prevProps) {
+    if ((this.props !== prevProps) || this.state.page !== prevState.page) {
       this.getUserData()
     }
   }
@@ -50,15 +51,21 @@ class UserProfile extends React.Component {
     this._isMounted = false
   }
 
+  updatePage = (value) => {
+    this.setState({page: this.state.page + value})
+  }
+
   render() {
+    console.log(this.state.user)
     if (!this.state.user) return null
     return(
       <Row>
         <Col md='9' className='user-profile-content'>
-          <UserContent userId={this.state.user.id} posts={this.state.user.posts} comments={this.state.user.comments}/>
+          <UserContent userId={this.state.user.id} content={this.state.user.content}/>
+          <PaginationControls page={this.state.page} lastPage={this.state.last_page} onClick={this.updatePage}/>
         </Col>
         <Col className='user-profile-sidebar'>
-          <UserSidebar upvotes={this.state.user.score} name={this.state.user.name} postCount={this.state.user.posts.length} commentCount={this.state.user.comments.length} moderatedHalls={this.state.user.moderated_halls} ownedHalls={this.state.user.owned_halls}/>
+          <UserSidebar upvotes={this.state.user.score} name={this.state.user.name} postCount={this.state.user.post_count} commentCount={this.state.user.comment_count} moderatedHalls={this.state.user.moderated_halls} ownedHalls={this.state.user.owned_halls}/>
         </Col>
       </Row>
     )

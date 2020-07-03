@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :url, :image, :body, :score, :user, :comments_count
+  attributes :id, :title, :url, :image, :body, :score, :comments_count, :created_at
 
   has_many :replies, serializer: CommentSerializer
   belongs_to :hall
@@ -12,5 +12,6 @@ class PostSerializer < ActiveModel::Serializer
   class UserSerializer < ActiveModel::Serializer
     attributes :id, :name
   end
+
 
 end

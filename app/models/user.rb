@@ -51,6 +51,14 @@ class User < ApplicationRecord
     return score
   end
 
+  def post_count
+    self.posts.count
+  end
+
+  def comment_count
+    self.comments.count
+  end
+
   private
 
   def downcase_name

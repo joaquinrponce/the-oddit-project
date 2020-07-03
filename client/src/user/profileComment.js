@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Col, Row, Container} from 'react-bootstrap'
+import { Container} from 'react-bootstrap'
 import Can from '../halls/permissions/can.js'
 import Delete from '../halls/posts/controls/delete.js'
 import { userContext } from '../userContext.js'

@@ -3,12 +3,13 @@ import PostCard from './postCard.js'
 import { Container, Spinner } from 'react-bootstrap'
 import { withRouter, Redirect } from 'react-router-dom'
 import { userContext } from '../../userContext.js'
+import PaginationControls from './controls/paginationControls'
 
 class PostsList extends React.Component {
   _isMounted = false
   constructor (props) {
     super(props)
-    this.state = { posts: null }
+    this.state = { posts: null, page: 1 }
     this.getPosts = this.getPosts.bind(this)
     this.renderPosts = this.renderPosts.bind(this)
   }
@@ -24,7 +25,7 @@ class PostsList extends React.Component {
   getPosts () {
     let url = '/api/posts'
     if (this.props.hall) {
-      url = `/api/halls/${this.props.hall}/posts`
+      url = `/api/halls/${this.props.hall}/posts?page=${this.state.page}`
     }
     switch (this.props.location.pathname) {
       case '/feed':
@@ -55,9 +56,13 @@ class PostsList extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (this.props !== prevProps) {
+    if (this.props !== prevProps || this.state.page !== prevState.page) {
       this.setState({posts: null}, this.getPosts())
     }
+  }
+
+  updatePage = (value) => {
+    this.setState({page: this.state.page + value})
   }
 
   componentWillUnmount () {
@@ -78,6 +83,7 @@ class PostsList extends React.Component {
       <Container fluid className='mt-2 post-list'>
           { this.renderPosts() }
           { this.state.posts.length === 0 && <div>Nothing to see here</div> }
+          <PaginationControls page={this.state.page} lastPage={false} onClick={this.updatePage}/>
       </Container>
     )
   }

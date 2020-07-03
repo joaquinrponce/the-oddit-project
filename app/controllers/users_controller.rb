@@ -11,38 +11,26 @@ class UsersController < ApiController
 
   # GET /users/1
   def show
-    render json: @user, only: [:id, :name], methods: [:score], include: {
-                                                  subscribed_halls: {only: [:id, :name]},
-                                                  owned_halls: {only: [:id, :name]},
-                                                  moderated_halls: {only: [:id, :name]},
-                                                  posts: {except: [:updated_at, :user_id, :hall_id],
-                                                          include: {
-                                                                    hall: {
-                                                                      only: [:name, :id]
-                                                                    },
-                                                                    user: {
-                                                                      only: [:id, :name]
-                                                                    }
-                                                                  },
-                                                          methods: [:comments_count, :score]
-                                                        },
-                                                  comments: {
-                                                    only: [:id, :body, :created_at], include: {
-                                                                    post: {
-                                                                      only: [:id, :title], include: {
-                                                                                                      hall: {
-                                                                                                        only: [:id, :name]
-                                                                                                      },
-                                                                                            }
-                                                                      }
-                                                                    }
-                                                              }
-                                                 }
+    page = params[:page].present? ? params[:page].to_i : 1
+    @content = @user.posts.order("created_at DESC") + @user.comments.order("created_at DESC")
+    @content = @content.sort { |a, b| b.created_at <=> a.created_at }
+    @content = paginate_results(@content, page: page)
+    @content = serialize_each(@content)
+    user = ActiveModelSerializers::SerializableResource.new(@user).serializable_hash
+    user[:content] = @content
+    user[:last_page] = @content.length < 10
+    render json: user
   end
 
   def content
-    @content = @user.posts
-    render json: @content, gay: {current_page: 4}
+    @content = @user.posts + @user.comments
+    @content = paginate_results(@content)
+    @content = serialize_each(@content)
+    #@serialized_comment = ActiveModelSerializers::SerializableResource.new(@comment, include: 'post,post.hall')
+    #@post = @user.posts.first
+    #@serialized_post = ActiveModelSerializers::SerializableResource.new(@post, include: 'user,hall')
+
+    render json: {content: @content}
   end
 
   # POST /users
@@ -80,4 +68,19 @@ class UsersController < ApiController
     def user_params
       params.require(:user).permit(:name, :password, :password_confirmation, :role)
     end
+
+    def paginate_results(array, params = {page: 1})
+      array[((params[:page] - 1) * 10)...(params[:page] * 10)]
+    end
+
+    def serialize_each(array)
+      array.map do |record|
+        if record.instance_of?(Post)
+          ActiveModelSerializers::SerializableResource.new(record, include: 'user,hall')
+        else
+          ActiveModelSerializers::SerializableResource.new(record, include: 'post,post.hall')
+        end
+      end
+    end
+
 end

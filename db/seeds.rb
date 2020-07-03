@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-first = User.create(name: 'Koko', password: 'test', password_confirmation: 'test', role: 'admin')
+first = User.create(name: 'koko', password: 'test', password_confirmation: 'test', role: 'admin')
 
 theodinproject =  Hall.create(name: 'theodinproject', description:
   'A hall dedicated to **TheOdinProject**, an open source online curriculum for learning web development. Find it at: https://theodinproject.com', owner_id: first.id)
@@ -16,7 +16,7 @@ gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betray
 technology = Hall.create(name: 'technology', description: '**News** and **info** on modern technologies.', owner_id: first.id)
 
 if !Rails.env.production?
-  second = User.create(name: 'Kokozordo', password: 'testo', password_confirmation: 'testo')
+  second = User.create(name: 'kokozordo', password: 'testo', password_confirmation: 'testo')
   users = [first, second]
 
   halls = [theodinproject, music, gaming, technology]
@@ -36,24 +36,23 @@ if !Rails.env.production?
   ]
 
 
-  3.times do
-    user = users.sample
-    halls.each do |hall|
-      post = user.posts.create(title: titles.sample, body: content, hall: hall)
+  2.times do
+    users.each do |user|
+      halls.each do |hall|
+        post = user.posts.create(title: titles.sample, body: content, hall: hall)
+      end
     end
   end
 
-  2.times do
-    user = users.sample
+  users.each do |user|
     Post.all.each do |post|
       post.replies.create(body: "Test comment!", user: user)
     end
   end
 
-  3.times do
-    user = users.sample
+  users.each do |user|
     Comment.all.each do |comment|
-      comment.replies.create(body: "Test reply!", user: user)
+        comment.replies.create(body: "Test reply!", user: user)
     end
   end
 end
