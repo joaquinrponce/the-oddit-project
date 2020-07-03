@@ -79,9 +79,9 @@ export default class SubscriptionButton extends React.Component {
 
   render () {
     if (!this.state.checked) return null
-    const text = this.state.subscription ? 'Leave' : 'Join'
+    const text = this.state.subscription ? 'leave' : 'join'
     return(
-      <Button variant='danger' onClick={this.handleClick}>{ text }</Button>
+      <Button className={`subscription-button ${text}`} onClick={this.handleClick}>{ text }</Button>
     )
   }
 }

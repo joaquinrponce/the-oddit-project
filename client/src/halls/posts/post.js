@@ -104,11 +104,13 @@ class Post extends React.Component {
           <Col className='vote-controller-container vote-post-controller' xs='auto' sm='auto' md='auto' lg='auto'>
           <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
           </Col>
-          <Col xs='auto' sm='auto' md='auto' lg='auto' className='post-preview-container'>
+          <Col className='post-info-col'>
+          <Row>
+          <Col className='post-content'>
+          <div className='post-preview-container'>
           { !this.state.post.url && !this.state.post.image.url && <img alt='oddit-icon' className='post-card-img' src="/favicon.ico"/>}
           { this.state.post.url && <LinkPreview url={this.state.post.url}/> }
-          </Col>
-          <Col>
+          </div>
           <div className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by <Link to={`/users/${this.state.post.user.name}`}>{this.state.post.user.name}</Link>
           </div>
           <div className='post-title'>{this.state.post.title}</div>
@@ -117,6 +119,8 @@ class Post extends React.Component {
           <div className='post-body' dangerouslySetInnerHTML={this.makePostBody()}/>
           <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
           <ContentControls hallId={this.state.post.hall.id} id={this.state.post.user.id} type='post' showEditForm={this.showEditForm}/>
+          </Col>
+          </Row>
           </Col>
           </Row>
       <Row>

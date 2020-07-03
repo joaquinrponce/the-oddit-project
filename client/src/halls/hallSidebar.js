@@ -61,6 +61,7 @@ export default class HallSidebar extends React.Component {
   render () {
     return(
     <Container fluid className='mt-2 sidebar-container'>
+    <div className='hall-info'>
       <h2 className='hall-header'> {this.props.hall.name}</h2>
       <SubscriptionButton hall={this.props.hall.name}/>
       <div className='hall-stats'>
@@ -68,10 +69,12 @@ export default class HallSidebar extends React.Component {
       <div><span>{this.props.hall.member_count}</span> members</div>
       </div>
       <div className='hall-description' dangerouslySetInnerHTML={this.makeDescription()}/>
+    </div>
       <h5 className='hall-sidebar-mod-header'>Moderators</h5>
       <div className='moderators-list'>
       {this.renderModerators()}
       </div>
+      <div className='mod-hall-controls'>
       <ContentControls
       path={`/halls/${this.props.hall.name}`}
       toggleModal={this.toggleModal}
@@ -83,6 +86,7 @@ export default class HallSidebar extends React.Component {
       type={this.state.modalType}
       moderationships={this.moderationships()}
       show={this.state.showModal} hideModal={this.toggleModal}/>
+      </div>
     </Container>
   )
   }

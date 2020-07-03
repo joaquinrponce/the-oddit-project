@@ -36,7 +36,7 @@ class Hall extends React.Component {
     if (this.state.hall.status === 404) return <Redirect to="/404"/>
     return(
       <Row>
-        <Col md='9'>
+        <Col className='posts-list-col' md='9'>
         <Switch>
           <Route path={`${this.props.match.url}/posts/:id`}>
             <Post />
@@ -46,7 +46,7 @@ class Hall extends React.Component {
           </Route>
           </Switch>
         </Col>
-        <Col>
+        <Col className='sidebar-col'>
           <HallSidebar hall={this.state.hall}/>
         </Col>
       </Row>

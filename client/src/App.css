@@ -93,9 +93,6 @@ body {
   margin-left: 10px;
 }
 
-.post-preview-container {
-  padding: 0px
-}
 
 .post-info a {
   color: #cc9543;
@@ -111,6 +108,8 @@ body {
   color: black !important;
   font-size: 11pt;
   text-decoration: none !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 
@@ -122,15 +121,6 @@ body {
   font-size: 10pt;
 }
 
-.post-preview-container {
-  display: flex;
-  align-items: center;
-}
-
-/* no padding on post view preview */
-.post .post-preview-container {
-  padding: 0;
-}
 
 /* hide tiny-link component */
 
@@ -138,7 +128,24 @@ body {
   display: none;
 }
 
+/* no padding on preview in post card*/
+
+.post-card .post-preview-container {
+  padding: 0 !important
+}
+
 /*general post styling */
+
+.post .post-content {
+  display: grid;
+  grid-template-columns: min-content 90%;
+  padding: 0;
+}
+
+.post .post-preview-container {
+  grid-row: span 4;
+  margin-right: 10px;
+}
 
 .post-info {
   font-size: 10pt;
@@ -147,10 +154,16 @@ body {
 .post-title {
   color: black;
   font-size: 14pt;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .post-body {
   font-size: 11pt;
+}
+
+.post .content-controls {
+  grid-column-start: 2;
 }
 
 /* post images bigger  in full view */
@@ -279,6 +292,26 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.join {
+  background-color: #cc9543 !important;
+  border-color: #cc9543 !important;
+}
+
+.leave {
+  background-color: #d42c13 !important;
+  border-color: #d42c13 !important
+}
+
+.join:hover {
+  background-color: #efb868;
+  border-color: #cc9543;
+}
+
+.subscription-button:focus {
+  outline: none;
+  box-shadow: none;
+}
 /* profile comment styling */
 
 .profile-comment {
@@ -313,6 +346,7 @@ body {
 /*media queries*/
 
 @media screen and (max-width: 480px) {
+
   .post-card-content {
     font-size: 8pt;
   }
@@ -332,7 +366,10 @@ body {
   /*i tell you, padding is ugly*/
 
   .vote-controller {
-    padding-right: 0 !important
+    padding-right: 0 !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end !important;
   }
 
   .main {
@@ -344,12 +381,87 @@ body {
     padding-right: 5px !important;
   }
 
+
   /*appropiate post card img size */
+
   .post-card-img {
     width: 4rem;
     height: 4rem;
     margin-top: 12px;
     object-fit: cover;
+  }
+
+  /*sidebars on top for halls*/
+
+  .sidebar-col {
+    order: -5 !important
+  }
+
+  .sidebar-container {
+    font-size: 9pt;
+  }
+
+  .hall-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hall-header {
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .subscription-button {
+    width: 20%;
+    height: 20px;
+    font-size: 12px !important;
+    line-height: 0 !important
+  }
+
+  .moderators-list {
+    display: none;
+  }
+
+  .hall-stats {
+    display: none;
+  }
+
+  .hall-sidebar-mod-header {
+    display: none;
+  }
+
+  .mod-hall-controls {
+    display: none;
+  }
+
+  /* posts take full width of the viewport */
+
+  .post {
+    flex-direction: column !important;
+  }
+
+  .post-content {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .post-info {
+    order: -3 !important
+  }
+
+  .post-preview-container {
+    order: -1 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    align-self: auto;
+  }
+
+  .post-title {
+    order: -2 !important;
   }
 
 }
