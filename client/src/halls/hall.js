@@ -35,7 +35,7 @@ class Hall extends React.Component {
     if (!this.state.hall) return null
     if (this.state.hall.status === 404) return <Redirect to="/404"/>
     return(
-      <Row>
+      <Row className='feed-row'>
         <Col className='posts-list-col' md='9'>
         <Switch>
           <Route path={`${this.props.match.url}/posts/:id`}>

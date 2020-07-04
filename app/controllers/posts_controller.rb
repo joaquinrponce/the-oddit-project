@@ -28,7 +28,7 @@ class PostsController < ApiController
   def feed
     page = params[:page].present? ? params[:page].to_i : 1
     redirect_to action: 'index' if !current_user.present?
-    @posts = Post.subscribed(current_user.subscribed_halls).paginate(page: page, per_page: 10)
+    @posts = Post.subscribed(current_user.subscribed_halls).order("created_at DESC").paginate(page: page, per_page: 10)
     last_page = @posts.length < 10
     data = {posts: ActiveModelSerializers::SerializableResource.new(@posts, include: 'hall,user').serializable_hash, last_page: last_page}
     render json: data

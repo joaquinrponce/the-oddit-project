@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :owned_halls, class_name: 'Hall', foreign_key: 'owner_id'
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, on: :create
+  validate :name_is_valid
   before_save :downcase_name
 
   def self.from_token_request request
@@ -63,6 +64,11 @@ class User < ApplicationRecord
 
   def downcase_name
     self.name.downcase
+  end
+  
+  def name_is_valid 
+    errors.add(:name, "must contain no spaces, and only letters and numbers") if !self.name.match(/^\S[a-z0-9]+$/)
+    errors.add(:name, "must be between 5 and 20 characters") if !name.length.between?(5, 20)
   end
 
 end

@@ -22,6 +22,10 @@ body {
   cursor: default;
 }
 
+.hall-card a {
+  color: #cc9543 !important
+}
+
 /* all links should be yellow */
 
 
@@ -65,6 +69,12 @@ body {
   padding-left: 0px;
 }
 
+
+.posts-list-col {
+  padding-right: 4px !important;
+  padding-left: 4px !important;
+}
+
 .post-card {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -87,6 +97,7 @@ body {
 
 .post-card-content {
   margin-left: 10px;
+  padding: 0 !important
 }
 
 
@@ -109,12 +120,12 @@ body {
 }
 
 
-/* links wrap for smaller devices */
-
 .post-link  {
   overflow-wrap: break-word;
   word-wrap: break-word;
-  font-size: 10pt;
+  font-size: 1rem;
+  color: #cc9543 !important;
+  font-weight: bold;
 }
 
 
@@ -134,7 +145,7 @@ body {
 
 .post .post-content {
   display: grid;
-  grid-template-columns: min-content 90%;
+  grid-template-columns: min-content 100%;
   padding: 0;
 }
 
@@ -155,7 +166,10 @@ body {
 }
 
 .post-body {
+  width: 91%;
   font-size: 11pt;
+  overflow-wrap: normal;
+  word-wrap: normal;
 }
 
 .post .content-controls {
@@ -213,19 +227,19 @@ body {
 }
 
 .indent-3 {
-  margin-left: 15px !important;
-}
-
-.indent-4 {
   margin-left: 20px !important;
 }
 
+.indent-4 {
+  margin-left: 30px !important;
+}
+
 .indent-5 {
-  margin-left: 25px !important;
+  margin-left: 40px !important;
 }
 
 .indent-6 {
-  margin-left: 30px !important;
+  margin-left: 50px !important;
 }
 
 /*control links styling*/
@@ -316,16 +330,10 @@ body {
   outline: none;
   box-shadow: none;
 }
-/* profile comment styling */
 
-.profile-comment {
-  padding: 0 !important;
+.user-profile-content .post-list .comment{
+  padding: 0 !important
 }
-
-.profile-comment .comment-content {
-  height: 5rem;
-}
-
 /* profile sidebar styling */
 
 .user-sidebar h6 span {
@@ -361,20 +369,36 @@ body {
 
   /*i tell you, padding is ugly*/
 
+  .post-card .row {
+    flex-wrap: wrap;
+  }
+
+  .post-card .post-card-content {
+    flex-grow: 100;
+  }
+
   .vote-controller-column {
+    width: 100%;
     order: 5 !important;
-    justify-content: flex-end;
+    padding: 0 !important;
   }
 
   .vote-controller {
     padding-right: 0 !important;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end !important;
     order: 5 !important;
     margin-left: auto;
   }
 
+  .vote-controller div {
+    margin-left: 5px;
+    font-size: 13pt;
+  }
+
+  .score {
+    font-size: 8pt;
+  }
   .comment {
     justify-content: space-between;
   }
@@ -382,12 +406,6 @@ body {
   .main {
     padding: 0 !important
   }
-
-  .main-posts-container {
-    padding-left: 10px !important;
-    padding-right: 5px !important;
-  }
-
 
   /*appropiate post card img size */
 
@@ -412,20 +430,22 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   .hall-header {
     font-size: 11pt;
     font-weight: bold;
-    margin-bottom: 0;
+    margin-bottom: 5px;
   }
 
   .subscription-button {
     width: 20%;
     height: 20px;
     font-size: 12px !important;
-    line-height: 0 !important
+    line-height: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 5px;
   }
 
   .moderators-list {
@@ -444,6 +464,23 @@ body {
     display: none;
   }
 
+  .main-sidebar {
+    align-items: center;
+    justify-content: center;
+    display: none;
+    flex-direction: column;
+  }
+
+  .path-header {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .invitation-header {
+    text-align: center;
+    font-size: 1rem;
+  }
+
   /* posts take full width of the viewport */
 
   .post {
@@ -453,6 +490,7 @@ body {
   .post-content {
     display: flex !important;
     flex-direction: column;
+    align-items: center;
   }
 
   .post-info {
@@ -465,10 +503,23 @@ body {
     align-items: center;
     justify-content: center;
     align-self: auto;
+    margin-right: 0 !important;
   }
 
+  .post .post-card-img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .no-preview {
+    display: none
+  }
   .post-title {
     order: -2 !important;
+  }
+
+  .post-link {
+    font-size: .8rem;
   }
 
 }

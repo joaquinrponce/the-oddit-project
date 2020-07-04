@@ -72,9 +72,7 @@ class App extends React.Component {
       <Container className='main' fluid>
         <Router>
             <Navigation/>
-          <Container fluid className='main-posts-container mt-5'>
-          <Row>
-          <Col>
+          <Container fluid className='mani-body-container mt-5'>
           <Switch>
           <Route path="/users/:id">
             <UserProfile/>
@@ -93,8 +91,6 @@ class App extends React.Component {
             </Route>
             <Route component={NotFound}/>
           </Switch>
-          </Col>
-          </Row>
           </Container>
         </Router>
       </Container>

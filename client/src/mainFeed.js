@@ -21,11 +21,11 @@ class MainFeed extends React.Component {
   render() {
     if (this.props.location.pathname === '/') return <Redirect to="/all"/>
     return(
-      <Row>
-        <Col md='9'>
+      <Row className='feed-row'>
+        <Col className='posts-list-col' md='9'>
           <PostsList/>
         </Col>
-        <Col>
+        <Col className='sidebar-col' >
           <MainSidebar/>
         </Col>
       </Row>

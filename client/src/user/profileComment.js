@@ -9,7 +9,7 @@ export default class ProfileComment extends React.Component {
 
   render() {
     return(
-      <Container fluid className='comment profile-comment'>
+      <Container fluid className='comment'>
         <div className='comment-content'>
           <div className='post-info text-muted'>
           Commented in 

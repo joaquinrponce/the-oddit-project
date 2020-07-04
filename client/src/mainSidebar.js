@@ -16,16 +16,16 @@ class MainSidebar extends React.Component {
 
   render () {
       if (!this.context.loggedIn) {
-        return (<Container className='mt-3'>
-          <h2>Viewing {this.props.location.pathname}</h2>
-          <h5>Log in to participate in our communities!</h5>
+        return (<Container className='main-sidebar mt-3'>
+          <h2 className='path-header'>Viewing {this.props.location.pathname}</h2>
+          <h5 className='invitation-header'>Log in to participate in our communities!</h5>
         </Container>)
       }
       if (this.context.loggedIn) { return (
-      <Container className='mt-3'>
-        <h2>Viewing {this.props.location.pathname}</h2>
-        <h5>Create your own community!</h5>
-        <Button type='button' onClick={this.toggleHallModal} variant='primary'>Create Hall</Button>
+      <Container className='main-sidebar mt-3'>
+        <h2 className='path-header'>Viewing {this.props.location.pathname}</h2>
+        <h5 className='invitation-header'>Create your own community!</h5>
+        <Button type='button' onClick={this.toggleHallModal} className='create-hall-button' >Create Hall</Button>
         <HallModal toggle={this.toggleHallModal} show={this.state.showHallModal}/>
       </Container>
       )

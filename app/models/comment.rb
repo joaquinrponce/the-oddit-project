@@ -31,6 +31,19 @@ class Comment < ApplicationRecord
     self.post.hall
   end
 
+  def set_post_id_for_old_records
+    self.post_id = self.get_post_id_for_old_records
+    yield self
+  end
+
+  def get_post_id_for_old_records
+    if self.commentable_type == 'Post'
+      return self.commentable.id
+    else
+      return self.commentable.get_post_id_for_old_records
+    end
+  end
+
   private
 
   def set_post_id

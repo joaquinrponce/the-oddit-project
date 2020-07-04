@@ -66,7 +66,7 @@ class UsersController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :role)
+      params.require(:user).permit(:name, :password, :password_confirmation)
     end
 
     def paginate_results(array, params = {page: 1})

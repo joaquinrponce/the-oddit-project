@@ -30,7 +30,7 @@ export default class UserContent extends React.Component {
 
   render () {
     return(
-      <Container fluid className='mt-2 post-list'>
+      <Container fluid className='post-list'>
       {this.renderContent()}
       </Container>
     )

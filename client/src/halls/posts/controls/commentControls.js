@@ -8,11 +8,12 @@ export default class CommentControls extends React.Component {
   render () {
     return(
       <>
+      { this.props.allowReply &&
       <Can
       role={this.context.user.role}
       perform={`comments:create`}
       no={null}
-      yes={<ControlButton text='Reply' onClick={this.props.showCommentForm}/>}/>
+      yes={<ControlButton text='Reply' onClick={this.props.showCommentForm}/>}/> }
       <Can
       role={this.context.user.role}
       perform={`comments:edit`}

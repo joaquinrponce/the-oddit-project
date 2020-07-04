@@ -62,11 +62,11 @@ export default class Comment extends React.Component {
             <span> says</span>
             </div>
             <div className='comment-body'>{this.state.newCommentBody || this.props.comment.body}</div>
-            <ContentControls hallId={this.props.hallId} id={this.props.comment.user.id} path={`/comments/${this.props.comment.id}`}   type='comment' showCommentForm={this.toggleCommentForm} showEditForm={this.toggleEditForm}/>
-            { this.state.showCommentForm && <CreateComment updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
-            { this.state.showEditForm && <EditComment body={this.props.comment.body} updateParent={this.updateForEdit} commentableId={this.props.comment.id}  commentableType='Comment'/> }
+            <ContentControls allowReply={this.props.indent < 6} hallId={this.props.hallId} id={this.props.comment.user.id} path={`/comments/${this.props.comment.id}`}   type='comment' showCommentForm={this.toggleCommentForm} showEditForm={this.toggleEditForm}/>
             </div>
         </div>
+        { this.state.showCommentForm && <CreateComment updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
+        { this.state.showEditForm && <EditComment body={this.props.comment.body} updateParent={this.updateForEdit} commentableId={this.props.comment.id}  commentableType='Comment'/> }
       </Container>
       { this.renderNewComments() }
       { this.props.comment.replies && <CommentList hallId={this.props.hallId} indent={this.props.indent} comments={this.props.comment.replies}/> }

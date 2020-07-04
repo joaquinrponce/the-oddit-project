@@ -108,7 +108,7 @@ class Post extends React.Component {
           <Row>
           <Col className='post-content'>
           <div className='post-preview-container'>
-          { !this.state.post.url && !this.state.post.image.url && <img alt='oddit-icon' className='post-card-img' src="/favicon.ico"/>}
+          { !this.state.post.url && !this.state.post.image.url && <img alt='oddit-icon' className='post-card-img no-preview' src="/favicon.ico"/>}
           { this.state.post.url && <LinkPreview url={this.state.post.url}/> }
           </div>
           <div className='post-info mt-2 mb-2 text-muted'>Posted in <Link to={`/halls/${this.state.post.hall.name}`}>{this.state.post.hall.name}</Link> by <Link to={`/users/${this.state.post.user.name}`}>{this.state.post.user.name}</Link>
@@ -118,7 +118,7 @@ class Post extends React.Component {
           <img alt='post-attachment' className='post-image' src={this.state.post.image.url}/>}
           <div className='post-body' dangerouslySetInnerHTML={this.makePostBody()}/>
           <a className='post-link' href={this.state.post.url}>{this.state.post.url}</a>
-          <ContentControls hallId={this.state.post.hall.id} id={this.state.post.user.id} type='post' showEditForm={this.showEditForm}/>
+          <ContentControls isEditable={!!this.state.post.body} path={`/posts/${this.state.post.id}`}hallId={this.state.post.hall.id} id={this.state.post.user.id} type='post' showEditForm={this.showEditForm}/>
           </Col>
           </Row>
           </Col>

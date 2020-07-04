@@ -10,8 +10,8 @@ export default class PostControls extends React.Component {
   render () {
     return(
       <>
-      {this.props.path && <Link className='control-button' to={this.props.path}>{this.props.commentsCount} comments</Link> }
-      { !this.props.postCard && <Can
+      {this.props.path && this.props.postCard && <Link className='control-button' to={this.props.path}>{this.props.commentsCount} comments</Link> }
+      { !this.props.postCard && this.props.isEditable && <Can
       role={this.context.user.role}
       perform={`posts:edit`}
       data={this.props.data}

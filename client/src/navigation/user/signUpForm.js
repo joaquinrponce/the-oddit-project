@@ -20,7 +20,7 @@ export default class SignUpForm extends React.Component {
 
   handleChange = (e) => {
     const newState = JSON.parse(JSON.stringify(this.state))
-    newState[e.target.name] = e.target.value
+    newState[e.target.name] = e.target.name === 'username' ? e.target.value.toLowerCase() : e.target.value
     newState.errors = {username: false, password: false, passwordConfirmation: false}
     newState.formInvalid = false
     this.setState(newState, this.validateForm)
@@ -28,12 +28,12 @@ export default class SignUpForm extends React.Component {
 
   validateForm = () => {
     const newState = JSON.parse(JSON.stringify(this.state))
-    const regex = new RegExp(/^\S+$/)
+    const regex = new RegExp(/^\S[a-z0-9]+$/)
     if (!this.state.username.match(regex) || this.state.username.length > 30) {
       newState.errors.username = true
       newState.formInvalid = true
     }
-    if (this.state.password.length > 50) {
+    if (this.state.password.length > 50 || this.state.password.length < 8) {
       newState.errors.password = true
       newState.formInvalid = true
     }
@@ -77,9 +77,11 @@ export default class SignUpForm extends React.Component {
       <Form onSubmit={this.submitUser}>
         <Form.Group>
           <Form.Label>Username</Form.Label>
-          <Form.Control isInvalid={this.state.errors.username} type='text' name='username' onChange={this.handleChange}/>
+          <Form.Control isInvalid={this.state.errors.username} value={this.state.username} type='text' name='username' onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>Username cannot be longer than 20 characters, must be all lowercase, and must be only letters and/or numbers with no spaces.</Form.Text>
           <Form.Label>Password</Form.Label>
           <Form.Control isInvalid={this.state.errors.password} type='password' name='password' onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>Must be between 8 and 50 characters. IF YOU LOSE YOUR PASSWORD, YOU CANNOT RECOVER IT.</Form.Text>
           <Form.Label>Password Confirmation</Form.Label>
           <Form.Control isInvalid={this.state.errors.passwordConfirmation} type='password' name='passwordConfirmation' onChange={this.handleChange}/>
         </Form.Group>

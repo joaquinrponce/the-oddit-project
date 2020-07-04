@@ -13,7 +13,7 @@ export default class LoginForm extends React.Component {
     e.preventDefault()
     e.persist()
     const newState = JSON.parse(JSON.stringify(this.state))
-    newState[e.target.name] = e.target.value
+    newState[e.target.name] = e.target.name === 'username' ? e.target.value.toLowerCase() : e.target.value
     newState.errors = false
     this.setState(newState)
   }

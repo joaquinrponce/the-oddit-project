@@ -2,8 +2,9 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
 import { userContext } from '../../userContext.js'
-
-export default class PostForm extends React.Component {
+import { withRouter } from 'react-router-dom'
+ 
+class PostForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -229,3 +230,5 @@ export default class PostForm extends React.Component {
 }
 
 PostForm.contextType = userContext
+
+export default withRouter(PostForm)
