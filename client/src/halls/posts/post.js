@@ -101,8 +101,8 @@ class Post extends React.Component {
     return (
       <Container className='post-container'>
           <Row className='post'>
-          <Col className='vote-controller-container vote-post-controller' xs='auto' sm='auto' md='auto' lg='auto'>
-          <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
+          <Col className='vote-controller-column' xs='auto' sm='auto' md='auto' lg='auto'>
+            <VoteController voteableId={this.state.post.id} voteableType='Post' score={this.state.post.score}/>
           </Col>
           <Col className='post-info-col'>
           <Row>

@@ -22,9 +22,11 @@ body {
   cursor: default;
 }
 
+/* all links should be yellow */
+
+
 /* vote controller styling */
 .upvote, .downvote {
-  font-size: 20pt;
   color: #afa9a9;
   cursor: pointer;
 }
@@ -37,28 +39,22 @@ body {
   color: #2c6eb1
 }
 
+.vote-controller-column {
+  display: flex;
+  align-items: center;
+}
+
 .vote-controller {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between !important;
-  transform: scale(0.8)
+  font-size: 1rem !important
 }
 
-.vote-comment {
-  transform: scale(.7)
-}
-
-.vote-controller-container {
-  padding-right: 0px !important;
-}
-
-.vote-post-controller {
-  padding: 0px !important;
-}
-
-.score {
-  font-size: 15pt;
+.post .vote-controller-column {
+  align-items: flex-start;
+  padding-top: 8px;
 }
 
 /* post card styling*/
@@ -179,27 +175,35 @@ body {
   margin-bottom: 0px;
 }
 
+.comment-container {
+  padding: 0 !important
+}
+
 .comment {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  display: flex;
+  flex-direction: row;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   font-size: 11pt;
+  border-bottom: 1px solid rgb(220, 220, 220);
 }
 
 .comment div {
-  padding: 0px;
+  margin: 1px;
 }
 
 .comment-info {
   font-size: 11pt !important;
 }
 
+.comment-info a {
+  color: #cc9543 !important
+}
+
 .comment-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 1px solid rgb(220, 220, 220);
 }
 
 /*indent replies for easier readability */
@@ -355,21 +359,24 @@ body {
     font-size: 10pt;
   }
 
-  /*votes on the right side of screen where thumb reaches*/
-
-  .vote-controller-container {
-    order: 5 !important;
-    display: flex;
-    align-items: center;
-  }
-
   /*i tell you, padding is ugly*/
+
+  .vote-controller-column {
+    order: 5 !important;
+    justify-content: flex-end;
+  }
 
   .vote-controller {
     padding-right: 0 !important;
     display: flex;
     flex-direction: row;
     justify-content: flex-end !important;
+    order: 5 !important;
+    margin-left: auto;
+  }
+
+  .comment {
+    justify-content: space-between;
   }
 
   .main {

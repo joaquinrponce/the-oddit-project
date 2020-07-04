@@ -1,10 +1,11 @@
 import React from 'react'
 import CommentList from './commentList.js'
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import VoteController from '../controls/voteController.js'
 import ContentControls from '../controls/contentControls.js'
 import CreateComment from './createComment.js'
 import EditComment from './editComment.js'
+import { Link } from 'react-router-dom'
 
 export default class Comment extends React.Component {
   constructor(props) {
@@ -51,23 +52,25 @@ export default class Comment extends React.Component {
   }
 
   render () {
-    return (
-      <Container className={`${this.props.className}  comment`}>
-        <Row>
-          <Col className='vote-controller-container' xs='auto' sm='auto' md='auto' lg='auto'>
-            <VoteController voteableId={this.props.comment.id} voteableType={'Comment'} score={this.props.comment.score}/>
-          </Col>
-          <Col className='comment-content'>
-            <div className='comment-info mb-2 text-muted'>{this.props.comment.user.name} says</div>
+    return (<>
+      <Container className={`comment-container`}>
+      <div className={`${this.props.className} comment`}>
+        <VoteController voteableId={this.props.comment.id} voteableType={'Comment'} score={this.props.comment.score}/>
+        <div className='comment-content'>
+          <div className='comment-info text-muted'>
+            <Link to={`/users/${this.props.comment.user.name}`}>{this.props.comment.user.name}</Link>
+            <span> says</span>
+            </div>
             <div className='comment-body'>{this.state.newCommentBody || this.props.comment.body}</div>
-            <ContentControls hallId={this.props.hallId} id={this.props.comment.user.id} path={`/comments/${this.props.comment.id}`} type='comment' showCommentForm={this.toggleCommentForm} showEditForm={this.toggleEditForm}/>
-          </Col>
-        </Row>
-        { this.state.showCommentForm && <CreateComment updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
-        { this.state.showEditForm && <EditComment body={this.props.comment.body} updateParent={this.updateForEdit} commentableId={this.props.comment.id}  commentableType='Comment'/> }
-        { this.renderNewComments() }
-        { this.props.comment.replies && <CommentList hallId={this.props.hallId} indent={this.props.indent} comments={this.props.comment.replies}/> }
+            <ContentControls hallId={this.props.hallId} id={this.props.comment.user.id} path={`/comments/${this.props.comment.id}`}   type='comment' showCommentForm={this.toggleCommentForm} showEditForm={this.toggleEditForm}/>
+            { this.state.showCommentForm && <CreateComment updateParent={this.updateForNewComments} commentableId={this.props.comment.id}  commentableType='Comment'/> }
+            { this.state.showEditForm && <EditComment body={this.props.comment.body} updateParent={this.updateForEdit} commentableId={this.props.comment.id}  commentableType='Comment'/> }
+            </div>
+        </div>
       </Container>
+      { this.renderNewComments() }
+      { this.props.comment.replies && <CommentList hallId={this.props.hallId} indent={this.props.indent} comments={this.props.comment.replies}/> }
+      </>
     )
   }
 }

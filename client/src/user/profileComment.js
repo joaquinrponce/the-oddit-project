@@ -11,8 +11,9 @@ export default class ProfileComment extends React.Component {
     return(
       <Container fluid className='comment profile-comment'>
         <div className='comment-content'>
-          <div className='post-info'>
-          <Link to={`/halls/${this.props.comment.post.hall.name}/posts/${this.props.comment.post.id}`}>{this.props.comment.post.title}</Link> in
+          <div className='post-info text-muted'>
+          Commented in 
+          <Link to={`/halls/${this.props.comment.post.hall.name}/posts/${this.props.comment.post.id}`}> {this.props.comment.post.title}</Link> in
           <Link to={`/halls/${this.props.comment.post.hall.name}`}> {this.props.comment.post.hall.name}</Link>
           </div>
           <div className='comment-body'>
