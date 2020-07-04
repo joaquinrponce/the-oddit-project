@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-first = User.create(name: 'koko', password: 'test', password_confirmation: 'test', role: 'admin')
+first = User.create(name: 'kokosaurio', password: 'test', password_confirmation: 'test', role: 'admin')
 
 theodinproject =  Hall.create(name: 'theodinproject', description:
   'A hall dedicated to **TheOdinProject**, an open source online curriculum for learning web development. Find it at: https://theodinproject.com', owner_id: first.id)
