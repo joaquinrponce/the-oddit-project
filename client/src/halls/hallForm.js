@@ -11,7 +11,7 @@ export default class HallForm extends React.Component {
 
   handleChange = (e) => {
     const newState = JSON.parse(JSON.stringify(this.state))
-    newState[e.target.name] = e.target.value
+    newState[e.target.name] = e.target.name === 'name' ? e.target.value.toLowerCase() : e.target.value
     this.setState(newState, this.validateForm)
   }
 
@@ -59,8 +59,8 @@ export default class HallForm extends React.Component {
       <Form onSubmit={this.submitHall}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
-          <Form.Control type='text' name='name' isInvalid={this.state.errors.name} onChange={this.handleChange}/>
-          <Form.Text className='text-muted'>Must contain no spaces, no caps, and must not be between 5 and 30 characters.</Form.Text>
+          <Form.Control type='text' value={this.state.name} name='name' isInvalid={this.state.errors.name} onChange={this.handleChange}/>
+          <Form.Text className='text-muted'>Must contain no spaces, be only lowercase letters and/or numbers, and must be between 5 and 30 characters.</Form.Text>
           <Form.Label>Description</Form.Label>
           <Form.Control as='textarea' name='description' isInvalid={this.state.errors.description} onChange={this.handleChange}/>
           <Form.Text className='text-muted'>A description of what your hall is about. Will be shown on the sidebar of your hall's page. You can add formatting following <a href='https://marked.js.org/demo/'>this demo.</a></Form.Text>

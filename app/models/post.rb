@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   has_many :replies, -> { order('created_at DESC')}, class_name: 'Comment', as: :commentable, dependent: :destroy
   has_many :comments
   accepts_nested_attributes_for :comments
+  validates :title, presence: true 
 
   has_many :votes, as: :voteable
 

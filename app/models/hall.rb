@@ -27,7 +27,7 @@ class Hall < ApplicationRecord
   private
 
   def downcase_name
-    self.name.downcase
+    self.name = self.name.downcase
   end
 
   def owner_exists
