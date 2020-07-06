@@ -1,16 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: TestUser
+  name: testuser
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
   role: admin
 
 two:
-  name: OtherUser
+  name: otheruser
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
   role: 0
-  
-three: 
-  name: ThirdUser
+
+three:
+  name: thirduser
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
   role: 0

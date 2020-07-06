@@ -14,7 +14,9 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, on: :create
   validate :name_is_valid
-  before_save :downcase_name
+  validates :password, length: { in: 8... 50 }
+
+  before_validation :downcase_name
 
   def self.from_token_request request
     name = request.params["auth"] && request.params["auth"]["name"]
@@ -63,10 +65,10 @@ class User < ApplicationRecord
   private
 
   def downcase_name
-    self.name.downcase
+    self.name = self.name.downcase
   end
-  
-  def name_is_valid 
+
+  def name_is_valid
     errors.add(:name, "must contain no spaces, and only letters and numbers") if !self.name.match(/^\S[a-z0-9]+$/)
     errors.add(:name, "must be between 5 and 20 characters") if !name.length.between?(5, 20)
   end

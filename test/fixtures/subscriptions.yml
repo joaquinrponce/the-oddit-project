@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  hall_id: 1
-  member_id: 1
-
-two:
-  hall_id: 1
-  member_id: 1

@@ -1,7 +1,9 @@
 class UsersController < ApiController
   before_action :set_user, only: [:show, :update, :content, :destroy]
   skip_before_action :verify_authenticity_token, raise: false
-
+  before_action :authenticate_user, only: [:update, :destroy]
+  before_action :authorize_user_for_update, only: [:update]
+  before_action :authorize_admin_and_user, only: [:destroy]
   # GET /users
   def index
     @users = User.all
@@ -47,7 +49,7 @@ class UsersController < ApiController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: @user
+      render json: {user: {name: @user.name, id: @user.id}}, stauts: 200
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -83,4 +85,11 @@ class UsersController < ApiController
       end
     end
 
+    def authorize_user_for_update
+      render json: {errors: {authorization: "You are not allowed to update or modify this user."}}, status: 401 if current_user != @user
+    end
+
+    def authorize_admin_and_user
+      render json: {errors: {authorization: "You are not allowed to update or modify this user."}}, status: 401 if current_user != @user && !current_user.admin?
+    end
 end
