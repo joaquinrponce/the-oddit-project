@@ -5,8 +5,8 @@ import {
   Route
 } from "react-router-dom"
 import Navigation from './navigation/navigation.js'
-import {Container, Col, Row} from 'react-bootstrap'
-import {userContext} from './userContext.js'
+import { Container } from 'react-bootstrap'
+import { userContext } from './userContext.js'
 import Logout from './navigation/user/logout.js'
 import Hall from './halls/hall.js'
 import HallsList from './halls/hallsList.js'
@@ -24,7 +24,7 @@ class App extends React.Component {
       logInUser: this.logInUser,
       logOutUser: this.logOutUser,
       tokenIsExpired: this.tokenIsExpired,
-      loggedIn: false,
+      loggedIn: undefined,
     }
   }
 
@@ -61,7 +61,10 @@ class App extends React.Component {
         this.setState(newState)
     } else {
         localStorage.removeItem('currentUser')
+        this.setState({loggedIn: false})
       }
+    } else {
+      this.setState({loggedIn: false})
     }
   }
 
@@ -72,7 +75,7 @@ class App extends React.Component {
       <Container className='main' fluid>
         <Router>
             <Navigation/>
-          <Container fluid className='mani-body-container mt-5'>
+          <Container fluid className='main-body-container mt-5'>
           <Switch>
           <Route path="/users/:id">
             <UserProfile/>

@@ -20,7 +20,7 @@ export default class HallForm extends React.Component {
     const regex = new RegExp(/^([a-z0-9]*)$/)
     newState.errors = {name: false, description: false}
     newState.formInvalid = false
-    if (!this.state.name.match(regex) || this.state.name.length > 30) {
+    if (!this.state.name.match(regex) || this.state.name.length > 30 || this.state.name.length < 5) {
       newState.errors.name = true
       newState.formInvalid = true
     }
@@ -60,7 +60,7 @@ export default class HallForm extends React.Component {
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control type='text' name='name' isInvalid={this.state.errors.name} onChange={this.handleChange}/>
-          <Form.Text className='text-muted'>Must contain no spaces, no caps, and must not be longer than 30 characters.</Form.Text>
+          <Form.Text className='text-muted'>Must contain no spaces, no caps, and must not be between 5 and 30 characters.</Form.Text>
           <Form.Label>Description</Form.Label>
           <Form.Control as='textarea' name='description' isInvalid={this.state.errors.description} onChange={this.handleChange}/>
           <Form.Text className='text-muted'>A description of what your hall is about. Will be shown on the sidebar of your hall's page. You can add formatting following <a href='https://marked.js.org/demo/'>this demo.</a></Form.Text>

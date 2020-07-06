@@ -76,7 +76,7 @@ class PostsList extends React.Component {
     this._isMounted = false
   }
   render () {
-    if (!this.context.loggedIn && this.props.location.pathname === '/feed' ) return <Redirect to="/all"/>
+    if (this.props.location.pathname === '/feed' && this.context.loggedIn === false) return <Redirect to="/all"/>
     if (!this.state.posts) {
       return (
         <Container className='d-flex justify-content-center align-items-center' fluid>
@@ -89,7 +89,8 @@ class PostsList extends React.Component {
     return (
       <Container fluid className='mt-2 post-list'>
           { this.renderPosts() }
-          { this.state.posts.length === 0 && <div>Nothing to see here</div> }
+          { this.state.posts.length === 0 && this.props.location.pathname === '/feed' && <div>Nothing to see here. Try Joining some halls so you'll see their posts in your feed!</div> }
+          { this.state.posts.length === 0 && this.props.location.pathname !== '/feed' && <div>There aren't any posts to show here. Try making some yourself!</div> }
           <PaginationControls page={this.state.page} lastPage={this.state.lastPage} onClick={this.updatePage}/>
       </Container>
     )

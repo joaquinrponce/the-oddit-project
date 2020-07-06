@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Nav, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Nav, Dropdown } from 'react-bootstrap'
 import {userContext} from '../userContext.js'
 import PostModal from '../halls/posts/postModal.js'
 import UserModal from './user/userModal.js'

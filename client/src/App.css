@@ -22,8 +22,23 @@ body {
   cursor: default;
 }
 
+.halls-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .hall-card a {
   color: #cc9543 !important
+}
+
+.hall-card {
+  flex: 1 0 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
 }
 
 /* all links should be yellow */
@@ -357,7 +372,7 @@ body {
 
 /*media queries*/
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
 
   .post-card-content {
     font-size: 8pt;
@@ -464,21 +479,26 @@ body {
     display: none;
   }
 
-  .main-sidebar {
-    align-items: center;
-    justify-content: center;
+  .path-header {
     display: none;
-    flex-direction: column;
   }
 
-  .path-header {
-    font-size: 1rem;
-    text-align: center;
+  .main-sidebar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-content: space-between;
+  }
+
+  .create-hall-button {
+    font-size: 10pt;
   }
 
   .invitation-header {
     text-align: center;
-    font-size: 1rem;
+    font-size: .8rem;
   }
 
   /* posts take full width of the viewport */
@@ -514,12 +534,27 @@ body {
   .no-preview {
     display: none
   }
+
   .post-title {
     order: -2 !important;
   }
 
   .post-link {
     font-size: .8rem;
+  }
+
+  .user-profile-sidebar {
+    order: -1;
+  }
+
+  .user-owned-halls, .user-moderated-halls {
+    display: none;
+  }
+
+  .user-sidebar-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
 }
