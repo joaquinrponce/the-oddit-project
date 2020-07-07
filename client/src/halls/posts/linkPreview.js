@@ -18,7 +18,7 @@ export default class LinkPreview extends React.Component {
         <div className='tiny-link-card'>
         <ReactTinyLink url={this.props.url} onSuccess={(data) => this.setData(data)}/>
         </div>
-        { this.state.data && <a href={this.state.data.url}><img alt='url-preview' className='post-card-img' src={this.state.data.image[0]}/></a> }
+        { this.state.data && this.state.data.image[0] && <a href={this.state.data.url}><img alt='url-preview' className='post-card-img' src={this.state.data.image[0]}/></a> }
       </div>
     )
   }

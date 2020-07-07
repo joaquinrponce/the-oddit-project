@@ -61,6 +61,7 @@ body {
 .vote-controller-column {
   display: flex;
   align-items: center;
+  padding: 0 !important;
 }
 
 .vote-controller {
@@ -73,6 +74,10 @@ body {
 
 .post .vote-controller-column {
   align-items: flex-start;
+  padding-top: 8px;
+}
+
+.vote-post {
   padding-top: 8px;
 }
 
@@ -104,6 +109,7 @@ body {
   height: 5rem;
   margin-top: 12px;
   object-fit: cover;
+  margin-left: 8px;
 }
 
 .post-card-info {
@@ -111,7 +117,7 @@ body {
 }
 
 .post-card-content {
-  margin-left: 10px;
+  margin-left: 8px;
   padding: 0 !important
 }
 
@@ -153,7 +159,7 @@ body {
 /* no padding on preview in post card*/
 
 .post-card .post-preview-container {
-  padding: 0 !important
+  padding: 0 !important;
 }
 
 /*general post styling */
@@ -529,6 +535,7 @@ body {
   .post .post-card-img {
     height: 100%;
     width: 100%;
+    margin: 0 !important;
   }
 
   .no-preview {
@@ -541,6 +548,7 @@ body {
 
   .post-link {
     font-size: .8rem;
+    word-break: break-word;
   }
 
   .user-profile-sidebar {
