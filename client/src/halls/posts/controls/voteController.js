@@ -49,7 +49,7 @@ export default class VoteController extends React.Component {
 
   handleVote = (value) => {
     if (!this.context.loggedIn) {
-      alert("you're not fucking logged in, you stupid little cunt, you absolute buffoon")
+      alert("You're not logged in, so you cannot vote.")
       return
     }
     if (this.state.currentVote) {
