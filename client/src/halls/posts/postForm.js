@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
 import { userContext } from '../../userContext.js'
 import { withRouter } from 'react-router-dom'
- 
+
 class PostForm extends React.Component {
   constructor (props) {
     super(props)
@@ -157,7 +157,7 @@ class PostForm extends React.Component {
           this.props.hideModal()
           this.setState(newState, this.resetState)
         } else {
-          alert('Something wrong with post chief')
+          alert('Something went wrong. Please contact the site admin.')
         }
       }).catch(error => {
         alert('There was an error. Please contact the site admin.')
