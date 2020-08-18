@@ -24,17 +24,6 @@ class UsersController < ApiController
     render json: user
   end
 
-  def content
-    @content = @user.posts + @user.comments
-    @content = paginate_results(@content)
-    @content = serialize_each(@content)
-    #@serialized_comment = ActiveModelSerializers::SerializableResource.new(@comment, include: 'post,post.hall')
-    #@post = @user.posts.first
-    #@serialized_post = ActiveModelSerializers::SerializableResource.new(@post, include: 'user,hall')
-
-    render json: {content: @content}
-  end
-
   # POST /users
   def create
     @user = User.new(user_params)

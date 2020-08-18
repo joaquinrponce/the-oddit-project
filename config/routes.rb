@@ -5,9 +5,7 @@ Rails.application.routes.draw do
     get '/posts/feed' => 'posts#feed'
     get '/votes/search' => 'votes#search'
     get '/subscriptions/search' => 'subscriptions#search'
-    resources :users do
-      get '/content' => 'users#content'
-    end
+    resources :users
     resources :posts
     resources :comments
     resources :votes
