@@ -15,7 +15,7 @@ export default class RemoveModeratorForm extends React.Component {
     filtered_mods.forEach(mod => {
       options.push(<option key={mod.id} value={mod.id}>{mod.name}</option>)
     })
-    if (filtered_mods.length > 1 ) {
+    if (filtered_mods.length >= 1 ) {
     this.setState({value: filtered_mods[0].id, selectOptions: options})
     }
   }

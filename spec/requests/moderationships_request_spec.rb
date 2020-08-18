@@ -15,7 +15,7 @@ RSpec.describe "Moderationships", type: :request do
         @hall = halls(:one)
         @user = users(:one)
         @other_user = users(:two)
-        @owned_hall = Hall.create(name: 'test', description: 'test', owner_id: @other_user.id)
+        @owned_hall = Hall.create(name: 'testhall', description: 'testhall', owner_id: @other_user.id)
         @other_user.moderationships.create(hall_id: @owned_hall.id)
         @random_user = users(:three)
       end
@@ -60,7 +60,7 @@ RSpec.describe "Moderationships", type: :request do
         @hall = halls(:one)
         @user = users(:one)
         @other_user = users(:two)
-        @owned_hall = Hall.create(name: 'test', description: 'test', owner_id: @other_user.id)
+        @owned_hall = Hall.create(name: 'testhall', description: 'testhall', owner_id: @other_user.id)
         @moderationship = @other_user.moderationships.create(hall_id: @owned_hall.id)
         @random_user = users(:three)
         @other_moderationship = @random_user.moderationships.create(hall_id: @owned_hall.id)

@@ -16,12 +16,12 @@ RSpec.describe "Halls", type: :request do
     end
 
     it "does not allow unauthorized post requests" do
-      post halls_path, params: {hall: {name: 'test', description: 'a description'}}
+      post halls_path, params: {hall: {name: 'testhall', description: 'a description'}}
       expect(response).to have_http_status(401)
     end
     
     it "allows authorized users to create halls and sets creator as owner" do
-      post halls_path, params: {hall: {name: 'test', description: 'a description', owner_id: @user.id}}, headers: auth(@user)
+      post halls_path, params: {hall: {name: 'testhall', description: 'a description', owner_id: @user.id}}, headers: auth(@user)
       expect(response).to have_http_status(200)
       expect(Hall.last.owner.id).to eq(@user.id)
     end

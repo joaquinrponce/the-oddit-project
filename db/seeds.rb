@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-first = User.create(name: 'kokosaurio', password: 'test', password_confirmation: 'test', role: 'admin')
+first = User.create(name: 'kokosaurio', password: 'testtest', password_confirmation: 'testtest', role: 'admin')
 
 theodinproject =  Hall.create(name: 'theodinproject', description:
   'A hall dedicated to **TheOdinProject**, an open source online curriculum for learning web development. Find it at: https://theodinproject.com', owner_id: first.id)
@@ -16,7 +16,7 @@ gaming = Hall.create(name: 'gaming', description: 'Gaming news, developer betray
 technology = Hall.create(name: 'technology', description: '**News** and **info** on modern technologies.', owner_id: first.id)
 
 if !Rails.env.production?
-  second = User.create(name: 'kokozordo', password: 'testo', password_confirmation: 'testo')
+  second = User.create(name: 'kokozordo', password: 'testotesto', password_confirmation: 'testotesto')
   users = [first, second]
 
   halls = [theodinproject, music, gaming, technology]
