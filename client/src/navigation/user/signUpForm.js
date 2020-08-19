@@ -66,7 +66,7 @@ export default class SignUpForm extends React.Component {
     }
     ).then(response => {
       if (response.id) {
-        this.context.logInUser({name: response.name, id: response.id, token: response.signup_token})
+        this.context.logInUser({name: response.name, id: response.id, role: response.role, token: response.signup_token})
         this.props.hideModal()
       }
     }).catch(error => console.log(error))

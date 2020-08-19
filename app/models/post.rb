@@ -6,8 +6,6 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :hall
   has_many :replies, -> { order('created_at DESC')}, class_name: 'Comment', as: :commentable, dependent: :destroy
-  has_many :comments
-  accepts_nested_attributes_for :comments
   validates :title, presence: true 
 
   has_many :votes, as: :voteable
@@ -25,7 +23,7 @@ class Post < ApplicationRecord
   end
 
   def comments_count
-    self.comments.count
+    self.replies.count
   end
 
 end
