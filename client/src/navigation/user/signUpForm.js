@@ -14,7 +14,8 @@ export default class SignUpForm extends React.Component {
         password: false,
         passwordConfirmation: false
       },
-      formInvalid: false
+      formInvalid: false,
+      nameTaken: false,
     }
   }
 
@@ -57,17 +58,17 @@ export default class SignUpForm extends React.Component {
       method: 'POST',
       headers: { 'Content-type': 'application/json'},
       body: JSON.stringify(request)
-    }).then( response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        return
-      }
+    }).then(response => {
+      return response.json()
     }
     ).then(response => {
       if (response.id) {
         this.context.logInUser({name: response.name, id: response.id, role: response.role, token: response.signup_token})
         this.props.hideModal()
+      } else {
+        if (response.name) {
+          this.setState({nameTaken: true, errors: { ...this.state.errors, username: true}})
+        }
       }
     }).catch(error => console.log(error))
   }
@@ -78,6 +79,7 @@ export default class SignUpForm extends React.Component {
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control isInvalid={this.state.errors.username} value={this.state.username} type='text' name='username' onChange={this.handleChange}/>
+          { this.state.nameTaken && <div className='invalid-credentials'> This username has already been taken.</div> }
           <Form.Text className='text-muted'>Username cannot be longer than 20 characters, must be all lowercase, and must be only letters and/or numbers with no spaces.</Form.Text>
           <Form.Label>Password</Form.Label>
           <Form.Control isInvalid={this.state.errors.password} type='password' name='password' onChange={this.handleChange}/>

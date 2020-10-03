@@ -23,7 +23,11 @@ class Post < ApplicationRecord
   end
 
   def comments_count
-    self.replies.count
+    count = self.replies.count
+    self.replies.each do |reply|
+      count += reply.replies_count
+    end
+    count
   end
 
 end
