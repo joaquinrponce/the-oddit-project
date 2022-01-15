@@ -10,7 +10,7 @@
     "bootstrap": "^4.5.0",
     "dompurify": "^2.0.12",
     "jwt-decode": "^2.2.0",
-    "marked": "^1.1.0",
+    "marked": "^4.0.10",
     "react": "^16.13.1",
     "react-bootstrap": "1.0.1",
     "react-dom": "^16.13.1",
